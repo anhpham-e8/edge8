@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Capabilities Audit | Edge8</title>
+<style>
+  @font-face {
+    font-family: 'SVN-Gilroy';
+    src: url('../fonts/SVN-Gilroy SemiBold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'SVN-Gilroy';
+    src: url('../fonts/SVN-Gilroy Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --blue: #287BE8;
+    --blue-bright: #3B8CF5;
+    --blue-glow: rgba(40,123,232,0.15);
+    --mint: #6FF2C1;
+    --dark: #101014;
+    --dark-card: #1A1A1F;
+    --dark-border: rgba(234,238,242,0.1);
+    --white: #FFFFFF;
+    --tint: #EAEEF2;
+    --tint-deep: #D4DAE4;
+    --grey-mid: #6B7280;
+    --grey-light: #9CA3AF;
+    --font-display: 'SVN-Gilroy', 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'SVN-Gilroy', 'Helvetica Neue', Arial, sans-serif;
+    --radius: 12px;
+    --radius-sm: 6px;
+    --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--dark);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── UTILITY ─────────────────────────────────────── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .section { padding: 96px 0; }
+  .section-label {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--mint));
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--dark);
+    letter-spacing: -0.02em;
+  }
+  .section-sub {
+    font-size: 17px;
+    color: var(--grey-mid);
+    line-height: 1.7;
+    max-width: 620px;
+  }
+
+  /* ─── BUTTONS ────────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--dark);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: #1A1A1F;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 28px rgba(16,16,20,0.25);
+  }
+  .btn-mint {
+    background: var(--mint);
+    color: var(--dark);
+    font-weight: 800;
+  }
+  .btn-mint:hover {
+    background: #82f5cb;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(111,242,193,0.35);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--blue);
+    border: 1.5px solid var(--blue);
+  }
+  .btn-outline:hover {
+    background: var(--blue-glow);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: rgba(255,255,255,0.85);
+    border: 1.5px solid rgba(255,255,255,0.3);
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+  .btn-ghost-light {
+    background: transparent;
+    color: var(--dark);
+    border: 1.5px solid var(--tint-deep);
+  }
+  .btn-ghost-light:hover { border-color: var(--blue); color: var(--blue); }
+
+  /* ─── NAV ──────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(16px);
+    transition: var(--transition);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+  .nav-logo img { height: 36px; display: block; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-links > li { position: relative; }
+  .nav-links > li > a,
+  .nav-links > li > button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 14px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--grey-mid);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    font-family: var(--font-body);
+  }
+  .nav-links > li > a:hover,
+  .nav-links > li > button:hover { color: var(--dark); background: var(--tint); }
+  .dropdown-icon { font-size: 10px; transition: var(--transition); }
+  .nav-links > li:hover .dropdown-icon { transform: rotate(180deg); }
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    background: var(--dark-card);
+    border: 1px solid rgba(234,238,242,0.1);
+    border-radius: var(--radius);
+    min-width: 220px;
+    padding: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .nav-links > li:hover .dropdown,
+  .nav-links > li.open .dropdown {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+  }
+  .dropdown a {
+    display: block;
+    padding: 9px 14px;
+    font-size: 13px;
+    color: var(--grey-light);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+  .dropdown a:hover { color: #fff; background: rgba(40,123,232,0.14); }
+  .nav-cta { margin-left: 16px; }
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px; height: 2px;
+    background: var(--dark);
+    border-radius: 2px;
+    transition: var(--transition);
+  }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0; bottom: 0;
+    background: var(--white);
+    overflow-y: auto;
+    padding: 16px 24px 32px;
+    z-index: 999;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: 0 8px 32px rgba(16,16,20,0.12);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu > a {
+    display: block;
+    padding: 13px 16px;
+    color: var(--dark);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+  }
+  .mobile-menu > a:hover { background: var(--tint); }
+  .mobile-accordion { display: flex; flex-direction: column; }
+  .mobile-accordion-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 16px;
+    background: none; border: none; cursor: pointer;
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    color: var(--dark); border-radius: var(--radius-sm);
+    width: 100%; text-align: left; transition: var(--transition);
+  }
+  .mobile-accordion-toggle:hover { background: var(--tint); }
+  .mobile-accordion-icon {
+    font-size: 12px; color: var(--grey-mid);
+    transition: transform 0.22s ease; flex-shrink: 0;
+  }
+  .mobile-accordion.open .mobile-accordion-icon { transform: rotate(180deg); }
+  .mobile-accordion-panel {
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 0 8px 16px;
+  }
+  .mobile-accordion.open .mobile-accordion-panel { display: flex; }
+  .mobile-accordion-panel a {
+    display: block;
+    padding: 10px 16px;
+    color: var(--grey-mid);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+  }
+  .mobile-accordion-panel a:hover { background: var(--tint); color: var(--dark); }
+  .mobile-menu-divider { height: 1px; background: var(--tint-deep); margin: 8px 0; }
+  .mobile-menu .btn { width: 100%; justify-content: center; margin-top: 12px; color: #fff !important; }
+  .mobile-menu .btn-primary:hover { background: var(--blue); box-shadow: 0 8px 28px rgba(40,123,232,0.25); }
+
+  /* ─── PAGE HERO (dark navy) ──────────────────────── */
+  .page-hero {
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+    padding: 140px 0 80px;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 60% at 70% 40%, rgba(40,123,232,0.18) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 50% at 10% 70%, rgba(111,242,193,0.09) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .page-hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+  .page-hero-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .page-hero-left { display: flex; flex-direction: column; }
+  .page-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mint);
+    margin-bottom: 24px;
+    padding: 8px 16px;
+    background: rgba(111,242,193,0.1);
+    border: 1px solid rgba(111,242,193,0.25);
+    border-radius: 100px;
+    width: fit-content;
+  }
+  .page-hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--mint);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .page-hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5.5vw, 62px);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+  .page-hero-headline .accent { color: var(--mint); }
+  .page-hero-sub {
+    font-size: clamp(16px, 1.8vw, 18px);
+    color: rgba(255,255,255,0.65);
+    line-height: 1.65;
+    max-width: 540px;
+    margin-bottom: 36px;
+  }
+  .page-hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .page-hero-img-wrap {
+    position: relative;
+    width: 100%;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .page-hero-img-wrap img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+  }
+  .page-hero-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(40,123,232,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .page-hero-badge {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(16,16,20,0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .page-hero-badge-num {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--mint);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .page-hero-badge-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.4;
+    max-width: 100px;
+  }
+
+  /* ─── THE PROBLEM / MIT STAT ──────────────────────── */
+  .problem-section {
+    background: var(--white);
+    padding: 96px 0;
+    position: relative;
+  }
+  .problem-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .problem-left { display: flex; flex-direction: column; }
+  .problem-left .section-title { margin-bottom: 20px; }
+  .problem-left p {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--grey-mid);
+  }
+  .problem-left p strong { color: var(--dark); }
+  .problem-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .stat-pullquote {
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(16,16,20,0.18);
+    text-align: center;
+    width: 100%;
+  }
+  .stat-pullquote::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--blue), var(--mint));
+  }
+  .stat-pullquote-glow {
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(40,123,232,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .stat-pullquote-number {
+    font-family: var(--font-display);
+    font-size: clamp(72px, 12vw, 108px);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    color: var(--mint);
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .stat-pullquote-text {
+    font-size: clamp(16px, 2vw, 20px);
+    color: rgba(255,255,255,0.85);
+    line-height: 1.55;
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .stat-pullquote-source {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── PRICING TIERS ──────────────────────────────── */
+  .pricing-section {
+    background: var(--tint);
+    padding: 96px 0;
+  }
+  .pricing-header { margin-bottom: 56px; }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+  .pricing-card {
+    background: var(--white);
+    border: 1px solid var(--tint-deep);
+    border-radius: var(--radius);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+  }
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 56px rgba(16,16,20,0.12);
+  }
+  .pricing-card.featured {
+    border-color: var(--blue);
+    border-width: 2px;
+    box-shadow: 0 0 0 4px rgba(40,123,232,0.08);
+  }
+  .pricing-card.featured:hover {
+    box-shadow: 0 20px 56px rgba(40,123,232,0.2), 0 0 0 4px rgba(40,123,232,0.1);
+  }
+  .pricing-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--mint));
+    opacity: 0;
+    transition: var(--transition);
+  }
+  .pricing-card.featured::before { opacity: 1; }
+  .pricing-card:hover::before { opacity: 1; }
+  .pricing-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--blue);
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+    width: fit-content;
+  }
+  .pricing-badge.hidden { visibility: hidden; }
+  .pricing-tier-name {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--dark);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .pricing-tagline {
+    font-size: 14px;
+    color: var(--grey-mid);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+  .pricing-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 24px;
+  }
+  .pricing-price-dollar {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1;
+  }
+  .pricing-price-amount {
+    font-family: var(--font-display);
+    font-size: clamp(44px, 6vw, 56px);
+    font-weight: 900;
+    color: var(--dark);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .pricing-card.featured .pricing-price-amount { color: var(--blue); }
+  .pricing-divider {
+    height: 1px;
+    background: var(--tint-deep);
+    margin: 0 0 24px;
+  }
+  .pricing-desc {
+    font-size: 14.5px;
+    color: var(--grey-mid);
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 28px;
+  }
+  .pricing-ideal {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--grey-mid);
+    margin-bottom: 28px;
+    padding: 12px 16px;
+    background: var(--tint);
+    border-radius: var(--radius-sm);
+  }
+  .pricing-ideal-label {
+    font-weight: 700;
+    color: var(--dark);
+    white-space: nowrap;
+  }
+  .pricing-cta {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+  }
+  .pricing-cta-ghost {
+    background: transparent;
+    color: var(--dark);
+    border: 1.5px solid var(--tint-deep);
+  }
+  .pricing-cta-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+  .pricing-cta-filled {
+    background: var(--blue);
+    color: #fff;
+  }
+  .pricing-cta-filled:hover { background: var(--blue-bright); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(40,123,232,0.3); }
+
+  /* ─── HOW IT WORKS ───────────────────────────────── */
+  .how-section {
+    background: var(--white);
+    padding: 96px 0;
+  }
+  .how-header { margin-bottom: 64px; }
+  .how-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .how-steps::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    bottom: 40px;
+    left: 40px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--blue), var(--mint));
+    border-radius: 2px;
+  }
+  .how-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    align-items: flex-start;
+    padding: 40px 0;
+    position: relative;
+  }
+  .how-step:not(:last-child) {
+    border-bottom: 1px solid var(--tint-deep);
+  }
+  .how-step-num-wrap {
+    display: flex;
+    justify-content: center;
+  }
+  .how-step-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 6px var(--white), 0 0 0 8px rgba(40,123,232,0.15);
+    transition: var(--transition);
+  }
+  .how-step:hover .how-step-num {
+    box-shadow: 0 0 0 6px var(--white), 0 0 0 10px rgba(40,123,232,0.3);
+  }
+  .how-step:last-child .how-step-num {
+    background: linear-gradient(135deg, var(--blue), var(--mint));
+    color: var(--dark);
+  }
+  .how-step-body {}
+  .how-step-level {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .how-step-title {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 900;
+    color: var(--dark);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    line-height: 1.15;
+  }
+  .how-step-desc {
+    font-size: 16px;
+    color: var(--grey-mid);
+    line-height: 1.7;
+    max-width: 700px;
+  }
+  .how-step-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .how-step-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--blue);
+    background: rgba(40,123,232,0.08);
+    border: 1px solid rgba(40,123,232,0.18);
+    padding: 4px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.06em;
+  }
+  .how-step:last-child .how-step-tag {
+    color: #0aad7a;
+    background: rgba(111,242,193,0.1);
+    border-color: rgba(111,242,193,0.25);
+  }
+
+  /* ─── AUDIT INTAKE FORM ──────────────────────────── */
+  .form-section {
+    background: var(--tint);
+    padding: 96px 0;
+  }
+  .form-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .form-left { display: flex; flex-direction: column; }
+  .form-left .section-title { margin-bottom: 20px; }
+  .form-left .section-sub { margin-top: 8px; }
+  .form-value-list {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .form-value-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .form-value-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(40,123,232,0.1);
+    border: 1px solid rgba(40,123,232,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 15px;
+    color: var(--blue);
+    margin-top: 2px;
+  }
+  .form-value-text {
+    font-size: 14px;
+    color: var(--grey-mid);
+    line-height: 1.55;
+  }
+  .form-value-text strong { color: var(--dark); }
+  form { display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--grey-mid);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  input, select, textarea {
+    background: var(--white);
+    border: 1px solid var(--tint-deep);
+    border-radius: var(--radius-sm);
+    color: var(--dark);
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 13px 16px;
+    transition: var(--transition);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-color: var(--white);
+    padding-right: 40px;
+    cursor: pointer;
+  }
+  select option { background: var(--white); color: var(--dark); }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px var(--blue-glow);
+    background: var(--white);
+  }
+  input::placeholder, textarea::placeholder { color: var(--grey-mid); }
+  textarea { resize: vertical; min-height: 100px; }
+  .form-submit { margin-top: 8px; }
+  .form-submit .btn { width: 100%; justify-content: center; padding: 16px; font-size: 15px; }
+
+  /* Checkbox group */
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--dark);
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+  .checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    flex-shrink: 0;
+    accent-color: var(--blue);
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  .checkbox-label input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 3px var(--blue-glow);
+  }
+  .form-card {
+    background: var(--white);
+    border: 1px solid var(--tint-deep);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    box-shadow: 0 8px 32px rgba(16,16,20,0.07);
+  }
+  .form-card-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--dark);
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+  .form-card-sub {
+    font-size: 14px;
+    color: var(--grey-mid);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  /* ─── TESTIMONIALS ──────────────────────────────── */
+  .testimonials { background: var(--white); overflow: hidden; }
+  .testimonials-header { margin-bottom: 48px; }
+  .testimonials-viewport {
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
+  }
+  .testimonials-viewport::-webkit-scrollbar { display: none; }
+  .testimonials-track {
+    display: flex;
+    gap: 24px;
+    padding: 8px 0 16px;
+  }
+  .testimonial-card {
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    flex: 0 0 500px;
+    background: var(--tint);
+    border: 1px solid var(--tint-deep);
+    border-radius: var(--radius);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .testimonial-card:not(.active) {
+    opacity: 0.42;
+    transform: scale(0.96);
+  }
+  .testimonial-card.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue), transparent);
+    opacity: 0;
+    transition: var(--transition);
+  }
+  .testimonial-card:hover { border-color: rgba(40,123,232,0.3); transform: translateY(-3px) !important; box-shadow: 0 12px 40px rgba(16,16,20,0.08); }
+  .testimonial-card:hover::before { opacity: 1; }
+  .testimonial-card.active:hover { transform: translateY(-3px) scale(1) !important; }
+  .testimonial-quote {
+    font-size: 42px;
+    color: var(--blue);
+    line-height: 1;
+    font-family: Georgia, serif;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .testimonial-text {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--grey-mid);
+    margin-bottom: 24px;
+  }
+  .testimonial-person { display: flex; align-items: center; gap: 14px; }
+  .testimonial-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    border: 2px solid var(--tint-deep);
+    flex-shrink: 0;
+  }
+  .testimonial-name { font-weight: 700; font-size: 14px; color: var(--dark); line-height: 1.3; }
+  .testimonial-role { font-size: 12px; color: var(--grey-mid); line-height: 1.4; }
+  .testimonials-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 32px;
+  }
+  .testimonials-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .testimonials-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--tint-deep);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: var(--transition);
+  }
+  .testimonials-dot.active {
+    width: 24px;
+    border-radius: 4px;
+    background: var(--blue);
+  }
+  .testimonials-arrows { display: flex; gap: 10px; }
+  .testimonials-arrow {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid var(--tint-deep);
+    background: var(--white);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: var(--transition);
+    color: var(--dark);
+    flex-shrink: 0;
+  }
+  .testimonials-arrow:hover { border-color: var(--blue); background: var(--blue); color: #fff; }
+  .testimonials-arrow svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ─── CTA SECTION ────────────────────────────────── */
+  .cta-section {
+    background: var(--blue);
+    position: relative;
+    overflow: hidden;
+    padding: 96px 0;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(111,242,193,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(16,16,20,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .cta-text .section-title { color: var(--white); margin-bottom: 12px; }
+  .cta-text p { font-size: 16px; color: rgba(255,255,255,0.75); max-width: 520px; line-height: 1.65; }
+  .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .cta-actions .btn { padding: 18px 36px; font-size: 15px; }
+
+  /* ─── FOOTER ────────────────────────────────────── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(234,238,242,0.08);
+    padding: 64px 0 32px;
+  }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-logo { margin-bottom: 18px; }
+  .footer-logo img { height: 32px; }
+  .footer-desc { font-size: 13.5px; color: var(--grey-mid); line-height: 1.65; max-width: 260px; margin-bottom: 20px; }
+  .footer-social a {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: var(--grey-mid);
+    text-decoration: none; transition: var(--transition);
+  }
+  .footer-social a:hover { color: var(--mint); }
+  .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tint); margin-bottom: 18px; }
+  .footer-links { display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 13.5px; color: var(--grey-mid); text-decoration: none; transition: var(--transition); }
+  .footer-links a:hover { color: var(--tint); }
+  .footer-contact { display: flex; flex-direction: column; gap: 12px; }
+  .footer-contact-item { display: flex; align-items: flex-start; gap: 12px; font-size: 13.5px; color: var(--grey-mid); }
+  .footer-contact-icon {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #6b7280;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .footer-contact-icon svg { width: 14px; height: 14px; fill: none; stroke: var(--dark); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .footer-contact-item a { color: inherit; text-decoration: none; transition: var(--transition); }
+  .footer-contact-item a:hover { color: var(--mint); }
+  .footer-bottom {
+    border-top: 1px solid rgba(234,238,242,0.08);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-copy { font-size: 13px; color: var(--grey-mid); }
+  .footer-bottom-links { display: flex; gap: 20px; }
+  .footer-bottom-links a { font-size: 13px; color: var(--grey-mid); text-decoration: none; transition: var(--transition); }
+  .footer-bottom-links a:hover { color: var(--tint); }
+
+  /* ─── SCROLL ANIMATIONS ────────────────────────── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ─── RESPONSIVE ────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .form-inner { grid-template-columns: 1fr; gap: 48px; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+  }
+  @media (max-width: 768px) {
+    .section { padding: 64px 0; }
+    .page-hero { padding: 110px 0 60px; min-height: unset; }
+    .page-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .page-hero-img-wrap img { height: 280px; }
+    .problem-section { padding: 64px 0; }
+    .problem-inner { grid-template-columns: 1fr; gap: 40px; }
+    .how-section { padding: 64px 0; }
+    .how-steps::before { left: 24px; }
+    .how-step { grid-template-columns: 56px 1fr; gap: 20px; }
+    .how-step-num { width: 40px; height: 40px; font-size: 14px; }
+    .pricing-section { padding: 64px 0; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .form-section { padding: 64px 0; }
+    .form-inner { grid-template-columns: 1fr; gap: 40px; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links, .nav-cta { display: none; }
+    .nav-hamburger { display: flex; }
+    .testimonial-card { flex: 0 0 300px; }
+    .cta-section { padding: 64px 0; }
+    .cta-inner { flex-direction: column; align-items: flex-start; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+    input, select, textarea { font-size: 16px; }
+  }
+  @media (max-width: 480px) {
+    .page-hero-headline { font-size: 34px; }
+    .stat-pullquote { padding: 32px 24px; }
+    .pricing-card { padding: 28px 20px; }
+    .form-card { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../homepage/index.html" class="nav-logo">
+        <img src="../logo.png" alt="Edge8" />
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="../homepage/index.html">Home</a></li>
+
+        <li>
+          <button class="has-dropdown" aria-haspopup="true">
+            Services <span class="dropdown-icon">▾</span>
+          </button>
+          <div class="dropdown">
+            <a href="https://www.ai-officer.com/ai-in-business-events">AI in Business Workshop</a>
+            <a href="https://www.edge8.ai/your-first-ai-hire">Your First AI Hire</a>
+            <a href="https://www.edge8.ai/ai-capabilities-audit">AI Capabilities Audit</a>
+            <a href="https://www.edge8.ai/caio-leadership">CAIO Leadership</a>
+            <a href="https://www.edge8.ai/global-staffing">Global Staffing</a>
+            <a href="https://www.edge8.ai/training-and-certification">Training &amp; Certification</a>
+          </div>
+        </li>
+
+        <li>
+          <button class="has-dropdown" aria-haspopup="true">
+            Case Studies <span class="dropdown-icon">▾</span>
+          </button>
+          <div class="dropdown">
+            <a href="https://www.edge8.ai/personal-brand-case-studies">Personal Brands</a>
+            <a href="https://www.edge8.ai/business-website-case-studies">Business Website</a>
+            <a href="https://www.edge8.ai/ai-program-case-studies">AI Programs</a>
+          </div>
+        </li>
+
+        <li><a href="https://www.edge8.ai/ai-in-business-blog">Blog</a></li>
+        <li><a href="https://www.edge8.ai/about">About</a></li>
+      </ul>
+
+      <a href="#audit-form" class="btn btn-primary nav-cta">Get Your AI Audit</a>
+
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ MOBILE MENU ════════════════════════════════════════ -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../homepage/index.html">Home</a>
+
+  <div class="mobile-accordion" id="mobileServicesAccordion">
+    <button class="mobile-accordion-toggle" onclick="toggleMobileAccordion('mobileServicesAccordion')">
+      Services <span class="mobile-accordion-icon">▾</span>
+    </button>
+    <div class="mobile-accordion-panel">
+      <a href="https://www.ai-officer.com/ai-in-business-events">AI in Business Workshop</a>
+      <a href="https://www.edge8.ai/your-first-ai-hire">Your First AI Hire</a>
+      <a href="https://www.edge8.ai/ai-capabilities-audit">AI Capabilities Audit</a>
+      <a href="https://www.edge8.ai/caio-leadership">CAIO Leadership</a>
+      <a href="https://www.edge8.ai/global-staffing">Global Staffing</a>
+      <a href="https://www.edge8.ai/training-and-certification">Training &amp; Certification</a>
+    </div>
+  </div>
+
+  <div class="mobile-accordion" id="mobileCaseStudiesAccordion">
+    <button class="mobile-accordion-toggle" onclick="toggleMobileAccordion('mobileCaseStudiesAccordion')">
+      Case Studies <span class="mobile-accordion-icon">▾</span>
+    </button>
+    <div class="mobile-accordion-panel">
+      <a href="https://www.edge8.ai/personal-brand-case-studies">Personal Brands</a>
+      <a href="https://www.edge8.ai/business-website-case-studies">Business Website</a>
+      <a href="https://www.edge8.ai/ai-program-case-studies">AI Programs</a>
+    </div>
+  </div>
+
+  <a href="https://www.edge8.ai/ai-in-business-blog">Blog</a>
+  <a href="https://www.edge8.ai/about">About</a>
+  <a href="#audit-form" class="btn btn-primary">Get Your AI Audit</a>
+</div>
+
+<!-- ═══ PAGE HERO ══════════════════════════════════════════ -->
+<section class="page-hero" id="hero">
+  <div class="page-hero-grid"></div>
+  <div class="container">
+    <div class="page-hero-inner">
+
+      <div class="page-hero-left reveal">
+        <div class="page-hero-eyebrow">Services</div>
+        <h1 class="page-hero-headline">
+          Turn Your AI Experiments Into<br><span class="accent">ROI-Driving Systems</span>
+        </h1>
+        <p class="page-hero-sub">
+          The AI Capabilities Audit uncovers the exact gaps holding your AI performance back — and shows you how to fix them so you can scale AI that actually delivers measurable results.
+        </p>
+        <div>
+          <a href="#audit-form" class="btn btn-mint" style="padding:18px 36px;font-size:15px;">
+            Get Your AI Audit &rarr;
+          </a>
+        </div>
+      </div>
+
+      <div class="page-hero-right reveal" data-delay="120">
+        <div class="page-hero-img-wrap">
+          <img src="images/services-ai-capabilities-audit-hero.jpg" alt="AI Capabilities Audit — Edge8" />
+          <div class="page-hero-img-overlay"></div>
+          <div class="page-hero-badge">
+            <div class="page-hero-badge-num">95%</div>
+            <div class="page-hero-badge-label">of companies see zero AI ROI — we fix that</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THE PROBLEM ═══════════════════════════════════════ -->
+<section class="problem-section" id="problem">
+  <div class="container">
+    <div class="problem-inner">
+
+      <div class="problem-left reveal">
+        <span class="section-label">The Problem</span>
+        <h2 class="section-title">Why Most AI Investments Fail</h2>
+        <p style="margin-top:20px"><strong>Ad-hoc usage of AI is limiting you to minimal gains.</strong></p>
+        <p style="margin-top:16px">According to MIT, the vast majority of companies pour resources into AI with nothing to show for it — not because AI doesn't work, but because their <strong>strategy, people, and tools aren't aligned</strong>.</p>
+        <p style="margin-top:16px">Without a structured audit, you're flying blind: repeating costly experiments, missing high-impact opportunities, and watching competitors pull ahead while your team debates which tool to try next.</p>
+        <div style="margin-top:36px">
+          <a href="#audit-form" class="btn btn-primary">Start Your Audit &rarr;</a>
+        </div>
+      </div>
+
+      <div class="problem-right reveal" data-delay="120">
+        <div class="stat-pullquote">
+          <div class="stat-pullquote-glow"></div>
+          <div class="stat-pullquote-number">95%</div>
+          <p class="stat-pullquote-text">of companies see zero return<br>on their AI investments</p>
+          <div class="stat-pullquote-source">Source: MIT Research</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING TIERS ══════════════════════════════════════ -->
+<section class="pricing-section section" id="pricing">
+  <div class="container">
+    <div class="pricing-header reveal">
+      <span class="section-label">Pricing</span>
+      <h2 class="section-title">Choose Your Audit Tier</h2>
+      <p class="section-sub" style="margin-top:16px">Every organization is at a different stage. Choose the audit depth that matches where you are — and where you want to go.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- Foundation -->
+      <div class="pricing-card reveal">
+        <div class="pricing-badge hidden">Most Popular</div>
+        <div class="pricing-tier-name">Foundation</div>
+        <div class="pricing-tagline">Build Your AI Foundation</div>
+        <div class="pricing-price">
+          <span class="pricing-price-dollar">$</span>
+          <span class="pricing-price-amount">4,999</span>
+        </div>
+        <div class="pricing-divider"></div>
+        <p class="pricing-desc">
+          A focused discovery engagement that gives early-stage teams a clear picture of their current AI readiness. You'll receive an honest assessment of gaps, quick wins, and a starting roadmap to move forward with confidence.
+        </p>
+        <div class="pricing-ideal">
+          <span class="pricing-ideal-label">Ideal for:</span>
+          <span>Teams just getting started with AI who need clarity before committing resources</span>
+        </div>
+        <a href="#audit-form" class="pricing-cta pricing-cta-ghost">Get Started &rarr;</a>
+      </div>
+
+      <!-- Standard (featured) -->
+      <div class="pricing-card featured reveal" data-delay="80">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-tier-name">Standard</div>
+        <div class="pricing-tagline">Assess and Align Capabilities</div>
+        <div class="pricing-price">
+          <span class="pricing-price-dollar">$</span>
+          <span class="pricing-price-amount">9,999</span>
+        </div>
+        <div class="pricing-divider"></div>
+        <p class="pricing-desc">
+          A comprehensive audit covering stakeholder alignment, workflow analysis, and data readiness. You'll walk away with your AI Maturity Scorecard, a prioritized opportunity map, and a 12-month action plan your team can actually execute.
+        </p>
+        <div class="pricing-ideal">
+          <span class="pricing-ideal-label">Ideal for:</span>
+          <span>Scaling organizations ready to move from experimentation to systematic AI implementation</span>
+        </div>
+        <a href="#audit-form" class="pricing-cta pricing-cta-filled">Get Started &rarr;</a>
+      </div>
+
+      <!-- Peak -->
+      <div class="pricing-card reveal" data-delay="160">
+        <div class="pricing-badge hidden">Enterprise</div>
+        <div class="pricing-tier-name">Peak</div>
+        <div class="pricing-tagline">Enterprise Scale</div>
+        <div class="pricing-price">
+          <span class="pricing-price-dollar">$</span>
+          <span class="pricing-price-amount">24,999</span>
+        </div>
+        <div class="pricing-divider"></div>
+        <p class="pricing-desc">
+          A full-depth enterprise engagement that goes beyond assessment into active implementation. We develop your AI systems, automate your highest-impact workflows, and train your team to sustain and scale results independently.
+        </p>
+        <div class="pricing-ideal">
+          <span class="pricing-ideal-label">Ideal for:</span>
+          <span>Leaders ready to operationalize AI across departments and embed it into company DNA</span>
+        </div>
+        <a href="#audit-form" class="pricing-cta pricing-cta-ghost">Get Started &rarr;</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══════════════════════════════════════ -->
+<section class="how-section" id="how-it-works">
+  <div class="container">
+    <div class="how-header reveal">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-title">Three Levels. Clear Outcomes.</h2>
+      <p class="section-sub" style="margin-top:16px">Our audit is structured in progressive levels — each one building on the last to take you from raw insight to running systems.</p>
+    </div>
+
+    <div class="how-steps">
+
+      <div class="how-step reveal">
+        <div class="how-step-num-wrap">
+          <div class="how-step-num">01</div>
+        </div>
+        <div class="how-step-body">
+          <div class="how-step-level">Level 1</div>
+          <h3 class="how-step-title">Discovery &amp; Assessment</h3>
+          <p class="how-step-desc">We conduct in-depth stakeholder interviews, team surveys, and process mapping to accurately measure your organization's AI readiness and current adoption levels. This creates an honest baseline — no assumptions, no fluff.</p>
+          <div class="how-step-tags">
+            <span class="how-step-tag">Stakeholder Interviews</span>
+            <span class="how-step-tag">Team Surveys</span>
+            <span class="how-step-tag">Process Mapping</span>
+            <span class="how-step-tag">AI Readiness Score</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="how-step-num-wrap">
+          <div class="how-step-num">02</div>
+        </div>
+        <div class="how-step-body">
+          <div class="how-step-level">Level 2</div>
+          <h3 class="how-step-title">Design &amp; Documentation</h3>
+          <p class="how-step-desc">We translate raw findings into a practical, actionable roadmap. This includes your AI Maturity Scorecard, a 12-month opportunity plan ranked by impact and feasibility, and prioritized workflow documentation your team can act on immediately.</p>
+          <div class="how-step-tags">
+            <span class="how-step-tag">AI Maturity Scorecard</span>
+            <span class="how-step-tag">12-Month Opportunity Plan</span>
+            <span class="how-step-tag">Workflow Documentation</span>
+            <span class="how-step-tag">Prioritized Roadmap</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="how-step-num-wrap">
+          <div class="how-step-num">03</div>
+        </div>
+        <div class="how-step-body">
+          <div class="how-step-level">Level 3</div>
+          <h3 class="how-step-title">Build &amp; Deploy</h3>
+          <p class="how-step-desc">We move from planning to execution — developing and implementing your AI systems, automating your highest-impact workflows, and training your team to sustain and build on the results. You leave with live systems, not just slide decks.</p>
+          <div class="how-step-tags">
+            <span class="how-step-tag">AI System Development</span>
+            <span class="how-step-tag">Workflow Automation</span>
+            <span class="how-step-tag">Team Training</span>
+            <span class="how-step-tag">Live Deployment</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:56px;padding:40px;background:var(--tint);border-radius:var(--radius);border:1px solid var(--tint-deep);" class="reveal">
+      <div style="display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">The Bottom Line</div>
+          <p style="font-size:17px;color:var(--dark);font-weight:600;line-height:1.55;margin-bottom:8px;">AI success depends on readiness, strategy, and execution.</p>
+          <p style="font-size:15px;color:var(--grey-mid);line-height:1.65;">The AI Capabilities Audit gives you the clarity, structure, and momentum to scale AI that works. Align your team. Fix your data gaps. Capture your next 12 months of AI opportunity.</p>
+        </div>
+        <div style="flex-shrink:0;">
+          <a href="#audit-form" class="btn btn-primary" style="padding:16px 32px;font-size:15px;white-space:nowrap;">Start Your Audit &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ AUDIT INTAKE FORM ═══════════════════════════════════ -->
+<section class="form-section section" id="audit-form">
+  <div class="container">
+    <div class="form-inner">
+
+      <div class="form-left reveal">
+        <span class="section-label">Get Started</span>
+        <h2 class="section-title">Book Your AI Capabilities Audit</h2>
+        <p class="section-sub" style="margin-top:12px">Tell us where you are and what you're trying to achieve. We'll match you with the right audit tier and reach out within one business day.</p>
+        <div class="form-value-list">
+          <div class="form-value-item">
+            <div class="form-value-icon">&#10003;</div>
+            <div class="form-value-text"><strong>No obligation.</strong> The intake form is the first step — we'll talk before any commitment is made.</div>
+          </div>
+          <div class="form-value-item">
+            <div class="form-value-icon">&#10003;</div>
+            <div class="form-value-text"><strong>Tailored to you.</strong> Every audit is scoped to your organization's size, maturity, and goals.</div>
+          </div>
+          <div class="form-value-item">
+            <div class="form-value-icon">&#10003;</div>
+            <div class="form-value-text"><strong>Fast turnaround.</strong> Audit engagements begin within two weeks of kickoff.</div>
+          </div>
+          <div class="form-value-item">
+            <div class="form-value-icon">&#10003;</div>
+            <div class="form-value-text"><strong>Real results.</strong> We've helped leaders across industries align their teams and capture measurable AI ROI.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" data-delay="100">
+        <div class="form-card">
+          <div class="form-card-title">Audit Intake Form</div>
+          <div class="form-card-sub">Complete the form below and we'll be in touch within one business day.</div>
+          <form id="auditForm" onsubmit="handleAuditSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="auditFirstName">First Name</label>
+                <input type="text" id="auditFirstName" name="firstName" placeholder="John" required />
+              </div>
+              <div class="form-group">
+                <label for="auditLastName">Last Name</label>
+                <input type="text" id="auditLastName" name="lastName" placeholder="Smith" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="auditCompany">Company Name</label>
+              <input type="text" id="auditCompany" name="company" placeholder="Acme Corp" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="auditEmail">Email</label>
+                <input type="email" id="auditEmail" name="email" placeholder="john@example.com" required />
+              </div>
+              <div class="form-group">
+                <label for="auditPhone">Phone</label>
+                <input type="tel" id="auditPhone" name="phone" placeholder="+1 555 000 0000" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="auditGoal">What's your main goal with AI right now?</label>
+              <select id="auditGoal" name="goal" required>
+                <option value="" disabled selected>Select one...</option>
+                <option value="automation">Save time through automation</option>
+                <option value="revenue">Grow revenue or improve marketing</option>
+                <option value="operations">Streamline operations and reduce costs</option>
+                <option value="explore">Explore AI but don't know where to start</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>What challenges are holding you back? <span style="font-weight:400;text-transform:none;letter-spacing:0;">(select all that apply)</span></label>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="challenges" value="skills" />
+                  Skills — our team lacks AI knowledge or expertise
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="challenges" value="data" />
+                  Data — our data is messy, siloed, or incomplete
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="challenges" value="time" />
+                  Time — we're too busy to implement AI systematically
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="challenges" value="strategy" />
+                  Strategy — we don't have a clear AI roadmap
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="auditTiming">When would you like to begin your audit?</label>
+              <select id="auditTiming" name="timing" required>
+                <option value="" disabled selected>Select a timeframe...</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+                <option value="january">January</option>
+              </select>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary" id="auditSubmitBtn">Submit Audit Request &rarr;</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ══════════════════════════════════════ -->
+<section class="testimonials section" id="testimonials">
+  <div class="container">
+    <div class="testimonials-header reveal">
+      <span class="section-label">Testimonials</span>
+      <h2 class="section-title">Trusted by Leaders Worldwide</h2>
+    </div>
+  </div>
+  <div class="container" style="overflow:visible">
+    <div class="testimonials-viewport">
+      <div class="testimonials-track">
+
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">I invited Dave to speak at the AI Summit in Sabah, and he was a natural on stage, bringing a fresh style the audience loved. We are looking forward to collaborating with the AI Officer Institute and Edge8 to bring their AI Certification Program to Malaysia and have signed an MOU to broaden the reach of our organization.</p>
+          <div class="testimonial-person">
+            <img src="images/services-ai-capabilities-audit-testimonials-Dato.jpg" alt="Dato George Lim" class="testimonial-avatar" />
+            <div>
+              <div class="testimonial-name">Dato George Lim</div>
+              <div class="testimonial-role">Founder &amp; CEO — G&amp;A GROUP &amp; GA SPACE</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">We were lucky enough to have Dave Hajdu work with our forum to help understand how AI is automating tasks and exploding output across a wide range of applications. He was able to greatly expand our general knowledge of AI and demystify the challenges of implementation. I highly recommend Edge8.ai as a YPO resource.</p>
+          <div class="testimonial-person">
+            <img src="../homepage/images/home-page-testimonials-John.jpg" alt="John VanNewkirk" class="testimonial-avatar" />
+            <div>
+              <div class="testimonial-name">John VanNewkirk</div>
+              <div class="testimonial-role">YPO Gold Seattle, Forum 6</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">I am very grateful to Dave Hajdu, who spoke to graduate students in our international business and public policy program during our visit to Vietnam about Negotiations and AI. He was extremely knowledgeable and engaging. Real-world experiences complemented our class discussions perfectly.</p>
+          <div class="testimonial-person">
+            <img src="../homepage/images/home-page-testimonials-Dr Holtom.jpg" alt="Dr. Brooks Holtom" class="testimonial-avatar" />
+            <div>
+              <div class="testimonial-name">Dr. Brooks Holtom</div>
+              <div class="testimonial-role">Professor of Management, Georgetown</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">Love the new look and branding. The website looks so good. I'm deeply grateful. The brand interview really made me think about our positioning and business in ways I never expected.</p>
+          <div class="testimonial-person">
+            <img src="../homepage/images/home-page-testimonials-Dao Nguyen.jpg" alt="Dao Nguyen" class="testimonial-avatar" />
+            <div>
+              <div class="testimonial-name">Dao Nguyen</div>
+              <div class="testimonial-role">Founder, DN Legal</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">I can't stop looking at the new website and brand book. With Edge8's help, we're finally presenting ourselves the way we've always wanted. The speed, the quality, and the care were all top-notch. Everything is just amazing.</p>
+          <div class="testimonial-person">
+            <img src="../homepage/images/home-page-testimonials-Tuan Anh.jpg" alt="Tuan Anh Le" class="testimonial-avatar" />
+            <div>
+              <div class="testimonial-name">Tuan Anh Le</div>
+              <div class="testimonial-role">Managing Partner, DN Legal</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">Working with Edge8 has been a pleasure. Dave and the team at Edge8 stepped in and not only helped with the branding and digital presence, but showed us how to leverage AI to streamline our processes. With the help of Edge8 we have scaled from single posts to a full content engine while keeping true to our vision and voice.</p>
+          <div class="testimonial-person">
+            <img src="../homepage/images/home-page-testimonials-Dan Absher.jpg" alt="Dan Absher" class="testimonial-avatar" />
+            <div>
+              <div class="testimonial-name">Dan Absher</div>
+              <div class="testimonial-role">CEO, Absher Construction Company</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- Slider nav: dots + arrows -->
+    <div class="testimonials-nav">
+      <div class="testimonials-dots" id="testimonialDots"></div>
+      <div class="testimonials-arrows">
+        <button class="testimonials-arrow" id="testimonialPrev" aria-label="Previous">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="testimonials-arrow" id="testimonialNext" aria-label="Next">
+          <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA SECTION ════════════════════════════════════════ -->
+<section class="cta-section" id="cta">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="cta-text reveal">
+        <h2 class="section-title">Ready to Scale AI<br>That Actually Works?</h2>
+        <p style="margin-top:12px">Stop leaving ROI on the table. The AI Capabilities Audit gives you the clarity, structure, and momentum to turn AI experiments into measurable business results.</p>
+      </div>
+      <div class="cta-actions reveal" data-delay="120">
+        <a href="#audit-form" class="btn btn-mint">Book Your Audit &rarr;</a>
+        <a href="https://www.edge8.ai" class="btn btn-ghost">Schedule a Consultation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <img src="../logo-white.png" alt="Edge8" />
+        </div>
+        <p class="footer-desc">AI Leadership, Automation &amp; Global Talent Solutions. Helping organizations become Tech-Forward and achieve 8x efficiency.</p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/company/edge8ai/" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="https://www.ai-officer.com/ai-in-business-events">AI in Business Workshop</a>
+          <a href="https://www.edge8.ai/your-first-ai-hire">Your First AI Hire</a>
+          <a href="https://www.edge8.ai/ai-capabilities-audit">AI Capabilities Audit</a>
+          <a href="https://www.edge8.ai/caio-leadership">CAIO Leadership</a>
+          <a href="https://www.edge8.ai/global-staffing">Global Staffing</a>
+          <a href="https://www.edge8.ai/training-and-certification">Training &amp; Certification</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Case Studies</div>
+        <div class="footer-links">
+          <a href="https://www.edge8.ai/personal-brand-case-studies">Personal Brands</a>
+          <a href="https://www.edge8.ai/business-website-case-studies">Business Website</a>
+          <a href="https://www.edge8.ai/ai-program-case-studies">AI Programs</a>
+          <a href="https://www.edge8.ai/case-study">All Case Studies</a>
+        </div>
+        <div class="footer-col-title" style="margin-top:28px">Company</div>
+        <div class="footer-links">
+          <a href="https://www.edge8.ai/about">About</a>
+          <a href="https://www.edge8.ai/ai-in-business-blog">Blog</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact">
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <a href="mailto:dave@edge8.ai">dave@edge8.ai</a>
+          </div>
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.16a16 16 0 006.93 6.93l1.52-1.52a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div>+84 90 995 8581</div>
+              <div>+1 206 395 8872</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 by Edge8. All rights reserved.</div>
+      <div class="footer-bottom-links">
+        <a href="https://www.edge8.ai">Privacy Policy</a>
+        <a href="https://www.edge8.ai">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ JAVASCRIPT ══════════════════════════════════════════ -->
+<script>
+  // ── Mobile hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const spans = hamburger.querySelectorAll('span');
+    if (mobileMenu.classList.contains('open')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+    } else {
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '';
+      spans[2].style.transform = '';
+    }
+  });
+
+  // ── Desktop dropdown toggle (click-based)
+  document.querySelectorAll('.has-dropdown').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const li = btn.closest('li');
+      const wasOpen = li.classList.contains('open');
+      document.querySelectorAll('.nav-links > li').forEach(l => l.classList.remove('open'));
+      if (!wasOpen) li.classList.add('open');
+      e.stopPropagation();
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.nav-links > li').forEach(l => l.classList.remove('open'));
+  });
+
+  // ── Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+      nav.style.background = 'rgba(255,255,255,0.99)';
+    } else {
+      nav.style.background = 'rgba(255,255,255,0.97)';
+    }
+  });
+
+  // ── Scroll reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, Number(delay));
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    // If no explicit delay, stagger siblings
+    if (!el.dataset.delay) {
+      const siblings = el.parentElement.querySelectorAll(':scope > .reveal');
+      siblings.forEach((sib, idx) => { if (sib === el) el.dataset.delay = idx * 80; });
+    }
+    revealObserver.observe(el);
+  });
+
+  // ── Audit form submit
+  function handleAuditSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('auditSubmitBtn');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Request Submitted ✓';
+      btn.style.background = '#0d9a5e';
+      e.target.reset();
+      setTimeout(() => {
+        btn.textContent = 'Submit Audit Request →';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 4000);
+    }, 1200);
+  }
+
+  // ── Testimonials seamless looping slider
+  (function() {
+    const viewport = document.querySelector('.testimonials-viewport');
+    const track = document.querySelector('.testimonials-track');
+    const dotsContainer = document.getElementById('testimonialDots');
+    const prevBtn = document.getElementById('testimonialPrev');
+    const nextBtn = document.getElementById('testimonialNext');
+    if (!viewport || !track) return;
+
+    const origCards = Array.from(track.querySelectorAll('.testimonial-card'));
+    const total = origCards.length;
+    let current = 0;
+
+    // Clone full set before and after for seamless looping
+    [...origCards].reverse().forEach(c => {
+      const clone = c.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.prepend(clone);
+    });
+    origCards.forEach(c => {
+      const clone = c.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.append(clone);
+    });
+
+    const allCards = Array.from(track.querySelectorAll('.testimonial-card'));
+
+    // Build dots
+    origCards.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'testimonials-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i, true));
+      dotsContainer.appendChild(dot);
+    });
+
+    function cardScrollLeft(idx) {
+      const card = allCards[idx];
+      return card.offsetLeft - (viewport.offsetWidth / 2 - card.offsetWidth / 2);
+    }
+
+    function scrollTo(idx, smooth) {
+      const left = cardScrollLeft(idx);
+      if (smooth) {
+        viewport.scrollTo({ left, behavior: 'smooth' });
+      } else {
+        viewport.scrollLeft = left;
+      }
+    }
+
+    function updateUI() {
+      allCards.forEach((c, i) => c.classList.toggle('active', i % total === current));
+      dotsContainer.querySelectorAll('.testimonials-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function goTo(realIdx, fromDot) {
+      const from = current;
+      current = ((realIdx % total) + total) % total;
+      updateUI();
+
+      let targetIdx = current + total;
+      let needsJump = false;
+
+      if (!fromDot) {
+        if (from === total - 1 && current === 0) {
+          targetIdx = current + total * 2;
+          needsJump = true;
+        } else if (from === 0 && current === total - 1) {
+          targetIdx = current;
+          needsJump = true;
+        }
+      }
+
+      scrollTo(targetIdx, true);
+
+      if (needsJump) {
+        setTimeout(() => scrollTo(current + total, false), 480);
+      }
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1, false));
+    nextBtn.addEventListener('click', () => goTo(current + 1, false));
+
+    // Init: jump to real card 0
+    requestAnimationFrame(() => {
+      scrollTo(total, false);
+      updateUI();
+    });
+
+    window.addEventListener('resize', () => {
+      requestAnimationFrame(() => scrollTo(current + total, false));
+    });
+  })();
+
+  // ── Mobile accordion
+  function toggleMobileAccordion(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.mobile-accordion').forEach(a => a.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+  }
+</script>
+</body>
+</html>

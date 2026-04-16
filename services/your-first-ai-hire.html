@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your First AI Hire | Edge8</title>
+<style>
+  @font-face {
+    font-family: 'SVN-Gilroy';
+    src: url('../fonts/SVN-Gilroy SemiBold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'SVN-Gilroy';
+    src: url('../fonts/SVN-Gilroy Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --blue: #287BE8;
+    --blue-bright: #3B8CF5;
+    --blue-glow: rgba(40,123,232,0.15);
+    --mint: #6FF2C1;
+    --dark: #101014;
+    --dark-card: #1A1A1F;
+    --dark-border: rgba(234,238,242,0.1);
+    --white: #FFFFFF;
+    --tint: #EAEEF2;
+    --tint-deep: #D4DAE4;
+    --grey-mid: #6B7280;
+    --grey-light: #9CA3AF;
+    --font-display: 'SVN-Gilroy', 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'SVN-Gilroy', 'Helvetica Neue', Arial, sans-serif;
+    --radius: 12px;
+    --radius-sm: 6px;
+    --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--dark);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── UTILITY ─────────────────────────────────────── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .section { padding: 96px 0; }
+  .section-label {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--mint));
+  }
+  .audit-label::before { display: none; }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--dark);
+    letter-spacing: -0.02em;
+  }
+  .section-sub {
+    font-size: 17px;
+    color: var(--grey-mid);
+    line-height: 1.7;
+    max-width: 620px;
+  }
+
+  /* ─── BUTTONS ────────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--dark);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: #1A1A1F;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 28px rgba(16,16,20,0.25);
+  }
+  .btn-mint {
+    background: var(--dark);
+    color: #fff;
+    font-weight: 800;
+  }
+  .btn-mint:hover {
+    background: #1A1A2E;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 28px rgba(16,16,20,0.3);
+  }
+  .btn-outline {
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    font-weight: 700;
+  }
+  .btn-outline:hover {
+    background: var(--blue-bright);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(40,123,232,0.35);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: rgba(255,255,255,0.85);
+    border: 1.5px solid rgba(255,255,255,0.3);
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+  .btn-ghost-light {
+    background: transparent;
+    color: var(--dark);
+    border: 1.5px solid var(--tint-deep);
+  }
+  .btn-ghost-light:hover { border-color: var(--blue); color: var(--blue); }
+
+  /* ─── NAV ──────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(16px);
+    transition: var(--transition);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+  .nav-logo img { height: 36px; display: block; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-links > li { position: relative; }
+  .nav-links > li > a,
+  .nav-links > li > button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 14px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--grey-mid);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    font-family: var(--font-body);
+  }
+  .nav-links > li > a:hover,
+  .nav-links > li > button:hover { color: var(--dark); background: var(--tint); }
+  .dropdown-icon { font-size: 10px; transition: var(--transition); }
+  .nav-links > li:hover .dropdown-icon { transform: rotate(180deg); }
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    background: var(--dark-card);
+    border: 1px solid rgba(234,238,242,0.1);
+    border-radius: var(--radius);
+    min-width: 220px;
+    padding: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .nav-links > li:hover .dropdown,
+  .nav-links > li.open .dropdown {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+  }
+  .dropdown a {
+    display: block;
+    padding: 9px 14px;
+    font-size: 13px;
+    color: var(--grey-light);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+  .dropdown a:hover { color: #fff; background: rgba(40,123,232,0.14); }
+  .nav-cta { margin-left: 16px; }
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px; height: 2px;
+    background: var(--dark);
+    border-radius: 2px;
+    transition: var(--transition);
+  }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0; bottom: 0;
+    background: var(--white);
+    overflow-y: auto;
+    padding: 16px 24px 32px;
+    z-index: 999;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: 0 8px 32px rgba(16,16,20,0.12);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu > a {
+    display: block;
+    padding: 13px 16px;
+    color: var(--dark);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+  }
+  .mobile-menu > a:hover { background: var(--tint); }
+  .mobile-accordion { display: flex; flex-direction: column; }
+  .mobile-accordion-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 16px;
+    background: none; border: none; cursor: pointer;
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    color: var(--dark); border-radius: var(--radius-sm);
+    width: 100%; text-align: left; transition: var(--transition);
+  }
+  .mobile-accordion-toggle:hover { background: var(--tint); }
+  .mobile-accordion-icon {
+    font-size: 12px; color: var(--grey-mid);
+    transition: transform 0.22s ease; flex-shrink: 0;
+  }
+  .mobile-accordion.open .mobile-accordion-icon { transform: rotate(180deg); }
+  .mobile-accordion-panel {
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 0 8px 16px;
+  }
+  .mobile-accordion.open .mobile-accordion-panel { display: flex; }
+  .mobile-accordion-panel a {
+    display: block;
+    padding: 10px 16px;
+    color: var(--grey-mid);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+  }
+  .mobile-accordion-panel a:hover { background: var(--tint); color: var(--dark); }
+  .mobile-menu-divider { height: 1px; background: var(--tint-deep); margin: 8px 0; }
+  .mobile-menu .btn { width: 100%; justify-content: center; margin-top: 12px; color: #fff !important; }
+  .mobile-menu .btn-primary:hover { background: var(--blue); box-shadow: 0 8px 28px rgba(40,123,232,0.25); }
+
+  /* ─── PAGE HERO (white, matches homepage) ─────────── */
+  .page-hero {
+    background: var(--white);
+    padding-top: 68px;
+    overflow: hidden;
+    position: relative;
+  }
+  .page-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 60% at 75% 30%, rgba(40,123,232,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 35% 45% at 5% 85%, rgba(111,242,193,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .page-hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(16,16,20,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16,16,20,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+    pointer-events: none;
+  }
+  .page-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    padding: 80px 0 80px;
+    position: relative;
+    z-index: 1;
+  }
+  .page-hero-left {}
+  .page-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 24px;
+    padding: 7px 14px;
+    background: rgba(40,123,232,0.08);
+    border: 1px solid rgba(40,123,232,0.22);
+    border-radius: 100px;
+  }
+  .page-hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--blue);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  .page-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--dark);
+    margin-bottom: 20px;
+  }
+  .page-hero-title em {
+    font-style: normal;
+    color: var(--blue);
+  }
+  .page-hero-sub {
+    font-size: 17px;
+    color: var(--grey-mid);
+    line-height: 1.7;
+    margin-bottom: 12px;
+    max-width: 540px;
+  }
+  .page-hero-urgency {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 36px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .page-hero-urgency::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--blue);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  .page-hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .page-hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .page-hero-img-wrap {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    width: 100%;
+    max-width: 560px;
+    aspect-ratio: 4/3;
+    box-shadow: 0 24px 64px rgba(16,16,20,0.12);
+    border: 1px solid var(--tint-deep);
+  }
+  .page-hero-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .page-hero-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(40,123,232,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  /* ─── THE PROBLEM ──────────────────────────────────── */
+  .problem { background: var(--white); }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .problem-card {
+    background: var(--white);
+    border: 1px solid var(--tint-deep);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), transparent);
+    opacity: 0;
+    transition: var(--transition);
+  }
+  .problem-card:hover {
+    border-color: rgba(40,123,232,0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(16,16,20,0.08);
+  }
+  .problem-card:hover::before { opacity: 1; }
+  .problem-icon {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+    flex-shrink: 0;
+  }
+  .problem-icon svg {
+    width: 24px; height: 24px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .problem-title {
+    font-weight: 800;
+    font-size: 17px;
+    color: var(--dark);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .problem-desc {
+    font-size: 14px;
+    color: var(--grey-mid);
+    line-height: 1.65;
+  }
+  .problem-damage {
+    margin-top: 48px;
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .problem-damage::before {
+    content: '"';
+    position: absolute;
+    top: -20px; left: 10px;
+    font-size: 200px;
+    font-family: Georgia, serif;
+    color: rgba(255,255,255,0.05);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .problem-damage p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+  .problem-damage p strong {
+    color: var(--mint);
+  }
+
+  /* ─── THE SOLUTION ─────────────────────────────────── */
+  .solution { background: var(--white); }
+  .solution-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .solution-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 28px 32px;
+    background: var(--white);
+    border: 1.5px solid var(--tint-deep);
+    border-radius: var(--radius);
+    transition: var(--transition);
+  }
+  .solution-item:hover {
+    border-color: rgba(40,123,232,0.3);
+    transform: translateX(4px);
+    box-shadow: 0 6px 24px rgba(16,16,20,0.06);
+  }
+  .solution-num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .solution-body {}
+  .solution-title {
+    font-weight: 800;
+    font-size: 17px;
+    color: var(--dark);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .solution-desc {
+    font-size: 14px;
+    color: var(--grey-mid);
+    line-height: 1.65;
+  }
+
+  /* ─── HOW IT WORKS ─────────────────────────────────── */
+  .how-it-works { background: var(--white); }
+  .timeline {
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 31px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--blue), var(--mint));
+    z-index: 0;
+  }
+  .timeline-step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 28px;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+  }
+  .timeline-dot-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .timeline-dot {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 6px rgba(40,123,232,0.12);
+  }
+  .timeline-dot.free {
+    background: var(--mint);
+    box-shadow: 0 0 0 6px rgba(111,242,193,0.15);
+  }
+  .timeline-dot span {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .timeline-dot.free span { color: var(--dark); }
+  .timeline-card {
+    background: var(--white);
+    border: 1px solid var(--tint-deep);
+    border-radius: var(--radius);
+    padding: 32px 36px;
+    transition: var(--transition);
+  }
+  .timeline-card:hover {
+    border-color: rgba(40,123,232,0.3);
+    box-shadow: 0 12px 40px rgba(16,16,20,0.08);
+  }
+  .timeline-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    background: rgba(40,123,232,0.08);
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+  .timeline-badge.free-badge {
+    color: #0aad7a;
+    background: rgba(111,242,193,0.15);
+  }
+  .timeline-title {
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--dark);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .timeline-cost {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--blue);
+    margin-bottom: 16px;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+  .timeline-cost.free-cost { color: var(--mint); }
+  .timeline-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--grey-mid);
+    line-height: 1.5;
+  }
+  .timeline-item::before {
+    content: '→';
+    color: var(--blue);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .timeline-deliverable {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: rgba(40,123,232,0.06);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--blue);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .timeline-after {
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    margin-top: 16px;
+  }
+  .timeline-after h3 {
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+  .timeline-after-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .timeline-after-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+  }
+  .timeline-after-option::before {
+    content: '✓';
+    color: var(--mint);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .guarantee-box {
+    background: linear-gradient(135deg, rgba(40,123,232,0.12), rgba(111,242,193,0.08));
+    border: 1px solid rgba(40,123,232,0.25);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-top: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .guarantee-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .guarantee-text h4 {
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+  .guarantee-text p {
+    font-size: 14px;
+    color: var(--grey-mid);
+    line-height: 1.65;
+  }
+
+  /* ─── THE MATH ─────────────────────────────────────── */
+  .the-math { background: var(--white); }
+  .math-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 48px;
+  }
+  .math-card {
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .math-card-edge8 {
+    background: var(--dark);
+    border: 1px solid rgba(40,123,232,0.3);
+  }
+  .math-card-edge8::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--mint));
+  }
+  .math-card-alone {
+    background: var(--white);
+    border: 1.5px solid var(--tint-deep);
+  }
+  .math-price {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .math-card-edge8 .math-price { color: var(--mint); }
+  .math-card-alone .math-price { color: var(--dark); }
+  .math-price-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    margin-bottom: 28px;
+  }
+  .math-card-edge8 .math-price-label { color: rgba(255,255,255,0.55); }
+  .math-card-alone .math-price-label { color: var(--grey-mid); }
+  .math-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .math-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .math-card-edge8 .math-item { color: rgba(255,255,255,0.75); }
+  .math-card-alone .math-item { color: var(--grey-mid); }
+  .math-check {
+    color: var(--mint);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .math-cross {
+    color: #f87171;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .math-quote {
+    margin-top: 48px;
+    background: var(--blue);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .math-quote::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(111,242,193,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .math-quote p {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.6;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* ─── WHO IT'S FOR ─────────────────────────────────── */
+  .who-for { background: var(--white); }
+  .who-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 48px;
+  }
+  .who-card {
+    background: var(--white);
+    border: 1px solid var(--tint-deep);
+    border-radius: var(--radius);
+    padding: 36px;
+  }
+  .who-card-title {
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--dark);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .who-card-title-icon {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .who-card-title-icon svg {
+    width: 20px; height: 20px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .who-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .who-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--grey-mid);
+    line-height: 1.5;
+  }
+  .who-list-item .icon-check { color: var(--blue); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .who-list-item .icon-bullet { color: var(--grey-mid); flex-shrink: 0; margin-top: 3px; width: 6px; height: 6px; background: var(--grey-mid); border-radius: 50%; display: inline-block; }
+  .who-dont-need {
+    grid-column: span 2;
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .who-dont-need-col h3 {
+    font-weight: 800;
+    font-size: 17px;
+    margin-bottom: 16px;
+  }
+  .who-dont-need-col.left h3 { color: rgba(255,255,255,0.5); }
+  .who-dont-need-col.right h3 { color: var(--mint); }
+  .who-dont-need-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .who-dont-need-col.left .who-dont-need-item { color: rgba(255,255,255,0.55); }
+  .who-dont-need-col.right .who-dont-need-item { color: rgba(255,255,255,0.8); }
+  .who-dont-need-col.left .who-dont-need-item::before { content: '✗'; color: #f87171; font-weight: 700; flex-shrink: 0; }
+  .who-dont-need-col.right .who-dont-need-item::before { content: '✓'; color: var(--mint); font-weight: 700; flex-shrink: 0; }
+
+  /* ─── MEET THE FOUNDER ─────────────────────────────── */
+  .founder { background: var(--white); }
+  .founder-inner {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .founder-img-wrap {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    box-shadow: 0 24px 64px rgba(16,16,20,0.12);
+  }
+  .founder-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+  .founder-img-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(16,16,20,0.5), transparent);
+    pointer-events: none;
+  }
+  .founder-content {}
+  .founder-name {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .founder-role {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .founder-bio {
+    font-size: 16px;
+    color: var(--grey-mid);
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+  .founder-bio strong { color: var(--dark); }
+  .founder-quote {
+    margin-top: 28px;
+    padding: 24px 28px;
+    background: var(--tint);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .founder-quote p {
+    font-size: 16px;
+    font-style: italic;
+    color: var(--dark);
+    line-height: 1.65;
+  }
+  .founder-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .founder-stat {}
+  .founder-stat-num {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--blue);
+    letter-spacing: -0.02em;
+  }
+  .founder-stat-label {
+    font-size: 12px;
+    color: var(--grey-mid);
+    line-height: 1.4;
+    max-width: 100px;
+  }
+
+  /* ─── TESTIMONIALS ─────────────────────────────────── */
+  .testimonials { background: var(--white); overflow: hidden; }
+  .testimonials-header { margin-bottom: 48px; }
+  .testimonials-viewport {
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
+  }
+  .testimonials-viewport::-webkit-scrollbar { display: none; }
+  .testimonials-track {
+    display: flex;
+    gap: 24px;
+    padding: 8px 0 16px;
+  }
+  .testimonial-card {
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .testimonial-card:not(.active) {
+    opacity: 0.42;
+    transform: scale(0.96);
+  }
+  .testimonial-card.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .testimonials-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 32px;
+  }
+  .testimonials-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .testimonials-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--tint-deep);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: var(--transition);
+  }
+  .testimonials-dot.active {
+    width: 24px;
+    border-radius: 4px;
+    background: var(--blue);
+  }
+  .testimonials-arrows { display: flex; gap: 10px; }
+  .testimonials-arrow {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid var(--tint-deep);
+    background: var(--white);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: var(--transition);
+    color: var(--dark);
+    flex-shrink: 0;
+  }
+  .testimonials-arrow:hover { border-color: var(--blue); background: var(--blue); color: #fff; }
+  .testimonials-arrow svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .testimonial-card {
+    flex: 0 0 500px;
+    background: var(--tint);
+    border: 1px solid var(--tint-deep);
+    border-radius: var(--radius);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue), transparent);
+    opacity: 0;
+    transition: var(--transition);
+  }
+  .testimonial-card:hover { border-color: rgba(40,123,232,0.3); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(16,16,20,0.08); }
+  .testimonial-card:hover::before { opacity: 1; }
+  .testimonial-quote {
+    font-size: 42px;
+    color: var(--blue);
+    line-height: 1;
+    font-family: Georgia, serif;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .testimonial-text {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--grey-mid);
+    margin-bottom: 24px;
+  }
+  .testimonial-person { display: flex; align-items: center; gap: 14px; }
+  .testimonial-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    border: 2px solid var(--tint-deep);
+    flex-shrink: 0;
+  }
+  .testimonial-name { font-weight: 700; font-size: 14px; color: var(--dark); line-height: 1.3; }
+  .testimonial-role { font-size: 12px; color: var(--grey-mid); line-height: 1.4; }
+
+  /* ─── AUDIT CTA ────────────────────────────────────── */
+  .audit-cta { background: var(--blue); position: relative; overflow: hidden; }
+  .audit-cta::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(111,242,193,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .audit-inner {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: row; align-items: center;
+    justify-content: space-between; gap: 48px; flex-wrap: nowrap;
+  }
+  .audit-text { flex: 1 1 0; text-align: left; }
+  .audit-text .section-title { margin-bottom: 12px; color: var(--white); text-align: left; }
+  .audit-text p { font-size: 16px; color: rgba(255,255,255,0.75); max-width: 560px; line-height: 1.65; text-align: left; }
+  .audit-cta-btn { flex-shrink: 0; display: flex; flex-direction: column; gap: 12px; align-items: stretch; min-width: 300px; }
+  .audit-cta-btn .btn { padding: 18px 36px; font-size: 15px; white-space: nowrap; width: 100%; justify-content: center; }
+  .audit-urgency {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--mint);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .audit-urgency::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--mint);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  /* ─── FOOTER ────────────────────────────────────────── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(234,238,242,0.08);
+    padding: 64px 0 32px;
+  }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-logo { margin-bottom: 18px; }
+  .footer-logo img { height: 32px; }
+  .footer-desc { font-size: 13.5px; color: var(--grey-mid); line-height: 1.65; max-width: 260px; margin-bottom: 20px; }
+  .footer-social a {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: var(--grey-mid);
+    text-decoration: none; transition: var(--transition);
+  }
+  .footer-social a:hover { color: var(--mint); }
+  .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tint); margin-bottom: 18px; }
+  .footer-links { display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 13.5px; color: var(--grey-mid); text-decoration: none; transition: var(--transition); }
+  .footer-links a:hover { color: var(--tint); }
+  .footer-contact { display: flex; flex-direction: column; gap: 12px; }
+  .footer-contact-item { display: flex; align-items: flex-start; gap: 12px; font-size: 13.5px; color: var(--grey-mid); }
+  .footer-contact-icon {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #6b7280;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .footer-contact-icon svg { width: 14px; height: 14px; fill: none; stroke: var(--dark); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .footer-contact-item a { color: inherit; text-decoration: none; transition: var(--transition); }
+  .footer-contact-item a:hover { color: var(--mint); }
+  .footer-bottom {
+    border-top: 1px solid rgba(234,238,242,0.08);
+    padding-top: 24px; display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-copy { font-size: 13px; color: var(--grey-mid); }
+  .footer-bottom-links { display: flex; gap: 20px; }
+  .footer-bottom-links a { font-size: 13px; color: var(--grey-mid); text-decoration: none; transition: var(--transition); }
+  .footer-bottom-links a:hover { color: var(--tint); }
+
+  /* ─── SCROLL ANIMATIONS ────────────────────────────── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ─── RESPONSIVE ────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .founder-inner { grid-template-columns: 300px 1fr; gap: 48px; }
+    .math-grid { gap: 20px; }
+  }
+  @media (max-width: 768px) {
+    .section { padding: 64px 0; }
+    .nav-links, .nav-cta { display: none; }
+    .nav-hamburger { display: flex; }
+    .page-hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 56px 0 48px; }
+    .page-hero-right { justify-content: center; }
+    .page-hero-img-wrap { max-width: 100%; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .math-grid { grid-template-columns: 1fr; }
+    .who-grid { grid-template-columns: 1fr; }
+    .who-dont-need { grid-column: span 1; grid-template-columns: 1fr; gap: 24px; }
+    .founder-inner { grid-template-columns: 1fr; gap: 40px; }
+    .founder-img-wrap { max-width: 340px; margin: 0 auto; aspect-ratio: 1/1; }
+    .audit-inner { flex-direction: column; align-items: flex-start; flex-wrap: wrap; }
+    .audit-cta-btn { width: 100%; }
+    .audit-cta-btn .btn { width: 100%; justify-content: center; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+    .timeline::before { left: 23px; }
+    .timeline-step { grid-template-columns: 48px 1fr; gap: 20px; }
+    .timeline-dot { width: 48px; height: 48px; }
+    .timeline-card { padding: 24px; }
+    .founder-stats { gap: 20px; }
+  }
+  @media (max-width: 480px) {
+    .testimonial-card { flex: 0 0 300px; }
+    .page-hero-title { font-size: 32px; }
+    .math-card { padding: 28px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../homepage/index.html" class="nav-logo">
+        <img src="../logo.png" alt="Edge8" />
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="../homepage/index.html">Home</a></li>
+
+        <li>
+          <button class="has-dropdown" aria-haspopup="true">
+            Services <span class="dropdown-icon">▾</span>
+          </button>
+          <div class="dropdown">
+            <a href="https://www.ai-officer.com/ai-in-business-events">AI in Business Workshop</a>
+            <a href="https://www.edge8.ai/your-first-ai-hire">Your First AI Hire</a>
+            <a href="https://www.edge8.ai/ai-capabilities-audit">AI Capabilities Audit</a>
+            <a href="https://www.edge8.ai/caio-leadership">CAIO Leadership</a>
+            <a href="https://www.edge8.ai/global-staffing">Global Staffing</a>
+            <a href="https://www.edge8.ai/training-and-certification">Training &amp; Certification</a>
+          </div>
+        </li>
+
+        <li>
+          <button class="has-dropdown" aria-haspopup="true">
+            Case Studies <span class="dropdown-icon">▾</span>
+          </button>
+          <div class="dropdown">
+            <a href="https://www.edge8.ai/personal-brand-case-studies">Personal Brands</a>
+            <a href="https://www.edge8.ai/business-website-case-studies">Business Website</a>
+            <a href="https://www.edge8.ai/ai-program-case-studies">AI Programs</a>
+          </div>
+        </li>
+
+        <li><a href="https://www.edge8.ai/ai-in-business-blog">Blog</a></li>
+        <li><a href="https://www.edge8.ai/about">About</a></li>
+      </ul>
+
+      <a href="https://www.edge8.ai" class="btn btn-primary nav-cta">Schedule A Consultation</a>
+
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ MOBILE MENU ════════════════════════════════════════ -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../homepage/index.html">Home</a>
+
+  <div class="mobile-accordion" id="mobileServicesAccordion">
+    <button class="mobile-accordion-toggle" onclick="toggleMobileAccordion('mobileServicesAccordion')">
+      Services <span class="mobile-accordion-icon">▾</span>
+    </button>
+    <div class="mobile-accordion-panel">
+      <a href="https://www.ai-officer.com/ai-in-business-events">AI in Business Workshop</a>
+      <a href="https://www.edge8.ai/your-first-ai-hire">Your First AI Hire</a>
+      <a href="https://www.edge8.ai/ai-capabilities-audit">AI Capabilities Audit</a>
+      <a href="https://www.edge8.ai/caio-leadership">CAIO Leadership</a>
+      <a href="https://www.edge8.ai/global-staffing">Global Staffing</a>
+      <a href="https://www.edge8.ai/training-and-certification">Training &amp; Certification</a>
+    </div>
+  </div>
+
+  <div class="mobile-accordion" id="mobileCaseStudiesAccordion">
+    <button class="mobile-accordion-toggle" onclick="toggleMobileAccordion('mobileCaseStudiesAccordion')">
+      Case Studies <span class="mobile-accordion-icon">▾</span>
+    </button>
+    <div class="mobile-accordion-panel">
+      <a href="https://www.edge8.ai/personal-brand-case-studies">Personal Brands</a>
+      <a href="https://www.edge8.ai/business-website-case-studies">Business Website</a>
+      <a href="https://www.edge8.ai/ai-program-case-studies">AI Programs</a>
+    </div>
+  </div>
+
+  <a href="https://www.edge8.ai/ai-in-business-blog">Blog</a>
+  <a href="https://www.edge8.ai/about">About</a>
+  <a href="https://www.edge8.ai" class="btn btn-primary">Schedule A Consultation</a>
+</div>
+
+<!-- ═══ PAGE HERO ══════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-grid"></div>
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="page-hero-left reveal">
+        <div class="page-hero-eyebrow">Services</div>
+        <h1 class="page-hero-title">Your First AI Hire Will Either <em>Prove AI Works</em> — Or Waste a Year Proving It Doesn't.</h1>
+        <p class="page-hero-sub">We recruit, train, and support your first AI engineer so they deliver results from Month 1. No guessing. No isolation. No wasted investment.</p>
+        <div class="page-hero-urgency">We're placing 100 companies this year. 77 spots remaining.</div>
+        <div class="page-hero-actions">
+          <a href="https://www.edge8.ai" class="btn btn-primary">Start Your Free AI Consultation Now</a>
+          <a href="https://www.edge8.ai/_files/ugd/f3b76e_a92b6b76807241ca9cb37bde2c680ce1.pdf" class="btn btn-outline" target="_blank">Download Fact Sheet</a>
+        </div>
+      </div>
+      <div class="page-hero-right reveal">
+        <div class="page-hero-img-wrap">
+          <img src="images/services-your-first-ai-hire-hero.jpg" alt="Your First AI Hire" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THE PROBLEM ════════════════════════════════════════ -->
+<section class="problem section" id="problem">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">The Problem</span>
+      <h2 class="section-title">What Happens When You Hire Your First AI Engineer Alone</h2>
+      <p class="section-sub" style="margin-top:16px">Most companies making their first AI hire follow the same pattern — and it ends badly.</p>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <div class="problem-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div class="problem-title">They sound brilliant in interviews</div>
+        <p class="problem-desc">They drop buzzwords about LLMs, agents, and automation but can't deliver in your environment. Interview performance is not the same as production results.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+        <div class="problem-title">They don't understand your business...</div>
+        <p class="problem-desc">...so they build cool AI demos and prototypes that don't solve your actual problems or generate revenue. Cool demos don't pay salaries.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="problem-title">They're alone on an island</div>
+        <p class="problem-desc">No peers. No mentorship. No one to reality-check their ideas or keep them accountable. Isolation kills even the most talented AI hires.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="problem-title">They fail quietly for 6–12 months</div>
+        <p class="problem-desc">Then they leave. You're back to square one with $150K+ gone and a cautionary tale about "why AI doesn't work here." The damage is real.</p>
+      </div>
+    </div>
+
+    <div class="problem-damage reveal">
+      <p>It's not just the money. It's the lost time, the board's lost confidence, your team's skepticism, and your competitors pulling further ahead while you're stuck at zero.<br><br><strong>Your first AI hire isn't just a person. It's a referendum on whether AI can succeed at your company.</strong> And if you do it alone, the odds aren't in your favor.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THE SOLUTION ═══════════════════════════════════════ -->
+<section class="solution section" id="solution">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">The Solution</span>
+      <h2 class="section-title">Edge8 Makes Sure Your First AI Hire Succeeds</h2>
+      <p class="section-sub" style="margin-top:16px">Edge8 doesn't just place an AI engineer. We de-risk your first AI hire with training, support, and accountability built in from day one.</p>
+    </div>
+
+    <div class="solution-list">
+      <div class="solution-item reveal">
+        <div class="solution-num">01</div>
+        <div class="solution-body">
+          <div class="solution-title">We Keep Them Accountable</div>
+          <p class="solution-desc">Standard Agile sprint cycles. Clear deliverables every two weeks. Real projects that move your business forward — not endless prototypes that never ship.</p>
+        </div>
+      </div>
+      <div class="solution-item reveal">
+        <div class="solution-num">02</div>
+        <div class="solution-body">
+          <div class="solution-title">We Guarantee Results</div>
+          <p class="solution-desc">60-day replacement guarantee. If it's not working, we replace the engineer at no cost. You take zero risk on the most critical hire your company will make.</p>
+        </div>
+      </div>
+      <div class="solution-item reveal">
+        <div class="solution-num">03</div>
+        <div class="solution-body">
+          <div class="solution-title">We Train Them Properly</div>
+          <p class="solution-desc">40-hour intensive AI training plus ongoing AI Officer Certification ($999 value included). They learn to ship results, not just build prototypes. Real skills for real production environments.</p>
+        </div>
+      </div>
+      <div class="solution-item reveal">
+        <div class="solution-num">04</div>
+        <div class="solution-body">
+          <div class="solution-title">We Support Them Continuously</div>
+          <p class="solution-desc">Dotted-line management from senior Edge8 engineers. Weekly planning meetings. Access to the Edge8 engineering community. They're never alone — and that changes everything.</p>
+        </div>
+      </div>
+      <div class="solution-item reveal">
+        <div class="solution-num">05</div>
+        <div class="solution-body">
+          <div class="solution-title">We Find the Right Person</div>
+          <p class="solution-desc">Edge8 recruits and vets candidates who fit your culture and business needs — not just AI buzzwords. We know what "good" looks like because we've placed engineers for decades.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══════════════════════════════════════ -->
+<section class="how-it-works section" id="how-it-works">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">The Process</span>
+      <h2 class="section-title">How It Works: The 90-Day Process</h2>
+      <p class="section-sub" style="margin-top:16px">Three clear steps. Billing only starts once you've approved your hire. Everything designed to deliver results within 90 days.</p>
+    </div>
+
+    <div class="timeline">
+
+      <!-- Step 1 -->
+      <div class="timeline-step reveal">
+        <div class="timeline-dot-wrap">
+          <div class="timeline-dot free">
+            <span>Month 0</span>
+          </div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-badge free-badge">Step 1 — Free Talent Match</div>
+          <div class="timeline-title">FREE Talent Match</div>
+          <div class="timeline-cost free-cost">$0</div>
+          <p style="font-size:15px;color:var(--grey-mid);margin-bottom:16px;line-height:1.65">This happens <strong>BEFORE</strong> your 3-month paid program begins. Edge8 handles all sourcing and vetting. You approve candidates or request final interviews. Once you say yes, THEN your 3-month program starts and billing begins.</p>
+          <div class="timeline-items">
+            <div class="timeline-item">Duration: 2–4 weeks</div>
+            <div class="timeline-item">Edge8 handles all sourcing and vetting at no cost to you</div>
+            <div class="timeline-item">You meet candidates and approve — no obligation until you're ready</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="timeline-step reveal">
+        <div class="timeline-dot-wrap">
+          <div class="timeline-dot">
+            <span>Month 1</span>
+          </div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-badge">Step 2 — Train + Ship Quick Win</div>
+          <div class="timeline-title">Train + Ship Your First Quick Win</div>
+          <div class="timeline-cost">$1,800</div>
+          <div class="timeline-items">
+            <div class="timeline-item">Week 1: Intensive 40-hour AI training + company onboarding</div>
+            <div class="timeline-item">Weeks 2–4: 35 hours/week on your work, 5 hours continued training</div>
+            <div class="timeline-item">Bi-weekly sprint reviews keep deliverables on track</div>
+          </div>
+          <div class="timeline-deliverable">
+            <span>🎯</span>
+            <span>Deliverable: Small AI automation shipped by end of Month 1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="timeline-step reveal">
+        <div class="timeline-dot-wrap">
+          <div class="timeline-dot">
+            <span>Month 2–3</span>
+          </div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-badge">Step 3 — Build Real ROI</div>
+          <div class="timeline-title">Build Real ROI + Complete Certification</div>
+          <div class="timeline-cost">$1,800 / month</div>
+          <p style="font-size:15px;color:var(--grey-mid);margin-bottom:16px;line-height:1.65">Your engineer completes full AI Officer Certification while delivering measurable results every two-week sprint.</p>
+          <div class="timeline-items">
+            <div class="timeline-item">Weekly planning meetings keep them aligned with your goals</div>
+            <div class="timeline-item">Dotted-line management ensures accountability at every stage</div>
+            <div class="timeline-item">They learn to manage AI projects, not just execute tasks</div>
+          </div>
+          <div class="timeline-deliverable">
+            <span>🚀</span>
+            <span>Deliverable: Real ROI demonstrated by Month 2</span>
+          </div>
+
+          <div class="guarantee-box" style="margin-top:20px">
+            <div class="guarantee-icon">🛡️</div>
+            <div class="guarantee-text">
+              <h4>The 60-Day Proven Hire Guarantee</h4>
+              <p>If your engineer isn't shipping real value by Day 60, Edge8 doesn't just replace them — we refund Month 1 AND find you a new hire at no additional cost.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- After Month 3 -->
+    <div class="timeline-after reveal" style="margin-top:32px">
+      <h3>After Month 3: You Decide</h3>
+      <p style="font-size:15px;color:rgba(255,255,255,0.6);margin-bottom:20px;line-height:1.65">By the end of 90 days, your first AI hire is a success story, not a cautionary tale. Here are your options:</p>
+      <div class="timeline-after-options">
+        <div class="timeline-after-option">Hire them full-time with confidence — they're proven and productive</div>
+        <div class="timeline-after-option">Extend dotted-line support at a reduced rate as you scale your AI team</div>
+        <div class="timeline-after-option">Start your next placement and build your AI team faster</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THE MATH ════════════════════════════════════════════ -->
+<section class="the-math section" id="the-math">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">The Real Math</span>
+      <h2 class="section-title">$5,400 to Avoid Wasting $150K+</h2>
+      <p class="section-sub" style="margin-top:16px">This isn't a hiring cost. It's an insurance policy against the most expensive mistake you can make.</p>
+    </div>
+
+    <div class="math-grid">
+      <div class="math-card math-card-edge8 reveal">
+        <div class="math-price">$5,400</div>
+        <div class="math-price-label">FOR 3 MONTHS ($1,800/MONTH) WITH EDGE8</div>
+        <div class="math-items">
+          <div class="math-item"><span class="math-check">✓</span><span>Zero risk of hiring the wrong person</span></div>
+          <div class="math-item"><span class="math-check">✓</span><span>Zero risk of isolation and silent failure</span></div>
+          <div class="math-item"><span class="math-check">✓</span><span>Proof that AI works at your company in 90 days</span></div>
+          <div class="math-item"><span class="math-check">✓</span><span>A hire who actually delivers, not just talks about "AI strategy"</span></div>
+          <div class="math-item"><span class="math-check">✓</span><span>Foundation to scale your AI program with confidence</span></div>
+          <div class="math-item"><span class="math-check">✓</span><span>60-day money-back + replacement guarantee</span></div>
+        </div>
+      </div>
+      <div class="math-card math-card-alone reveal">
+        <div class="math-price">$150K+</div>
+        <div class="math-price-label">ANNUAL SALARY — GOING ALONE</div>
+        <div class="math-items">
+          <div class="math-item"><span class="math-cross">✗</span><span>$150K+ annual salary for someone unproven</span></div>
+          <div class="math-item"><span class="math-cross">✗</span><span>You don't know what "good" looks like in AI talent</span></div>
+          <div class="math-item"><span class="math-cross">✗</span><span>They're isolated with no support system</span></div>
+          <div class="math-item"><span class="math-cross">✗</span><span>6–12 months of slow failure before you realize it's not working</span></div>
+          <div class="math-item"><span class="math-cross">✗</span><span>Board loses confidence in AI</span></div>
+          <div class="math-item"><span class="math-cross">✗</span><span>Competitors pull ahead while you reset</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="math-quote reveal">
+      <p>"The question isn't 'Can I afford $5,400?' The question is: 'Can I afford to waste $150K+ and a year proving AI doesn't work at my company?'"</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHO IT'S FOR ════════════════════════════════════════ -->
+<section class="who-for section" id="who-for">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Who This Is For</span>
+      <h2 class="section-title">Is This Right for Your Company?</h2>
+      <p class="section-sub" style="margin-top:16px">Your First AI Hire is designed for a specific type of company at a specific moment. Here's how to know if that's you.</p>
+    </div>
+
+    <div class="who-grid">
+      <div class="who-card reveal">
+        <div class="who-card-title">
+          <div class="who-card-title-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          Company Profile
+        </div>
+        <div class="who-list">
+          <div class="who-list-item"><span class="icon-check">✓</span><span>300–500 employees</span></div>
+          <div class="who-list-item"><span class="icon-check">✓</span><span>Not tech-native (F&amp;B, distribution, logistics, professional services)</span></div>
+          <div class="who-list-item"><span class="icon-check">✓</span><span>Ready to operationalize AI but need guidance on where to start</span></div>
+          <div class="who-list-item"><span class="icon-check">✓</span><span>Making your first dedicated AI engineering hire</span></div>
+        </div>
+      </div>
+      <div class="who-card reveal">
+        <div class="who-card-title">
+          <div class="who-card-title-icon">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          You're the Right Fit If...
+        </div>
+        <div class="who-list">
+          <div class="who-list-item"><span class="icon-check">✓</span><span>You know AI matters but don't know how to evaluate AI talent</span></div>
+          <div class="who-list-item"><span class="icon-check">✓</span><span>You want to start shipping AI projects in months, not years</span></div>
+          <div class="who-list-item"><span class="icon-check">✓</span><span>You understand that isolated engineers fail without support</span></div>
+          <div class="who-list-item"><span class="icon-check">✓</span><span>You're ready to invest in doing it right the first time</span></div>
+        </div>
+      </div>
+
+      <div class="who-dont-need reveal">
+        <div class="who-dont-need-col left">
+          <h3>You Don't Need</h3>
+          <div class="who-dont-need-item">A data science team already in place</div>
+          <div class="who-dont-need-item">Deep AI expertise on your leadership team</div>
+          <div class="who-dont-need-item">A massive budget for AI experiments</div>
+        </div>
+        <div class="who-dont-need-col right">
+          <h3>You Just Need</h3>
+          <div class="who-dont-need-item">Someone who can orchestrate humans, data, and AI tools to drive real business results — and the support system to make them succeed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MEET THE FOUNDER ════════════════════════════════════ -->
+<section class="founder section" id="founder">
+  <div class="container">
+    <div class="founder-inner">
+      <div class="founder-img-wrap reveal">
+        <img src="images/services-your-first-ai-hire-Dave Hajdu.jpeg" alt="Dave Hajdu — Founder, Edge8 AI" />
+      </div>
+      <div class="founder-content reveal">
+        <span class="section-label">Meet the Founder</span>
+        <div class="founder-name">Dave Hajdu</div>
+        <div class="founder-role">Founder &amp; Chief AI Officer (CAIO), Edge8 AI</div>
+        <p class="founder-bio"><strong>8 years building AI implementations.</strong> Decades recruiting and developing high-performing engineers. Co-Founder of AI Officer Institute where thousands of professionals have learned to operationalize AI.</p>
+        <p class="founder-bio">Co-Founder of TINYpulse (acquired by WebMD), Microsoft alum, EO Leader for 500+ SEA businesses.</p>
+        <div class="founder-quote">
+          <p>"Most companies fail at AI because they hire someone and leave them on an island. We've spent years perfecting the support systems that make AI hires succeed."</p>
+        </div>
+        <div class="founder-stats">
+          <div class="founder-stat">
+            <div class="founder-stat-num">8yr</div>
+            <div class="founder-stat-label">Deep in AI implementation</div>
+          </div>
+          <div class="founder-stat">
+            <div class="founder-stat-num">1000s</div>
+            <div class="founder-stat-label">Trained through AI Officer Institute</div>
+          </div>
+          <div class="founder-stat">
+            <div class="founder-stat-num">500+</div>
+            <div class="founder-stat-label">SEA businesses led as EO Leader</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══════════════════════════════════════ -->
+<section class="testimonials section" id="testimonials">
+  <div class="container">
+    <div class="testimonials-header reveal">
+      <span class="section-label">Testimonials</span>
+      <h2 class="section-title">Trusted by Leaders Worldwide</h2>
+    </div>
+  </div>
+  <div class="container" style="overflow:visible">
+    <div class="testimonials-viewport">
+      <div class="testimonials-track">
+
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">I invited Dave to speak at the AI Summit in Sabah, and he was a natural on stage, bringing a fresh style the audience loved. We are looking forward to collaborating with the AI Officer Institute and Edge8 to bring their AI Certification Program to Malaysia and have signed an MOU to broaden the reach of our organization.</p>
+          <div class="testimonial-person">
+            <img src="images/services-your-first-ai-hire-testimonials_Dato.jpg" alt="Dato George Lim" class="testimonial-avatar" />
+            <div>
+              <div class="testimonial-name">Dato George Lim</div>
+              <div class="testimonial-role">Founder &amp; CEO — G&amp;A GROUP &amp; GA SPACE</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">We were lucky enough to have Dave Hajdu work with our forum to help understand how AI is automating tasks and exploding output across a wide range of applications. He was able to greatly expand our general knowledge of AI and demystify the challenges of implementation. I highly recommend Edge8.ai as a YPO resource.</p>
+          <div class="testimonial-person">
+            <img src="images/services-your-first-ai-hire-testimonials_John.jpg" alt="John VanNewkirk" class="testimonial-avatar" />
+            <div>
+              <div class="testimonial-name">John VanNewkirk</div>
+              <div class="testimonial-role">YPO Gold Seattle, Forum 6</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">I am very grateful to Dave Hajdu, who spoke to graduate students in our international business and public policy program during our visit to Vietnam about Negotiations and AI. He was extremely knowledgeable and engaging. Real-world experiences complemented our class discussions perfectly.</p>
+          <div class="testimonial-person">
+            <img src="images/services-your-first-ai-hire-testimonials_Dr Holtom.jpg" alt="Dr. Brooks Holtom" class="testimonial-avatar" />
+            <div>
+              <div class="testimonial-name">Dr. Brooks Holtom</div>
+              <div class="testimonial-role">Professor of Management, Georgetown</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">Love the new look and branding. The website looks so good. I'm deeply grateful. The brand interview really made me think about our positioning and business in ways I never expected.</p>
+          <div class="testimonial-person">
+            <img src="images/services-your-first-ai-hire-testimonials_Dao Nguyen.jpg" alt="Dao Nguyen" class="testimonial-avatar" />
+            <div>
+              <div class="testimonial-name">Dao Nguyen</div>
+              <div class="testimonial-role">Founder, DN Legal</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">I can't stop looking at the new website and brand book. With Edge8's help, we're finally presenting ourselves the way we've always wanted. The speed, the quality, and the care were all top-notch.</p>
+          <div class="testimonial-person">
+            <img src="images/services-your-first-ai-hire-testimonials_Tuan Anh.jpg" alt="Tuan Anh Le" class="testimonial-avatar" />
+            <div>
+              <div class="testimonial-name">Tuan Anh Le</div>
+              <div class="testimonial-role">Managing Partner, DN Legal</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">Working with Edge8 has been a pleasure. When I launched Fab Four Academy, I needed support to build a strong brand and digital presence. Dave and the team at Edge8 stepped in and not only helped with the branding and digital presence, but showed us how to leverage AI to streamline our processes.</p>
+          <div class="testimonial-person">
+            <img src="images/services-your-first-ai-hire-testimonials_Dan Absher.jpg" alt="Dan Absher" class="testimonial-avatar" />
+            <div>
+              <div class="testimonial-name">Dan Absher</div>
+              <div class="testimonial-role">CEO, Absher Construction Company</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /.testimonials-viewport -->
+    <div class="testimonials-nav">
+      <div class="testimonials-dots" id="testimonialDots"></div>
+      <div class="testimonials-arrows">
+        <button class="testimonials-arrow" id="testimonialPrev" aria-label="Previous">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="testimonials-arrow" id="testimonialNext" aria-label="Next">
+          <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA SECTION ════════════════════════════════════════ -->
+<section class="audit-cta section">
+  <div class="container">
+    <div class="audit-inner">
+      <div class="audit-text reveal">
+        <div class="audit-urgency">We're placing 100 companies this year. 77 spots remaining.</div>
+        <h2 class="section-title">Start Your Free AI Consultation Now</h2>
+        <p>Takes 15 minutes. No pressure, no pitch. Just an honest conversation about whether this is right for your company.</p>
+      </div>
+      <div class="audit-cta-btn reveal">
+        <a href="https://www.edge8.ai" class="btn btn-primary">Start Your Free AI Consultation Now</a>
+        <a href="https://www.edge8.ai/_files/ugd/f3b76e_a92b6b76807241ca9cb37bde2c680ce1.pdf" class="btn btn-ghost" target="_blank">Download One-Page Fact Sheet</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <img src="../logo-white.png" alt="Edge8" />
+        </div>
+        <p class="footer-desc">AI Leadership, Automation &amp; Global Talent Solutions. Helping organizations become Tech-Forward and achieve 8x efficiency.</p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/company/edge8ai/" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="https://www.ai-officer.com/ai-in-business-events">AI in Business Workshop</a>
+          <a href="https://www.edge8.ai/your-first-ai-hire">Your First AI Hire</a>
+          <a href="https://www.edge8.ai/ai-capabilities-audit">AI Capabilities Audit</a>
+          <a href="https://www.edge8.ai/caio-leadership">CAIO Leadership</a>
+          <a href="https://www.edge8.ai/global-staffing">Global Staffing</a>
+          <a href="https://www.edge8.ai/training-and-certification">Training &amp; Certification</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Case Studies</div>
+        <div class="footer-links">
+          <a href="https://www.edge8.ai/personal-brand-case-studies">Personal Brands</a>
+          <a href="https://www.edge8.ai/business-website-case-studies">Business Website</a>
+          <a href="https://www.edge8.ai/ai-program-case-studies">AI Programs</a>
+          <a href="https://www.edge8.ai/case-study">All Case Studies</a>
+        </div>
+        <div class="footer-col-title" style="margin-top:28px">Company</div>
+        <div class="footer-links">
+          <a href="https://www.edge8.ai/about">About</a>
+          <a href="https://www.edge8.ai/ai-in-business-blog">Blog</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact">
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <a href="mailto:dave@edge8.ai">dave@edge8.ai</a>
+          </div>
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.16a16 16 0 006.93 6.93l1.52-1.52a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div>+84 90 995 8581</div>
+              <div>+1 206 395 8872</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 by Edge8. All rights reserved.</div>
+      <div class="footer-bottom-links">
+        <a href="https://www.edge8.ai">Privacy Policy</a>
+        <a href="https://www.edge8.ai">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ JAVASCRIPT ══════════════════════════════════════════ -->
+<script>
+  // ── Mobile hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const spans = hamburger.querySelectorAll('span');
+    if (mobileMenu.classList.contains('open')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+    } else {
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '';
+      spans[2].style.transform = '';
+    }
+  });
+
+  // ── Dropdown toggle on mobile (click-based)
+  document.querySelectorAll('.has-dropdown').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const li = btn.closest('li');
+      const wasOpen = li.classList.contains('open');
+      document.querySelectorAll('.nav-links > li').forEach(l => l.classList.remove('open'));
+      if (!wasOpen) li.classList.add('open');
+      e.stopPropagation();
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.nav-links > li').forEach(l => l.classList.remove('open'));
+  });
+
+  // ── Scroll reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, delay);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach((el) => {
+    const siblings = el.parentElement.querySelectorAll('.reveal');
+    let delay = 0;
+    siblings.forEach((sib, idx) => { if (sib === el) delay = idx * 80; });
+    el.dataset.delay = delay;
+    revealObserver.observe(el);
+  });
+
+  // ── Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+      nav.style.background = 'rgba(255,255,255,0.99)';
+    } else {
+      nav.style.background = 'rgba(255,255,255,0.97)';
+    }
+  });
+
+  // ── Testimonials seamless looping slider
+  (function() {
+    const viewport = document.querySelector('.testimonials-viewport');
+    const track = document.querySelector('.testimonials-track');
+    const dotsContainer = document.getElementById('testimonialDots');
+    const prevBtn = document.getElementById('testimonialPrev');
+    const nextBtn = document.getElementById('testimonialNext');
+    if (!viewport || !track) return;
+
+    const origCards = Array.from(track.querySelectorAll('.testimonial-card'));
+    const total = origCards.length;
+    let current = 0;
+
+    // Clone full set before and after for seamless looping
+    [...origCards].reverse().forEach(c => {
+      const clone = c.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.prepend(clone);
+    });
+    origCards.forEach(c => {
+      const clone = c.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.append(clone);
+    });
+
+    // allCards[0..total-1] = clones before
+    // allCards[total..2*total-1] = real
+    // allCards[2*total..3*total-1] = clones after
+    const allCards = Array.from(track.querySelectorAll('.testimonial-card'));
+
+    // Build dots (one per real card)
+    origCards.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'testimonials-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i, true));
+      dotsContainer.appendChild(dot);
+    });
+
+    function cardScrollLeft(idx) {
+      const card = allCards[idx];
+      return card.offsetLeft - (viewport.offsetWidth / 2 - card.offsetWidth / 2);
+    }
+
+    function scrollTo(idx, smooth) {
+      const left = cardScrollLeft(idx);
+      if (smooth) {
+        viewport.scrollTo({ left, behavior: 'smooth' });
+      } else {
+        viewport.scrollLeft = left;
+      }
+    }
+
+    function updateUI() {
+      allCards.forEach((c, i) => c.classList.toggle('active', i % total === current));
+      dotsContainer.querySelectorAll('.testimonials-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function goTo(realIdx, fromDot = false) {
+      const from = current;
+      current = ((realIdx % total) + total) % total;
+      updateUI();
+
+      let targetIdx = current + total;
+      let needsJump = false;
+
+      if (!fromDot) {
+        if (from === total - 1 && current === 0) {
+          targetIdx = current + total * 2;
+          needsJump = true;
+        } else if (from === 0 && current === total - 1) {
+          targetIdx = current;
+          needsJump = true;
+        }
+      }
+
+      scrollTo(targetIdx, true);
+
+      if (needsJump) {
+        setTimeout(() => scrollTo(current + total, false), 480);
+      }
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    requestAnimationFrame(() => {
+      scrollTo(total, false);
+      updateUI();
+    });
+
+    window.addEventListener('resize', () => {
+      requestAnimationFrame(() => scrollTo(current + total, false));
+    });
+  })();
+
+  // ── Mobile accordion dropdowns
+  function toggleMobileAccordion(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.mobile-accordion').forEach(a => a.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+  }
+</script>
+</body>
+</html>
