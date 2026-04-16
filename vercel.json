@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/your-first-ai-hire", "destination": "/services/your-first-ai-hire.html" }
+    { "source": "/your-first-ai-hire", "destination": "/services/your-first-ai-hire.html" },
+    { "source": "/ai-capabilities-audit", "destination": "/services/ai-capabilities-audit.html" }
   ]
 }
