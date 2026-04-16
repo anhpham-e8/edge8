@@ -675,132 +675,56 @@
 
   /* ─── WHO IT'S FOR ─────────────────────────────────── */
   .who-for { background: var(--white); }
-  .who-grid {
+  .who-grid-4 {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
     margin-top: 48px;
   }
-  .who-card {
+  .who-card-4 {
     background: var(--white);
     border: 1px solid var(--tint-deep);
     border-radius: var(--radius);
-    padding: 36px;
+    padding: 32px 28px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
   }
-  .who-card-title {
-    font-weight: 800; font-size: 18px; color: var(--dark);
-    margin-bottom: 20px;
-    display: flex; align-items: center; gap: 10px;
+  .who-card-4::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--mint));
+    opacity: 0;
+    transition: var(--transition);
   }
-  .who-card-title-icon {
-    width: 40px; height: 40px;
-    border-radius: 50%; background: var(--blue);
+  .who-card-4:hover {
+    border-color: rgba(40,123,232,0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(16,16,20,0.08);
+  }
+  .who-card-4:hover::before { opacity: 1; }
+  .who-card-4-icon {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--blue);
     display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
     flex-shrink: 0;
   }
-  .who-card-title-icon svg {
-    width: 20px; height: 20px;
-    stroke: #fff; fill: none;
-    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  .who-card-4-title {
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--dark);
+    margin-bottom: 10px;
+    line-height: 1.3;
   }
-  .who-list { display: flex; flex-direction: column; gap: 12px; }
-  .who-list-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--grey-mid); line-height: 1.5; }
-  .who-list-item .icon-check { color: var(--blue); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-  .who-dont-need {
-    grid-column: span 2;
-    background: var(--dark);
-    border-radius: var(--radius);
-    padding: 36px 40px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+  .who-card-4-desc {
+    font-size: 14px;
+    color: var(--grey-mid);
+    line-height: 1.65;
   }
-  .who-dont-need-col h3 { font-weight: 800; font-size: 17px; margin-bottom: 16px; }
-  .who-dont-need-col.left h3 { color: rgba(255,255,255,0.5); }
-  .who-dont-need-col.right h3 { color: var(--mint); }
-  .who-dont-need-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.5; margin-bottom: 10px; }
-  .who-dont-need-col.left .who-dont-need-item { color: rgba(255,255,255,0.55); }
-  .who-dont-need-col.right .who-dont-need-item { color: rgba(255,255,255,0.8); }
-  .who-dont-need-col.left .who-dont-need-item::before { content: '✗'; color: #f87171; font-weight: 700; flex-shrink: 0; }
-  .who-dont-need-col.right .who-dont-need-item::before { content: '✓'; color: var(--mint); font-weight: 700; flex-shrink: 0; }
-
-  /* ─── MEET THE FOUNDER ─────────────────────────────── */
-  .founder { background: var(--white); }
-  .founder-inner { display: grid; grid-template-columns: 380px 1fr; gap: 64px; align-items: center; }
-  .founder-img-wrap {
-    position: relative; border-radius: var(--radius); overflow: hidden;
-    aspect-ratio: 3/4; box-shadow: 0 24px 64px rgba(16,16,20,0.12);
-  }
-  .founder-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
-  .founder-img-wrap::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-    height: 40%; background: linear-gradient(to top, rgba(16,16,20,0.5), transparent); pointer-events: none;
-  }
-  .founder-name { font-family: var(--font-display); font-size: clamp(28px, 4vw, 42px); font-weight: 900; letter-spacing: -0.02em; color: var(--dark); margin-bottom: 4px; }
-  .founder-role { font-size: 14px; font-weight: 700; color: var(--blue); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 24px; }
-  .founder-bio { font-size: 16px; color: var(--grey-mid); line-height: 1.75; margin-bottom: 16px; }
-  .founder-bio strong { color: var(--dark); }
-  .founder-quote { margin-top: 28px; padding: 24px 28px; background: var(--tint); border-left: 3px solid var(--blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
-  .founder-quote p { font-size: 16px; font-style: italic; color: var(--dark); line-height: 1.65; }
-  .founder-stats { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
-  .founder-stat-num { font-family: var(--font-display); font-size: 28px; font-weight: 900; color: var(--blue); letter-spacing: -0.02em; }
-  .founder-stat-label { font-size: 12px; color: var(--grey-mid); line-height: 1.4; max-width: 100px; }
-
-  /* ─── TESTIMONIALS ─────────────────────────────────── */
-  .testimonials { background: var(--white); overflow: hidden; }
-  .testimonials-header { margin-bottom: 48px; }
-  .testimonials-viewport {
-    overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
-  }
-  .testimonials-viewport::-webkit-scrollbar { display: none; }
-  .testimonials-track { display: flex; gap: 24px; padding: 8px 0 16px; }
-  .testimonial-card {
-    flex: 0 0 500px;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
-    background: var(--tint);
-    border: 1px solid var(--tint-deep);
-    border-radius: var(--radius);
-    padding: 32px;
-    position: relative; overflow: hidden;
-    transition: opacity 0.35s ease, transform 0.35s ease;
-  }
-  .testimonial-card:not(.active) { opacity: 0.42; transform: scale(0.96); }
-  .testimonial-card.active { opacity: 1; transform: scale(1); }
-  .testimonial-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0;
-    height: 2px; background: linear-gradient(90deg, var(--blue), transparent);
-    opacity: 0; transition: var(--transition);
-  }
-  .testimonial-card:hover { border-color: rgba(40,123,232,0.3); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(16,16,20,0.08); }
-  .testimonial-card:hover::before { opacity: 1; }
-  .testimonial-quote { font-size: 42px; color: var(--blue); line-height: 1; font-family: Georgia, serif; margin-bottom: 16px; display: block; }
-  .testimonial-text { font-size: 14.5px; line-height: 1.7; color: var(--grey-mid); margin-bottom: 24px; }
-  .testimonial-person { display: flex; align-items: center; gap: 14px; }
-  .testimonial-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid var(--tint-deep); flex-shrink: 0; }
-  .testimonial-name { font-weight: 700; font-size: 14px; color: var(--dark); line-height: 1.3; }
-  .testimonial-role { font-size: 12px; color: var(--grey-mid); line-height: 1.4; }
-  .testimonials-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 32px; }
-  .testimonials-dots { display: flex; gap: 8px; align-items: center; }
-  .testimonials-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--tint-deep); border: none; cursor: pointer; padding: 0; transition: var(--transition);
-  }
-  .testimonials-dot.active { width: 24px; border-radius: 4px; background: var(--blue); }
-  .testimonials-arrows { display: flex; gap: 10px; }
-  .testimonials-arrow {
-    width: 44px; height: 44px; border-radius: 50%;
-    border: 1.5px solid var(--tint-deep); background: var(--white);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: var(--transition); color: var(--dark); flex-shrink: 0;
-  }
-  .testimonials-arrow:hover { border-color: var(--blue); background: var(--blue); color: #fff; }
-  .testimonials-arrow svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
   /* ─── AUDIT CTA ────────────────────────────────────── */
   .audit-cta { background: var(--blue); position: relative; overflow: hidden; padding: 96px 0; }
@@ -860,8 +784,8 @@
   /* ─── RESPONSIVE ────────────────────────────────────── */
   @media (max-width: 1024px) {
     .footer-top { grid-template-columns: 1fr 1fr; }
-    .founder-inner { grid-template-columns: 300px 1fr; gap: 48px; }
     .choice-grid { grid-template-columns: 1fr; max-width: 520px; }
+    .who-grid-4 { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 768px) {
     .section { padding: 64px 0; }
@@ -871,11 +795,7 @@
     .page-hero-right { justify-content: center; }
     .page-hero-img-wrap { max-width: 100%; }
     .problem-grid { grid-template-columns: 1fr; }
-    .who-grid { grid-template-columns: 1fr; }
-    .who-grid { grid-template-columns: 1fr; }
-    .who-dont-need { grid-column: span 1; grid-template-columns: 1fr; gap: 24px; }
-    .founder-inner { grid-template-columns: 1fr; gap: 40px; }
-    .founder-img-wrap { max-width: 340px; margin: 0 auto; aspect-ratio: 1/1; }
+    .who-grid-4 { grid-template-columns: repeat(2, 1fr); }
     .audit-inner { flex-direction: column; align-items: flex-start; flex-wrap: wrap; }
     .audit-cta-btn { width: 100%; }
     .audit-cta-btn .btn { width: 100%; justify-content: center; }
@@ -885,13 +805,12 @@
     .timeline-step { grid-template-columns: 48px 1fr; gap: 20px; }
     .timeline-dot { width: 48px; height: 48px; }
     .timeline-card { padding: 24px; }
-    .founder-stats { gap: 20px; }
     .comparison-table th, .comparison-table td { padding: 14px 16px; }
   }
   @media (max-width: 480px) {
-    .testimonial-card { flex: 0 0 300px; }
     .page-hero-title { font-size: 32px; }
     .choice-card { padding: 28px 20px; }
+    .who-grid-4 { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -1233,155 +1152,34 @@
       <p class="section-sub" style="margin-top:16px">This service is built for a specific company at a specific stage. Four signals that it's the right call for you.</p>
     </div>
 
-    <div class="who-grid">
-      <div class="who-card reveal" style="grid-column: span 2; max-width: 720px;">
-        <div class="who-card-title">
-          <div class="who-card-title-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
-          This Is For You If...
+    <div class="who-grid-4">
+      <div class="who-card-4 reveal">
+        <div class="who-card-4-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="#fff" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
         </div>
-        <div class="who-list">
-          <div class="who-list-item"><span class="icon-check">✓</span><span>You have 50–1,000 employees and need AI leadership now, not in 12 months</span></div>
-          <div class="who-list-item"><span class="icon-check">✓</span><span>You're a growth-stage startup (Series B/C) where every hire is high-stakes</span></div>
-          <div class="who-list-item"><span class="icon-check">✓</span><span>You've been burned by previous AI hires or initiatives that didn't work out</span></div>
-          <div class="who-list-item"><span class="icon-check">✓</span><span>A $300K annual salary isn't stage-appropriate for your company yet</span></div>
-        </div>
+        <div class="who-card-4-title">50–1,000 Employees</div>
+        <p class="who-card-4-desc">You need AI leadership now, not after a 12-month hiring process.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ MEET THE FOUNDER ════════════════════════════════════ -->
-<section class="founder section" id="founder">
-  <div class="container">
-    <div class="founder-inner">
-      <div class="founder-img-wrap reveal">
-        <img src="/services/images/services-your-first-ai-hire-Dave Hajdu.jpeg" alt="Dave Hajdu — Founder, Edge8 AI" />
+      <div class="who-card-4 reveal">
+        <div class="who-card-4-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="#fff" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <div class="who-card-4-title">Growth-Stage Startups</div>
+        <p class="who-card-4-desc">Series B/C companies where every hire is high-stakes and mis-hires are costly.</p>
       </div>
-      <div class="founder-content reveal">
-        <span class="section-label">Your Fractional CAIO</span>
-        <div class="founder-name">Dave Hajdu</div>
-        <div class="founder-role">Founder &amp; Chief AI Officer (CAIO), Edge8 AI</div>
-        <p class="founder-bio"><strong>8 years building AI implementations.</strong> Dave has led AI strategy for companies across Southeast Asia, the US, and beyond — from growth-stage startups to established enterprises navigating their first serious AI programs.</p>
-        <p class="founder-bio">Co-Founder of TINYpulse (acquired by WebMD). Microsoft alum. Co-Founder of AI Officer Institute. EO Leader for 500+ SEA businesses. He's been on both sides of the CAIO hire — and built this service because he saw too many companies get it wrong.</p>
-        <div class="founder-quote">
-          <p>"The question isn't whether you need AI leadership. It's whether you need it full-time right now. Most companies don't — and hiring too early is how $300K disappears with nothing to show for it."</p>
+      <div class="who-card-4 reveal">
+        <div class="who-card-4-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="#fff" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
-        <div class="founder-stats">
-          <div class="founder-stat">
-            <div class="founder-stat-num">8yr</div>
-            <div class="founder-stat-label">AI implementation experience</div>
-          </div>
-          <div class="founder-stat">
-            <div class="founder-stat-num">1000s</div>
-            <div class="founder-stat-label">Trained via AI Officer Institute</div>
-          </div>
-          <div class="founder-stat">
-            <div class="founder-stat-num">500+</div>
-            <div class="founder-stat-label">SEA businesses led as EO Leader</div>
-          </div>
-        </div>
+        <div class="who-card-4-title">Burned Before</div>
+        <p class="who-card-4-desc">Companies that have had AI hires or initiatives that didn't deliver results.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ TESTIMONIALS ═══════════════════════════════════════ -->
-<section class="testimonials section" id="testimonials">
-  <div class="container">
-    <div class="testimonials-header reveal">
-      <span class="section-label">Testimonials</span>
-      <h2 class="section-title">Trusted by Leaders Worldwide</h2>
-    </div>
-  </div>
-  <div class="container" style="overflow:visible">
-    <div class="testimonials-viewport">
-      <div class="testimonials-track">
-
-        <div class="testimonial-card">
-          <span class="testimonial-quote">"</span>
-          <p class="testimonial-text">I invited Dave to speak at the AI Summit in Sabah, and he was a natural on stage, bringing a fresh style the audience loved. We are looking forward to collaborating with the AI Officer Institute and Edge8 to bring their AI Certification Program to Malaysia.</p>
-          <div class="testimonial-person">
-            <img src="/services/images/services-your-first-ai-hire-testimonials_Dato.jpg" alt="Dato George Lim" class="testimonial-avatar" />
-            <div>
-              <div class="testimonial-name">Dato George Lim</div>
-              <div class="testimonial-role">Founder &amp; CEO — G&amp;A GROUP &amp; GA SPACE</div>
-            </div>
-          </div>
+      <div class="who-card-4 reveal">
+        <div class="who-card-4-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="#fff" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
         </div>
-
-        <div class="testimonial-card">
-          <span class="testimonial-quote">"</span>
-          <p class="testimonial-text">We were lucky enough to have Dave Hajdu work with our forum to help understand how AI is automating tasks and exploding output across a wide range of applications. He was able to greatly expand our general knowledge of AI and demystify the challenges of implementation. I highly recommend Edge8.ai as a YPO resource.</p>
-          <div class="testimonial-person">
-            <img src="/services/images/services-your-first-ai-hire-testimonials_John.jpg" alt="John VanNewkirk" class="testimonial-avatar" />
-            <div>
-              <div class="testimonial-name">John VanNewkirk</div>
-              <div class="testimonial-role">YPO Gold Seattle, Forum 6</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card">
-          <span class="testimonial-quote">"</span>
-          <p class="testimonial-text">I am very grateful to Dave Hajdu, who spoke to graduate students in our international business and public policy program during our visit to Vietnam about Negotiations and AI. He was extremely knowledgeable and engaging. Real-world experiences complemented our class discussions perfectly.</p>
-          <div class="testimonial-person">
-            <img src="/services/images/services-your-first-ai-hire-testimonials_Dr Holtom.jpg" alt="Dr. Brooks Holtom" class="testimonial-avatar" />
-            <div>
-              <div class="testimonial-name">Dr. Brooks Holtom</div>
-              <div class="testimonial-role">Professor of Management, Georgetown</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card">
-          <span class="testimonial-quote">"</span>
-          <p class="testimonial-text">Love the new look and branding. The website looks so good. I'm deeply grateful. The brand interview really made me think about our positioning and business in ways I never expected.</p>
-          <div class="testimonial-person">
-            <img src="/services/images/services-your-first-ai-hire-testimonials_Dao Nguyen.jpg" alt="Dao Nguyen" class="testimonial-avatar" />
-            <div>
-              <div class="testimonial-name">Dao Nguyen</div>
-              <div class="testimonial-role">Founder, DN Legal</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card">
-          <span class="testimonial-quote">"</span>
-          <p class="testimonial-text">I can't stop looking at the new website and brand book. With Edge8's help, we're finally presenting ourselves the way we've always wanted. The speed, the quality, and the care were all top-notch.</p>
-          <div class="testimonial-person">
-            <img src="/services/images/services-your-first-ai-hire-testimonials_Tuan Anh.jpg" alt="Tuan Anh Le" class="testimonial-avatar" />
-            <div>
-              <div class="testimonial-name">Tuan Anh Le</div>
-              <div class="testimonial-role">Managing Partner, DN Legal</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card">
-          <span class="testimonial-quote">"</span>
-          <p class="testimonial-text">Working with Edge8 has been a pleasure. When I launched Fab Four Academy, I needed support to build a strong brand and digital presence. Dave and the team at Edge8 stepped in and not only helped with the branding and digital presence, but showed us how to leverage AI to streamline our processes.</p>
-          <div class="testimonial-person">
-            <img src="/services/images/services-your-first-ai-hire-testimonials_Dan Absher.jpg" alt="Dan Absher" class="testimonial-avatar" />
-            <div>
-              <div class="testimonial-name">Dan Absher</div>
-              <div class="testimonial-role">CEO, Absher Construction Company</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="testimonials-nav">
-      <div class="testimonials-dots" id="testimonialDots"></div>
-      <div class="testimonials-arrows">
-        <button class="testimonials-arrow" id="testimonialPrev" aria-label="Previous">
-          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <button class="testimonials-arrow" id="testimonialNext" aria-label="Next">
-          <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
-        </button>
+        <div class="who-card-4-title">Not Yet $300K Ready</div>
+        <p class="who-card-4-desc">Organizations where a full-time CAIO salary isn't stage-appropriate yet.</p>
       </div>
     </div>
   </div>
@@ -1541,101 +1339,6 @@
     nav.style.background = window.scrollY > 50 ? 'rgba(255,255,255,0.99)' : 'rgba(255,255,255,0.97)';
   });
 
-  // ── Testimonials seamless looping slider
-  (function() {
-    const viewport = document.querySelector('.testimonials-viewport');
-    const track = document.querySelector('.testimonials-track');
-    const dotsContainer = document.getElementById('testimonialDots');
-    const prevBtn = document.getElementById('testimonialPrev');
-    const nextBtn = document.getElementById('testimonialNext');
-    if (!viewport || !track) return;
-
-    const origCards = Array.from(track.querySelectorAll('.testimonial-card'));
-    const total = origCards.length;
-    let current = 0;
-
-    [...origCards].reverse().forEach(c => {
-      const clone = c.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true');
-      track.prepend(clone);
-    });
-    origCards.forEach(c => {
-      const clone = c.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true');
-      track.append(clone);
-    });
-
-    const allCards = Array.from(track.querySelectorAll('.testimonial-card'));
-
-    origCards.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'testimonials-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-      dot.addEventListener('click', () => goTo(i, true));
-      dotsContainer.appendChild(dot);
-    });
-
-    function cardScrollLeft(idx) {
-      const card = allCards[idx];
-      return card.offsetLeft - (viewport.offsetWidth / 2 - card.offsetWidth / 2);
-    }
-
-    function scrollTo(idx, smooth) {
-      const left = cardScrollLeft(idx);
-      if (smooth) { viewport.scrollTo({ left, behavior: 'smooth' }); }
-      else { viewport.scrollLeft = left; }
-    }
-
-    function updateUI() {
-      allCards.forEach((c, i) => c.classList.toggle('active', i % total === current));
-      dotsContainer.querySelectorAll('.testimonials-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-    }
-
-    function goTo(realIdx, fromDot = false) {
-      const from = current;
-      current = ((realIdx % total) + total) % total;
-      updateUI();
-
-      let targetIdx = current + total;
-      let needsJump = false;
-
-      if (!fromDot) {
-        if (from === total - 1 && current === 0) { targetIdx = current + total * 2; needsJump = true; }
-        else if (from === 0 && current === total - 1) { targetIdx = current; needsJump = true; }
-      }
-
-      if (needsJump) {
-        scrollTo(targetIdx, false);
-        requestAnimationFrame(() => requestAnimationFrame(() => scrollTo(current + total, true)));
-      } else {
-        scrollTo(targetIdx, true);
-      }
-    }
-
-    // Init
-    scrollTo(current + total, false);
-    updateUI();
-
-    prevBtn.addEventListener('click', () => goTo(current - 1));
-    nextBtn.addEventListener('click', () => goTo(current + 1));
-
-    let scrollTimer;
-    viewport.addEventListener('scroll', () => {
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => {
-        const center = viewport.scrollLeft + viewport.offsetWidth / 2;
-        let closest = 0, minDist = Infinity;
-        allCards.forEach((c, i) => {
-          const dist = Math.abs(c.offsetLeft + c.offsetWidth / 2 - center);
-          if (dist < minDist) { minDist = dist; closest = i; }
-        });
-        const realIdx = closest % total;
-        if (realIdx !== current) { current = realIdx; updateUI(); }
-        if (closest < total) { scrollTo(closest + total, false); }
-        else if (closest >= total * 2) { scrollTo(closest - total, false); }
-      }, 80);
-    });
-  })();
 </script>
 </body>
 </html>
