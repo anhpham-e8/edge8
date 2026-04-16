@@ -7,14 +7,14 @@
 <style>
   @font-face {
     font-family: 'SVN-Gilroy';
-    src: url('../fonts/SVN-Gilroy SemiBold.otf') format('opentype');
+    src: url('/fonts/SVN-Gilroy SemiBold.otf') format('opentype');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
     font-family: 'SVN-Gilroy';
-    src: url('../fonts/SVN-Gilroy Regular.otf') format('opentype');
+    src: url('/fonts/SVN-Gilroy Regular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -117,23 +117,25 @@
     box-shadow: 0 8px 28px rgba(16,16,20,0.25);
   }
   .btn-mint {
-    background: var(--mint);
-    color: var(--dark);
+    background: var(--dark);
+    color: #fff;
     font-weight: 800;
   }
   .btn-mint:hover {
-    background: #82f5cb;
+    background: #1A1A2E;
     transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(111,242,193,0.35);
+    box-shadow: 0 8px 28px rgba(16,16,20,0.3);
   }
   .btn-outline {
-    background: transparent;
-    color: var(--blue);
-    border: 1.5px solid var(--blue);
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    font-weight: 700;
   }
   .btn-outline:hover {
-    background: var(--blue-glow);
+    background: var(--blue-bright);
     transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(40,123,232,0.35);
   }
   .btn-ghost {
     background: transparent;
@@ -302,65 +304,64 @@
   .mobile-menu .btn { width: 100%; justify-content: center; margin-top: 12px; color: #fff !important; }
   .mobile-menu .btn-primary:hover { background: var(--blue); box-shadow: 0 8px 28px rgba(40,123,232,0.25); }
 
-  /* ─── PAGE HERO (dark navy) ──────────────────────── */
+  /* ─── PAGE HERO (white, matches homepage) ─────────── */
   .page-hero {
-    background: var(--dark);
-    position: relative;
+    background: var(--white);
+    padding-top: 68px;
     overflow: hidden;
-    padding: 140px 0 80px;
-    min-height: 600px;
-    display: flex;
-    align-items: center;
+    position: relative;
   }
-  .page-hero::before {
-    content: '';
+  .page-hero-bg {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 55% 60% at 70% 40%, rgba(40,123,232,0.18) 0%, transparent 65%),
-      radial-gradient(ellipse 40% 50% at 10% 70%, rgba(111,242,193,0.09) 0%, transparent 60%);
+      radial-gradient(ellipse 55% 60% at 75% 30%, rgba(40,123,232,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 35% 45% at 5% 85%, rgba(111,242,193,0.07) 0%, transparent 60%);
     pointer-events: none;
   }
   .page-hero-grid {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(16,16,20,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16,16,20,0.03) 1px, transparent 1px);
     background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+    pointer-events: none;
   }
   .page-hero-inner {
-    position: relative;
-    z-index: 2;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 64px;
     align-items: center;
+    padding: 80px 0 80px;
+    position: relative;
+    z-index: 1;
   }
   .page-hero-left { display: flex; flex-direction: column; }
   .page-hero-eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--mint);
+    color: var(--blue);
     margin-bottom: 24px;
-    padding: 8px 16px;
-    background: rgba(111,242,193,0.1);
-    border: 1px solid rgba(111,242,193,0.25);
+    padding: 7px 14px;
+    background: rgba(40,123,232,0.08);
+    border: 1px solid rgba(40,123,232,0.22);
     border-radius: 100px;
     width: fit-content;
   }
   .page-hero-eyebrow::before {
     content: '';
     width: 6px; height: 6px;
-    background: var(--mint);
+    background: var(--blue);
     border-radius: 50%;
     animation: pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
   }
   @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
@@ -368,33 +369,40 @@
   }
   .page-hero-headline {
     font-family: var(--font-display);
-    font-size: clamp(36px, 5.5vw, 62px);
+    font-size: clamp(36px, 5vw, 58px);
     font-weight: 900;
-    line-height: 1.0;
-    letter-spacing: -0.03em;
-    color: var(--white);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--dark);
     margin-bottom: 20px;
   }
-  .page-hero-headline .accent { color: var(--mint); }
+  .page-hero-headline .accent { color: var(--blue); }
   .page-hero-sub {
-    font-size: clamp(16px, 1.8vw, 18px);
-    color: rgba(255,255,255,0.65);
-    line-height: 1.65;
+    font-size: clamp(16px, 1.8vw, 17px);
+    color: var(--grey-mid);
+    line-height: 1.7;
     max-width: 540px;
     margin-bottom: 36px;
+  }
+  .page-hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
   }
   .page-hero-right {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
   }
   .page-hero-img-wrap {
     position: relative;
     width: 100%;
+    max-width: 560px;
     border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
-    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 24px 64px rgba(16,16,20,0.12);
+    border: 1px solid var(--tint-deep);
   }
   .page-hero-img-wrap img {
     width: 100%;
@@ -402,11 +410,15 @@
     object-fit: cover;
     display: block;
   }
-  .page-hero-img-overlay {
+  .page-hero-img-wrap::after {
+    content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(40,123,232,0.15) 0%, transparent 60%);
+    background: linear-gradient(135deg, rgba(40,123,232,0.08) 0%, transparent 60%);
     pointer-events: none;
+  }
+  .page-hero-img-overlay {
+    display: none;
   }
   .page-hero-badge {
     position: absolute;
@@ -516,7 +528,7 @@
 
   /* ─── PRICING TIERS ──────────────────────────────── */
   .pricing-section {
-    background: var(--tint);
+    background: var(--white);
     padding: 96px 0;
   }
   .pricing-header { margin-bottom: 56px; }
@@ -774,7 +786,7 @@
 
   /* ─── AUDIT INTAKE FORM ──────────────────────────── */
   .form-section {
-    background: var(--tint);
+    background: var(--white);
     padding: 96px 0;
   }
   .form-inner {
@@ -798,18 +810,24 @@
     gap: 14px;
   }
   .form-value-icon {
-    width: 36px;
-    height: 36px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
-    background: rgba(40,123,232,0.1);
-    border: 1px solid rgba(40,123,232,0.2);
+    background: var(--blue);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    font-size: 15px;
-    color: var(--blue);
     margin-top: 2px;
+  }
+  .form-value-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
   .form-value-text {
     font-size: 14px;
@@ -1033,7 +1051,6 @@
     background: var(--blue);
     position: relative;
     overflow: hidden;
-    padding: 96px 0;
   }
   .cta-section::before {
     content: '';
@@ -1043,27 +1060,21 @@
     background: radial-gradient(circle, rgba(111,242,193,0.18) 0%, transparent 70%);
     pointer-events: none;
   }
-  .cta-section::after {
-    content: '';
-    position: absolute;
-    bottom: -80px; left: -80px;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(16,16,20,0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
   .cta-inner {
     position: relative;
     z-index: 1;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 48px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
-  .cta-text .section-title { color: var(--white); margin-bottom: 12px; }
-  .cta-text p { font-size: 16px; color: rgba(255,255,255,0.75); max-width: 520px; line-height: 1.65; }
-  .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-  .cta-actions .btn { padding: 18px 36px; font-size: 15px; }
+  .cta-text { flex: 1 1 0; text-align: left; }
+  .cta-text .section-title { color: var(--white); margin-bottom: 12px; text-align: left; }
+  .cta-text p { font-size: 16px; color: rgba(255,255,255,0.75); max-width: 560px; line-height: 1.65; text-align: left; }
+  .cta-actions { flex-shrink: 0; display: flex; flex-direction: column; gap: 12px; align-items: stretch; min-width: 300px; }
+  .cta-actions .btn { padding: 18px 36px; font-size: 15px; white-space: nowrap; width: 100%; justify-content: center; }
 
   /* ─── FOOTER ────────────────────────────────────── */
   footer {
@@ -1123,8 +1134,9 @@
   }
   @media (max-width: 768px) {
     .section { padding: 64px 0; }
-    .page-hero { padding: 110px 0 60px; min-height: unset; }
-    .page-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .page-hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 56px 0 48px; }
+    .page-hero-right { justify-content: center; }
+    .page-hero-img-wrap { max-width: 100%; }
     .page-hero-img-wrap img { height: 280px; }
     .problem-section { padding: 64px 0; }
     .problem-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -1141,7 +1153,9 @@
     .nav-hamburger { display: flex; }
     .testimonial-card { flex: 0 0 300px; }
     .cta-section { padding: 64px 0; }
-    .cta-inner { flex-direction: column; align-items: flex-start; }
+    .cta-inner { flex-direction: column; align-items: flex-start; flex-wrap: wrap; }
+    .cta-actions { width: 100%; }
+    .cta-actions .btn { width: 100%; justify-content: center; }
     .footer-top { grid-template-columns: 1fr; }
     .footer-bottom { flex-direction: column; align-items: flex-start; }
     input, select, textarea { font-size: 16px; }
@@ -1154,14 +1168,14 @@
   }
 </style>
 </head>
-<body>
+<body id="top">
 
 <!-- ═══ NAV ═══════════════════════════════════════════════ -->
 <nav id="navbar">
   <div class="container">
     <div class="nav-inner">
-      <a href="../homepage/index.html" class="nav-logo">
-        <img src="../logo.png" alt="Edge8" />
+      <a href="/" class="nav-logo">
+        <img src="/logo.png" alt="Edge8" />
       </a>
 
       <ul class="nav-links">
@@ -1173,7 +1187,7 @@
           </button>
           <div class="dropdown">
             <a href="https://www.ai-officer.com/ai-in-business-events">AI in Business Workshop</a>
-            <a href="https://www.edge8.ai/your-first-ai-hire">Your First AI Hire</a>
+            <a href="/your-first-ai-hire">Your First AI Hire</a>
             <a href="https://www.edge8.ai/ai-capabilities-audit">AI Capabilities Audit</a>
             <a href="https://www.edge8.ai/caio-leadership">CAIO Leadership</a>
             <a href="https://www.edge8.ai/global-staffing">Global Staffing</a>
@@ -1241,6 +1255,7 @@
 
 <!-- ═══ PAGE HERO ══════════════════════════════════════════ -->
 <section class="page-hero" id="hero">
+  <div class="page-hero-bg"></div>
   <div class="page-hero-grid"></div>
   <div class="container">
     <div class="page-hero-inner">
@@ -1253,8 +1268,8 @@
         <p class="page-hero-sub">
           The AI Capabilities Audit uncovers the exact gaps holding your AI performance back — and shows you how to fix them so you can scale AI that actually delivers measurable results.
         </p>
-        <div>
-          <a href="#audit-form" class="btn btn-mint" style="padding:18px 36px;font-size:15px;">
+        <div class="page-hero-actions">
+          <a href="#audit-form" class="btn btn-primary" style="padding:18px 36px;font-size:15px;">
             Get Your AI Audit &rarr;
           </a>
         </div>
@@ -1262,7 +1277,7 @@
 
       <div class="page-hero-right reveal" data-delay="120">
         <div class="page-hero-img-wrap">
-          <img src="images/services-ai-capabilities-audit-hero.jpg" alt="AI Capabilities Audit — Edge8" />
+          <img src="/services/images/services-ai-capabilities-audit-hero.jpg" alt="AI Capabilities Audit — Edge8" />
           <div class="page-hero-img-overlay"></div>
           <div class="page-hero-badge">
             <div class="page-hero-badge-num">95%</div>
@@ -1469,19 +1484,27 @@
         <p class="section-sub" style="margin-top:12px">Tell us where you are and what you're trying to achieve. We'll match you with the right audit tier and reach out within one business day.</p>
         <div class="form-value-list">
           <div class="form-value-item">
-            <div class="form-value-icon">&#10003;</div>
+            <div class="form-value-icon">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
             <div class="form-value-text"><strong>No obligation.</strong> The intake form is the first step — we'll talk before any commitment is made.</div>
           </div>
           <div class="form-value-item">
-            <div class="form-value-icon">&#10003;</div>
+            <div class="form-value-icon">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </div>
             <div class="form-value-text"><strong>Tailored to you.</strong> Every audit is scoped to your organization's size, maturity, and goals.</div>
           </div>
           <div class="form-value-item">
-            <div class="form-value-icon">&#10003;</div>
+            <div class="form-value-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
             <div class="form-value-text"><strong>Fast turnaround.</strong> Audit engagements begin within two weeks of kickoff.</div>
           </div>
           <div class="form-value-item">
-            <div class="form-value-icon">&#10003;</div>
+            <div class="form-value-icon">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
             <div class="form-value-text"><strong>Real results.</strong> We've helped leaders across industries align their teams and capture measurable AI ROI.</div>
           </div>
         </div>
@@ -1584,7 +1607,7 @@
           <span class="testimonial-quote">"</span>
           <p class="testimonial-text">I invited Dave to speak at the AI Summit in Sabah, and he was a natural on stage, bringing a fresh style the audience loved. We are looking forward to collaborating with the AI Officer Institute and Edge8 to bring their AI Certification Program to Malaysia and have signed an MOU to broaden the reach of our organization.</p>
           <div class="testimonial-person">
-            <img src="images/services-ai-capabilities-audit-testimonials-Dato.jpg" alt="Dato George Lim" class="testimonial-avatar" />
+            <img src="/services/images/services-ai-capabilities-audit-testimonials-Dato.jpg" alt="Dato George Lim" class="testimonial-avatar" />
             <div>
               <div class="testimonial-name">Dato George Lim</div>
               <div class="testimonial-role">Founder &amp; CEO — G&amp;A GROUP &amp; GA SPACE</div>
@@ -1596,7 +1619,7 @@
           <span class="testimonial-quote">"</span>
           <p class="testimonial-text">We were lucky enough to have Dave Hajdu work with our forum to help understand how AI is automating tasks and exploding output across a wide range of applications. He was able to greatly expand our general knowledge of AI and demystify the challenges of implementation. I highly recommend Edge8.ai as a YPO resource.</p>
           <div class="testimonial-person">
-            <img src="../homepage/images/home-page-testimonials-John.jpg" alt="John VanNewkirk" class="testimonial-avatar" />
+            <img src="/services/images/services-ai-capabilities-audit-testimonials-John.jpg" alt="John VanNewkirk" class="testimonial-avatar" />
             <div>
               <div class="testimonial-name">John VanNewkirk</div>
               <div class="testimonial-role">YPO Gold Seattle, Forum 6</div>
@@ -1608,7 +1631,7 @@
           <span class="testimonial-quote">"</span>
           <p class="testimonial-text">I am very grateful to Dave Hajdu, who spoke to graduate students in our international business and public policy program during our visit to Vietnam about Negotiations and AI. He was extremely knowledgeable and engaging. Real-world experiences complemented our class discussions perfectly.</p>
           <div class="testimonial-person">
-            <img src="../homepage/images/home-page-testimonials-Dr Holtom.jpg" alt="Dr. Brooks Holtom" class="testimonial-avatar" />
+            <img src="/services/images/services-ai-capabilities-audit-testimonials-Dr Holtom.jpg" alt="Dr. Brooks Holtom" class="testimonial-avatar" />
             <div>
               <div class="testimonial-name">Dr. Brooks Holtom</div>
               <div class="testimonial-role">Professor of Management, Georgetown</div>
@@ -1620,7 +1643,7 @@
           <span class="testimonial-quote">"</span>
           <p class="testimonial-text">Love the new look and branding. The website looks so good. I'm deeply grateful. The brand interview really made me think about our positioning and business in ways I never expected.</p>
           <div class="testimonial-person">
-            <img src="../homepage/images/home-page-testimonials-Dao Nguyen.jpg" alt="Dao Nguyen" class="testimonial-avatar" />
+            <img src="/services/images/services-ai-capabilities-audit-testimonials-Dao Nguyen.jpg" alt="Dao Nguyen" class="testimonial-avatar" />
             <div>
               <div class="testimonial-name">Dao Nguyen</div>
               <div class="testimonial-role">Founder, DN Legal</div>
@@ -1632,7 +1655,7 @@
           <span class="testimonial-quote">"</span>
           <p class="testimonial-text">I can't stop looking at the new website and brand book. With Edge8's help, we're finally presenting ourselves the way we've always wanted. The speed, the quality, and the care were all top-notch. Everything is just amazing.</p>
           <div class="testimonial-person">
-            <img src="../homepage/images/home-page-testimonials-Tuan Anh.jpg" alt="Tuan Anh Le" class="testimonial-avatar" />
+            <img src="/services/images/services-ai-capabilities-audit-testimonials-Tuan Anh.jpg" alt="Tuan Anh Le" class="testimonial-avatar" />
             <div>
               <div class="testimonial-name">Tuan Anh Le</div>
               <div class="testimonial-role">Managing Partner, DN Legal</div>
@@ -1644,7 +1667,7 @@
           <span class="testimonial-quote">"</span>
           <p class="testimonial-text">Working with Edge8 has been a pleasure. Dave and the team at Edge8 stepped in and not only helped with the branding and digital presence, but showed us how to leverage AI to streamline our processes. With the help of Edge8 we have scaled from single posts to a full content engine while keeping true to our vision and voice.</p>
           <div class="testimonial-person">
-            <img src="../homepage/images/home-page-testimonials-Dan Absher.jpg" alt="Dan Absher" class="testimonial-avatar" />
+            <img src="/services/images/services-ai-capabilities-audit-testimonials-Dan Absher.jpg" alt="Dan Absher" class="testimonial-avatar" />
             <div>
               <div class="testimonial-name">Dan Absher</div>
               <div class="testimonial-role">CEO, Absher Construction Company</div>
@@ -1678,7 +1701,7 @@
         <p style="margin-top:12px">Stop leaving ROI on the table. The AI Capabilities Audit gives you the clarity, structure, and momentum to turn AI experiments into measurable business results.</p>
       </div>
       <div class="cta-actions reveal" data-delay="120">
-        <a href="#audit-form" class="btn btn-mint">Book Your Audit &rarr;</a>
+        <a href="#audit-form" class="btn btn-primary">Book Your Audit &rarr;</a>
         <a href="https://www.edge8.ai" class="btn btn-ghost">Schedule a Consultation</a>
       </div>
     </div>
@@ -1691,7 +1714,7 @@
     <div class="footer-top">
       <div>
         <div class="footer-logo">
-          <img src="../logo-white.png" alt="Edge8" />
+          <a href="#top"><img src="/logo-white.png" alt="Edge8" /></a>
         </div>
         <p class="footer-desc">AI Leadership, Automation &amp; Global Talent Solutions. Helping organizations become Tech-Forward and achieve 8x efficiency.</p>
         <div class="footer-social">
