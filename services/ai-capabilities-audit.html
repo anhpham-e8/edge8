@@ -1127,6 +1127,14 @@
   .footer-bottom-links a { font-size: 13px; color: var(--grey-mid); text-decoration: none; transition: var(--transition); }
   .footer-bottom-links a:hover { color: var(--tint); }
 
+  /* ─── BOTTOM LINE CALLOUT ───────────────────────── */
+  .bottom-line-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: center;
+  }
+
   /* ─── SCROLL ANIMATIONS ────────────────────────── */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: none; }
@@ -1163,6 +1171,8 @@
     .cta-actions .btn { width: 100%; justify-content: center; }
     .footer-top { grid-template-columns: 1fr; }
     .footer-bottom { flex-direction: column; align-items: flex-start; }
+    .bottom-line-inner { grid-template-columns: 1fr; }
+    .bottom-line-inner .btn { width: 100%; justify-content: center; }
     input, select, textarea { font-size: 16px; }
   }
   @media (max-width: 480px) {
@@ -1170,6 +1180,8 @@
     .stat-pullquote { padding: 32px 24px; }
     .pricing-card { padding: 28px 20px; }
     .form-card { padding: 28px 20px; }
+    .bottom-line-inner { grid-template-columns: 1fr; }
+    .bottom-line-inner .btn { width: 100%; justify-content: center; }
   }
 </style>
 </head>
@@ -1454,14 +1466,14 @@
     </div>
 
     <div style="margin-top:56px;padding:40px;background:var(--tint);border-radius:var(--radius);border:1px solid var(--tint-deep);" class="reveal">
-      <div style="display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;flex-wrap:wrap;">
+      <div class="bottom-line-inner">
         <div>
           <div style="font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">The Bottom Line</div>
           <p style="font-size:17px;color:var(--dark);font-weight:600;line-height:1.55;margin-bottom:8px;">AI success depends on readiness, strategy, and execution.</p>
           <p style="font-size:15px;color:var(--grey-mid);line-height:1.65;">The AI Capabilities Audit gives you the clarity, structure, and momentum to scale AI that works. Align your team. Fix your data gaps. Capture your next 12 months of AI opportunity.</p>
         </div>
         <div style="flex-shrink:0;">
-          <a href="#audit-form" class="btn btn-primary" style="padding:16px 32px;font-size:15px;white-space:nowrap;">Start Your Audit &rarr;</a>
+          <a href="#audit-form" class="btn btn-primary">Start Your Audit &rarr;</a>
         </div>
       </div>
     </div>
