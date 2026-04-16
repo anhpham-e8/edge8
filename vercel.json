@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/your-first-ai-hire", "destination": "/services/your-first-ai-hire.html" }
+  ]
+}
