@@ -735,8 +735,12 @@
     box-shadow: 0 0 0 6px var(--white), 0 0 0 10px rgba(40,123,232,0.3);
   }
   .how-step:last-child .how-step-num {
-    background: linear-gradient(135deg, var(--blue), var(--mint));
+    background: var(--mint);
     color: var(--dark);
+    box-shadow: 0 0 0 6px var(--white), 0 0 0 8px rgba(111,242,193,0.3);
+  }
+  .how-step:last-child:hover .how-step-num {
+    box-shadow: 0 0 0 6px var(--white), 0 0 0 10px rgba(111,242,193,0.5);
   }
   .how-step-body {}
   .how-step-level {
@@ -1051,6 +1055,7 @@
     background: var(--blue);
     position: relative;
     overflow: hidden;
+    padding: 96px 0;
   }
   .cta-section::before {
     content: '';
@@ -1179,7 +1184,6 @@
       </a>
 
       <ul class="nav-links">
-        <li><a href="../homepage/index.html">Home</a></li>
 
         <li>
           <button class="has-dropdown" aria-haspopup="true">
@@ -1221,7 +1225,6 @@
 
 <!-- ═══ MOBILE MENU ════════════════════════════════════════ -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="../homepage/index.html">Home</a>
 
   <div class="mobile-accordion" id="mobileServicesAccordion">
     <button class="mobile-accordion-toggle" onclick="toggleMobileAccordion('mobileServicesAccordion')">
@@ -1278,11 +1281,6 @@
       <div class="page-hero-right reveal" data-delay="120">
         <div class="page-hero-img-wrap">
           <img src="/services/images/services-ai-capabilities-audit-hero.jpg" alt="AI Capabilities Audit — Edge8" />
-          <div class="page-hero-img-overlay"></div>
-          <div class="page-hero-badge">
-            <div class="page-hero-badge-num">95%</div>
-            <div class="page-hero-badge-label">of companies see zero AI ROI — we fix that</div>
-          </div>
         </div>
       </div>
 
