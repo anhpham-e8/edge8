@@ -80,8 +80,9 @@
     .case-body-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; color: var(--grey-mid); line-height: 1.6; }
     .case-body-list li::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 7px; }
     .case-media { position: sticky; top: 96px; }
-    .case-img-wrap { border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 64px rgba(16,16,20,0.12); border: 1px solid var(--tint-deep); }
+    .case-img-wrap { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 64px rgba(16,16,20,0.12); border: 1px solid var(--tint-deep); }
     .case-img-wrap img { width: 100%; display: block; object-fit: cover; }
+    .case-img-stack { display: flex; flex-direction: column; gap: 16px; }
     .case-slider { border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 64px rgba(16,16,20,0.12); border: 1px solid var(--tint-deep); }
     .slider-track { display: flex; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
     .slide { min-width: 100%; position: relative; }
@@ -243,21 +244,14 @@
         </div>
 
         <div class="case-media">
-          <div class="case-slider">
-            <div class="slider-track" id="sliderTrack">
-              <div class="slide">
-                <img src="/case studies/business-websites/pho24/pho24-before.jpg" alt="PHO24 website before redesign" />
-                <div class="slide-label">Before</div>
-              </div>
-              <div class="slide">
-                <img src="/case studies/business-websites/pho24/pho24-after.jpg" alt="PHO24 website after redesign" />
-                <div class="slide-label">After</div>
-              </div>
+          <div class="case-img-stack">
+            <div class="case-img-wrap reveal">
+              <img src="/case studies/business-websites/pho24/pho24-before.jpg" alt="PHO24 website before redesign" />
+              <div class="slide-label">Before</div>
             </div>
-            <div class="slider-controls">
-              <button class="slider-btn" id="prevBtn">&#8592;</button>
-              <div class="slider-dots" id="sliderDots"></div>
-              <button class="slider-btn" id="nextBtn">&#8594;</button>
+            <div class="case-img-wrap reveal">
+              <img src="/case studies/business-websites/pho24/pho24-after.jpg" alt="PHO24 website after redesign" />
+              <div class="slide-label">After</div>
             </div>
           </div>
         </div>
@@ -271,7 +265,7 @@
       <h2 class="case-section-title" style="color:var(--dark);font-size:clamp(28px,4vw,40px);margin-bottom:0;">More Business Websites</h2>
       <div class="related-grid">
         <a href="/case-studies/vespa-adventures" class="related-card reveal">
-          <img src="../images/case studies-business website-Vespa Adventures.jpeg" alt="Vespa Adventures" class="related-card-img" />
+          <img src="/case studies/images/case studies-business website-Vespa Adventures.jpeg" alt="Vespa Adventures" class="related-card-img" />
           <div class="related-card-body">
             <div class="related-card-name">Vespa Adventures</div>
             <div class="related-card-sub">Rebuild Their Digital Experience to Drive Growth</div>
@@ -279,7 +273,7 @@
           </div>
         </a>
         <a href="/case-studies/investmigrate" class="related-card reveal">
-          <img src="../images/case studies-business website-InvestMigrate.jpeg" alt="InvestMigrate" class="related-card-img" />
+          <img src="/case studies/images/case studies-business website-InvestMigrate.jpeg" alt="InvestMigrate" class="related-card-img" />
           <div class="related-card-body">
             <div class="related-card-name">InvestMigrate</div>
             <div class="related-card-sub">Building a Trusted EB-3 Page That Converts</div>
@@ -287,7 +281,7 @@
           </div>
         </a>
         <a href="/case-studies/grady-golf" class="related-card reveal">
-          <img src="../images/case studies-business website-Grady Golf.jpeg" alt="Grady Golf" class="related-card-img" />
+          <img src="/case studies/images/case studies-business website-Grady Golf.jpeg" alt="Grady Golf" class="related-card-img" />
           <div class="related-card-body">
             <div class="related-card-name">Grady Golf</div>
             <div class="related-card-sub">Building a Beginner-First Golf Brand</div>
@@ -402,26 +396,6 @@
       const nav = document.getElementById('navbar');
       nav.style.background = window.scrollY > 50 ? 'rgba(255,255,255,0.99)' : 'rgba(255,255,255,0.97)';
     });
-    (function() {
-      const track = document.getElementById('sliderTrack');
-      const dotsContainer = document.getElementById('sliderDots');
-      if (!track) return;
-      const slides = track.querySelectorAll('.slide');
-      let current = 0;
-      slides.forEach((_, i) => {
-        const dot = document.createElement('div');
-        dot.className = 'dot' + (i === 0 ? ' active' : '');
-        dot.addEventListener('click', () => goTo(i));
-        dotsContainer.appendChild(dot);
-      });
-      function goTo(n) {
-        current = (n + slides.length) % slides.length;
-        track.style.transform = `translateX(-${current * 100}%)`;
-        dotsContainer.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
-      }
-      document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
-      document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
-    })();
   </script>
 </body>
 </html>
