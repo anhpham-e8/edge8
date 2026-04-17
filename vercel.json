@@ -2,6 +2,13 @@
   "rewrites": [
     { "source": "/your-first-ai-hire", "destination": "/services/your-first-ai-hire.html" },
     { "source": "/ai-capabilities-audit", "destination": "/services/ai-capabilities-audit.html" },
-    { "source": "/caio-leadership", "destination": "/services/caio-leadership.html" }
+    { "source": "/caio-leadership", "destination": "/services/caio-leadership.html" },
+    { "source": "/global-staffing", "destination": "/services/global-staffing.html" },
+    { "source": "/training-and-certification", "destination": "/services/training-and-certification.html" },
+    { "source": "/ai-programs", "destination": "/case studies/ai-programs.html" },
+    { "source": "/business-websites", "destination": "/case studies/business-websites.html" },
+    { "source": "/personal-brands", "destination": "/case studies/personal-brands.html" },
+    { "source": "/about", "destination": "/about/about.html" },
+    { "source": "/blog", "destination": "/blog/blog.html" }
   ]
 }

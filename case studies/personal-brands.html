@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fractional CAIO Leadership | Edge8</title>
+<title>Personal Brand Case Studies | Edge8</title>
 <style>
   @font-face {
     font-family: 'SVN-Gilroy';
@@ -127,12 +127,6 @@
     transform: translateY(-1px);
     box-shadow: 0 8px 24px rgba(40,123,232,0.35);
   }
-  .btn-ghost {
-    background: transparent;
-    color: rgba(255,255,255,0.85);
-    border: 1.5px solid rgba(255,255,255,0.3);
-  }
-  .btn-ghost:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
 
   /* ─── NAV ──────────────────────────────────────────── */
   nav {
@@ -288,7 +282,7 @@
   .mobile-menu .btn { width: 100%; justify-content: center; margin-top: 12px; color: #fff !important; }
   .mobile-menu .btn-primary:hover { background: var(--blue); box-shadow: 0 8px 28px rgba(40,123,232,0.25); }
 
-  /* ─── PAGE HERO (white) ────────────────────────────── */
+  /* ─── PAGE HERO ────────────────────────────── */
   .page-hero {
     background: var(--white);
     padding-top: 68px;
@@ -359,25 +353,8 @@
     font-size: 17px;
     color: var(--grey-mid);
     line-height: 1.7;
-    margin-bottom: 12px;
-    max-width: 540px;
-  }
-  .page-hero-urgency {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--blue);
     margin-bottom: 36px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .page-hero-urgency::before {
-    content: '';
-    width: 8px; height: 8px;
-    background: var(--blue);
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-    flex-shrink: 0;
+    max-width: 540px;
   }
   .page-hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
   .page-hero-right { display: flex; align-items: center; justify-content: flex-end; }
@@ -404,277 +381,76 @@
     50% { opacity: 0.4; transform: scale(0.7); }
   }
 
-  /* ─── THE PATTERN (Problem) ────────────────────────── */
-  .problem { background: var(--white); }
-  .problem-grid {
+  /* ─── APPROACH SECTION ─── */
+  .approach { background: var(--white); }
+  .approach-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
-    margin-top: 48px;
+    margin-top: 40px;
+    margin-bottom: 32px;
   }
-  .problem-card {
-    background: var(--white);
-    border: 1px solid var(--tint-deep);
+  .approach-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
     border-radius: var(--radius);
-    padding: 32px 28px;
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-  }
-  .problem-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--blue), transparent);
-    opacity: 0;
+    padding: 36px 32px;
     transition: var(--transition);
   }
-  .problem-card:hover { border-color: rgba(40,123,232,0.3); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(16,16,20,0.08); }
-  .problem-card:hover::before { opacity: 1; }
-  .problem-icon {
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    background: var(--blue);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 18px;
-    flex-shrink: 0;
+  .approach-card:hover {
+    border-color: rgba(40,123,232,0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(16,16,20,0.3);
   }
-  .problem-icon svg {
-    width: 24px; height: 24px;
-    stroke: #fff; fill: none;
-    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  .approach-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mint);
+    margin-bottom: 12px;
   }
-  .problem-title { font-weight: 800; font-size: 17px; color: var(--dark); margin-bottom: 10px; line-height: 1.3; }
-  .problem-desc { font-size: 14px; color: var(--grey-mid); line-height: 1.65; }
-  .problem-damage {
-    margin-top: 48px;
+  .approach-card-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.25;
+  }
+  .approach-card-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.65;
+  }
+  .approach-callout {
     background: var(--dark);
     border-radius: var(--radius);
     padding: 36px 40px;
-    position: relative; overflow: hidden;
+    position: relative;
+    overflow: hidden;
   }
-  .problem-damage::before {
+  .approach-callout::before {
     content: '"';
     position: absolute;
     top: -20px; left: 10px;
     font-size: 200px;
     font-family: Georgia, serif;
     color: rgba(255,255,255,0.05);
-    line-height: 1; pointer-events: none;
+    line-height: 1;
+    pointer-events: none;
   }
-  .problem-damage p { font-size: 16px; color: rgba(255,255,255,0.75); line-height: 1.7; position: relative; z-index: 1; }
-  .problem-damage p strong { color: var(--mint); }
-
-  /* ─── COMPARISON TABLE ─────────────────────────────── */
-  .comparison { background: var(--white); }
-  .comparison-wrap { margin-top: 48px; overflow-x: auto; }
-  .comparison-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    font-size: 15px;
-  }
-  .comparison-table th {
-    padding: 20px 28px;
-    text-align: left;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-  .comparison-table th:first-child { color: var(--grey-mid); width: 30%; }
-  .comparison-table th.col-bad {
-    background: var(--tint);
-    color: var(--grey-mid);
-    border-radius: var(--radius) var(--radius) 0 0;
-  }
-  .comparison-table th.col-good {
-    background: var(--dark);
-    color: var(--mint);
-    border-radius: var(--radius) var(--radius) 0 0;
-  }
-  .comparison-table td {
-    padding: 18px 28px;
-    border-bottom: 1px solid var(--tint-deep);
-    vertical-align: top;
-    line-height: 1.5;
-  }
-  .comparison-table td:first-child { font-weight: 700; font-size: 13px; color: var(--grey-mid); text-transform: uppercase; letter-spacing: 0.06em; }
-  .comparison-table td.col-bad { background: var(--tint); color: var(--grey-mid); font-size: 14px; }
-  .comparison-table td.col-good { background: var(--dark); color: rgba(255,255,255,0.8); font-size: 14px; }
-  .comparison-table td.col-good strong { color: var(--mint); }
-  .comparison-table tr:last-child td.col-bad { border-radius: 0 0 var(--radius) var(--radius); border-bottom: none; }
-  .comparison-table tr:last-child td.col-good { border-radius: 0 0 var(--radius) var(--radius); border-bottom: none; }
-  .comparison-table tr:last-child td:first-child { border-bottom: none; }
-
-  /* ─── THE CHOICE ───────────────────────────────────── */
-  .choice { background: var(--white); }
-  .choice-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 48px;
-  }
-  .choice-card {
-    border-radius: var(--radius);
-    padding: 36px 28px;
-    border: 1.5px solid var(--tint-deep);
-    background: var(--white);
-    position: relative;
-    overflow: hidden;
-    transition: var(--transition);
-  }
-  .choice-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(16,16,20,0.08); }
-  .choice-card.featured {
-    background: var(--dark);
-    border-color: var(--blue);
-  }
-  .choice-card.featured::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--blue), var(--mint));
-  }
-  .choice-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 100px;
-    margin-bottom: 20px;
-    display: inline-block;
-  }
-  .choice-card:not(.featured) .choice-label { background: rgba(248,113,113,0.1); color: #f87171; }
-  .choice-card.featured .choice-label { background: rgba(40,123,232,0.2); color: var(--mint); }
-  .choice-option {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 900;
-    margin-bottom: 12px;
-    line-height: 1.2;
-  }
-  .choice-card:not(.featured) .choice-option { color: var(--dark); }
-  .choice-card.featured .choice-option { color: var(--white); }
-  .choice-desc {
-    font-size: 14px;
-    line-height: 1.65;
-    margin-bottom: 20px;
-  }
-  .choice-card:not(.featured) .choice-desc { color: var(--grey-mid); }
-  .choice-card.featured .choice-desc { color: rgba(255,255,255,0.7); }
-  .choice-outcome {
-    font-size: 13px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .choice-card:not(.featured) .choice-outcome { color: #f87171; }
-  .choice-card.featured .choice-outcome { color: var(--mint); }
-
-  /* ─── 90-DAY ROADMAP ───────────────────────────────── */
-  .roadmap { background: var(--white); }
-  .timeline {
-    margin-top: 56px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    position: relative;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 31px; top: 0; bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--blue), var(--mint));
-    z-index: 0;
-  }
-  .timeline-step {
-    display: grid;
-    grid-template-columns: 64px 1fr;
-    gap: 28px;
-    align-items: flex-start;
+  .approach-callout p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
     position: relative;
     z-index: 1;
   }
-  .timeline-dot-wrap { display: flex; flex-direction: column; align-items: center; }
-  .timeline-dot {
-    width: 64px; height: 64px;
-    border-radius: 50%;
-    background: var(--blue);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    box-shadow: 0 0 0 6px rgba(40,123,232,0.12);
-  }
-  .timeline-dot.mint {
-    background: var(--mint);
-    box-shadow: 0 0 0 6px rgba(111,242,193,0.15);
-  }
-  .timeline-dot span {
-    font-family: var(--font-display);
-    font-size: 11px; font-weight: 800;
-    color: #fff;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    text-align: center; line-height: 1.2;
-  }
-  .timeline-dot.mint span { color: var(--dark); }
-  .timeline-card {
-    background: var(--white);
-    border: 1px solid var(--tint-deep);
-    border-radius: var(--radius);
-    padding: 32px 36px;
-    transition: var(--transition);
-  }
-  .timeline-card:hover { border-color: rgba(40,123,232,0.3); box-shadow: 0 12px 40px rgba(16,16,20,0.08); }
-  .timeline-badge {
-    display: inline-block;
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--blue); background: rgba(40,123,232,0.08);
-    padding: 4px 12px; border-radius: 100px; margin-bottom: 14px;
-  }
-  .timeline-badge.mint-badge { color: #0aad7a; background: rgba(111,242,193,0.15); }
-  .timeline-title { font-weight: 800; font-size: 22px; color: var(--dark); margin-bottom: 6px; line-height: 1.2; }
-  .timeline-cost {
-    font-size: 28px; font-weight: 900;
-    color: var(--blue); margin-bottom: 16px;
-    font-family: var(--font-display); letter-spacing: -0.02em;
-  }
-  .timeline-cost.mint-cost { color: var(--mint); }
-  .timeline-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-  .timeline-item {
-    display: flex; align-items: flex-start; gap: 10px;
-    font-size: 14px; color: var(--grey-mid); line-height: 1.5;
-  }
-  .timeline-item::before { content: '→'; color: var(--blue); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-  .timeline-deliverable {
-    display: flex; align-items: center; gap: 10px;
-    padding: 12px 16px;
-    background: rgba(40,123,232,0.06);
-    border-radius: var(--radius-sm);
-    border-left: 3px solid var(--blue);
-    font-size: 14px; font-weight: 700; color: var(--dark);
-  }
-  .timeline-after {
-    background: var(--dark);
-    border-radius: var(--radius);
-    padding: 36px 40px;
-    margin-top: 16px;
-  }
-  .timeline-after h3 { font-weight: 800; font-size: 20px; color: var(--white); margin-bottom: 20px; }
-  .timeline-after-options { display: flex; flex-direction: column; gap: 12px; }
-  .timeline-after-option {
-    display: flex; align-items: flex-start; gap: 10px;
-    font-size: 14px; color: rgba(255,255,255,0.75);
-  }
-  .timeline-after-option::before { content: '✓'; color: var(--mint); font-weight: 700; flex-shrink: 0; }
+  .approach-callout p strong { color: var(--mint); }
 
-  /* ─── WHO IT'S FOR ─────────────────────────────────── */
-  .who-for { background: var(--white); }
+  /* ─── WHO GRID 4 ─── */
+  .who-for { background: var(--tint); }
   .who-grid-4 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -713,6 +489,11 @@
     margin-bottom: 18px;
     flex-shrink: 0;
   }
+  .who-card-4-icon svg {
+    width: 22px; height: 22px;
+    stroke: #fff; fill: none;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
   .who-card-4-title {
     font-weight: 800;
     font-size: 16px;
@@ -726,7 +507,151 @@
     line-height: 1.65;
   }
 
-  /* ─── AUDIT CTA ────────────────────────────────────── */
+  /* ─── PROCESS TIMELINE ─── */
+  .process { background: var(--white); }
+  .process-list {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .process-list::before {
+    content: '';
+    position: absolute;
+    left: 23px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--blue), var(--mint));
+    z-index: 0;
+  }
+  .process-step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 24px;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 32px;
+  }
+  .process-step:last-child { padding-bottom: 0; }
+  .process-dot {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 6px rgba(40,123,232,0.12);
+  }
+  .process-dot span {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 900;
+    color: #fff;
+  }
+  .process-step-card {
+    background: var(--white);
+    border: 1px solid var(--tint-deep);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    transition: var(--transition);
+  }
+  .process-step-card:hover { border-color: rgba(40,123,232,0.3); box-shadow: 0 8px 32px rgba(16,16,20,0.07); }
+  .process-step-text {
+    font-size: 15px;
+    color: var(--dark);
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  /* ─── CASE STUDIES GRID ─── */
+  .case-studies { background: var(--tint); }
+  .cs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    margin-top: 48px;
+  }
+  .cs-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--tint-deep);
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+  }
+  .cs-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(16,16,20,0.12);
+    border-color: rgba(40,123,232,0.2);
+  }
+  .cs-card-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .cs-card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform 0.4s ease;
+  }
+  .cs-card:hover .cs-card-img img { transform: scale(1.04); }
+  .cs-card-body {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .cs-card-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--blue);
+    background: rgba(40,123,232,0.08);
+    border: 1px solid rgba(40,123,232,0.18);
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+  .cs-card-title {
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 900;
+    color: var(--dark);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .cs-card-sub {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .cs-card-desc {
+    font-size: 14px;
+    color: var(--grey-mid);
+    line-height: 1.65;
+    margin-bottom: 20px;
+    flex: 1;
+  }
+  .cs-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue);
+    text-decoration: none;
+    transition: var(--transition);
+    margin-top: auto;
+  }
+  .cs-card-link:hover { color: var(--blue-bright); gap: 10px; }
+
+  /* ─── CTA ─────────────────────────────────── */
   .audit-cta { background: var(--blue); position: relative; overflow: hidden; padding: 96px 0; }
   .audit-cta::before {
     content: ''; position: absolute; top: -120px; right: -120px;
@@ -742,16 +667,18 @@
   .audit-text { flex: 1 1 0; text-align: left; }
   .audit-text .section-title { margin-bottom: 12px; color: var(--white); text-align: left; }
   .audit-text p { font-size: 16px; color: rgba(255,255,255,0.75); max-width: 560px; line-height: 1.65; text-align: left; }
-  .audit-urgency {
-    font-size: 13px; font-weight: 700; color: var(--mint);
-    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
-  }
-  .audit-urgency::before {
-    content: ''; width: 8px; height: 8px; background: var(--mint);
-    border-radius: 50%; animation: pulse 2s ease-in-out infinite; flex-shrink: 0;
-  }
-  .audit-cta-btn { flex-shrink: 0; display: flex; flex-direction: column; gap: 12px; align-items: stretch; min-width: 300px; }
+  .audit-cta-btn { flex-shrink: 0; display: flex; flex-direction: column; gap: 12px; align-items: stretch; min-width: 260px; }
   .audit-cta-btn .btn { padding: 18px 36px; font-size: 15px; white-space: nowrap; width: 100%; justify-content: center; }
+  .btn-white {
+    background: var(--white);
+    color: var(--blue);
+    font-weight: 700;
+  }
+  .btn-white:hover {
+    background: var(--tint);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+  }
 
   /* ─── FOOTER ────────────────────────────────────────── */
   footer { background: var(--dark); border-top: 1px solid rgba(234,238,242,0.08); padding: 64px 0 32px; }
@@ -784,8 +711,9 @@
   /* ─── RESPONSIVE ────────────────────────────────────── */
   @media (max-width: 1024px) {
     .footer-top { grid-template-columns: 1fr 1fr; }
-    .choice-grid { grid-template-columns: 1fr; max-width: 520px; }
     .who-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .cs-grid { grid-template-columns: 1fr; max-width: 640px; margin-left: auto; margin-right: auto; }
+    .approach-cards { grid-template-columns: 1fr; }
   }
   @media (max-width: 768px) {
     .section { padding: 64px 0; }
@@ -794,23 +722,18 @@
     .page-hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 56px 0 48px; }
     .page-hero-right { justify-content: center; }
     .page-hero-img-wrap { max-width: 100%; }
-    .problem-grid { grid-template-columns: 1fr; }
     .who-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .cs-grid { grid-template-columns: 1fr; }
     .audit-inner { flex-direction: column; align-items: flex-start; flex-wrap: wrap; }
     .audit-cta-btn { width: 100%; }
     .audit-cta-btn .btn { width: 100%; justify-content: center; }
     .footer-top { grid-template-columns: 1fr; }
     .footer-bottom { flex-direction: column; align-items: flex-start; }
-    .timeline::before { left: 23px; }
-    .timeline-step { grid-template-columns: 48px 1fr; gap: 20px; }
-    .timeline-dot { width: 48px; height: 48px; }
-    .timeline-card { padding: 24px; }
-    .comparison-table th, .comparison-table td { padding: 14px 16px; }
   }
   @media (max-width: 480px) {
     .page-hero-title { font-size: 32px; }
-    .choice-card { padding: 28px 20px; }
     .who-grid-4 { grid-template-columns: 1fr; }
+    .approach-callout { padding: 28px 24px; }
   }
 </style>
 </head>
@@ -825,7 +748,6 @@
       </a>
 
       <ul class="nav-links">
-
         <li>
           <button class="has-dropdown" aria-haspopup="true">
             Services <span class="dropdown-icon">▾</span>
@@ -850,7 +772,7 @@
           </div>
         </li>
 
-        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://www.edge8.ai/ai-in-business-blog">Blog</a></li>
         <li><a href="/about">About</a></li>
       </ul>
 
@@ -890,7 +812,7 @@
     </div>
   </div>
 
-  <a href="/blog">Blog</a>
+  <a href="https://www.edge8.ai/ai-in-business-blog">Blog</a>
   <a href="/about">About</a>
   <a href="https://www.edge8.ai" class="btn btn-primary">Schedule A Consultation</a>
 </div>
@@ -902,285 +824,207 @@
   <div class="container">
     <div class="page-hero-inner">
       <div class="page-hero-left reveal">
-        <div class="page-hero-eyebrow">Fractional CAIO Leadership</div>
-        <h1 class="page-hero-title">Get C-Level AI Leadership Without the <em>$300K Mistake</em></h1>
-        <p class="page-hero-sub">Stage-appropriate AI leadership that starts in 2 weeks, delivers results in 90 days, and scales as your company grows — without the full-time CAIO risk.</p>
-        <div class="page-hero-urgency">Limited to 10 new clients per quarter. 4 spots remaining.</div>
+        <div class="page-hero-eyebrow">Personal Brand Case Studies</div>
+        <h1 class="page-hero-title">How <em>AI Agents</em> Power Leadership Branding</h1>
+        <p class="page-hero-sub">AI agents make personal branding faster and more consistent — automating content creation while keeping your unique voice. See how 4 leaders built authority with Edge8.</p>
         <div class="page-hero-actions">
-          <a href="https://www.edge8.ai" class="btn btn-primary">Book Your Strategy Call</a>
-          <a href="https://www.edge8.ai" class="btn btn-outline">See Pricing →</a>
+          <a href="https://www.edge8.ai" class="btn btn-primary">Book a Consultation</a>
+          <a href="#case-studies" class="btn btn-outline">View Case Studies →</a>
         </div>
       </div>
       <div class="page-hero-right reveal">
         <div class="page-hero-img-wrap">
-          <img src="/services/images/services-caio-leadership-hero.jpg" alt="Fractional CAIO Leadership — Edge8" />
+          <img src="/case studies/images/case studies-personal brands-hero.jpg" alt="Personal Brand Case Studies — Edge8" />
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ THE PATTERN ════════════════════════════════════════ -->
-<section class="problem section" id="problem">
+<!-- ═══ THE APPROACH ═══════════════════════════════════════ -->
+<section class="approach section">
   <div class="container">
     <div class="reveal">
-      <span class="section-label">The Problem</span>
-      <h2 class="section-title">The Pattern You've Seen Before</h2>
-      <p class="section-sub" style="margin-top:16px">How many times have you made a senior hire that wasn't stage-appropriate for your business? The same trap is now playing out with AI leadership.</p>
+      <span class="section-label">The Approach</span>
+      <h2 class="section-title">Get Found Everywhere Your Audience Searches</h2>
     </div>
 
-    <div class="problem-grid">
-      <div class="problem-card reveal">
-        <div class="problem-icon">
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        </div>
-        <div class="problem-title">The VP of Sales who can't close</div>
-        <p class="problem-desc">Great at managing reps, terrible at closing deals. You hired for scale before you needed scale — and paid the price.</p>
+    <div class="approach-cards">
+      <div class="approach-card reveal">
+        <div class="approach-card-label">SEO</div>
+        <div class="approach-card-title">Search Engine Optimization</div>
+        <p class="approach-card-desc">Ranks your personal brand site in traditional search results — Google, Bing, and everywhere your audience searches today.</p>
       </div>
-      <div class="problem-card reveal">
-        <div class="problem-icon">
-          <svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
-        </div>
-        <div class="problem-title">The CMO who can't run an ad</div>
-        <p class="problem-desc">Brilliant at building strategy decks, but can't run a Facebook ad. You needed someone who could execute — you got someone who could only plan.</p>
-      </div>
-      <div class="problem-card reveal">
-        <div class="problem-icon">
-          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-        </div>
-        <div class="problem-title">The CFO who needs a full team</div>
-        <p class="problem-desc">Requires six direct reports just to function. You needed someone who could build the model in Excel themselves — not someone who manages people who manage people.</p>
+      <div class="approach-card reveal">
+        <div class="approach-card-label">GEO</div>
+        <div class="approach-card-title">Generative Engine Optimization</div>
+        <p class="approach-card-desc">Ensures your expertise appears in AI-driven platforms like ChatGPT, Perplexity, and Google AI Overviews — where your audience searches tomorrow.</p>
       </div>
     </div>
 
-    <div class="problem-damage reveal">
-      <p>Now you're facing the same decision with AI.<br><br><strong>Hiring too early, or hiring the wrong AI leader, is the most expensive HR mistake companies make in the AI era.</strong> A full-time CAIO costs $250K–$400K + benefits and takes 6–12 months to hire. Get it wrong and you've burned $300K with nothing to show for it.</p>
+    <div class="approach-callout reveal">
+      <p><strong>A personal brand website powered by AI agents</strong> is your professional home online, showcasing your expertise, achievements, and leadership story. Combined with AI agents, it becomes a high-impact content engine — producing SEO- and GEO-optimized articles, social posts, and thought leadership at scale while maintaining your authentic voice.</p>
     </div>
   </div>
 </section>
 
-<!-- ═══ COMPARISON TABLE ════════════════════════════════════ -->
-<section class="comparison section" id="comparison">
+<!-- ═══ WHY AI AGENTS ══════════════════════════════════════ -->
+<section class="who-for section">
   <div class="container">
     <div class="reveal">
-      <span class="section-label">The Smart Play</span>
-      <h2 class="section-title">Full-Time CAIO vs. Fractional CAIO</h2>
-      <p class="section-sub" style="margin-top:16px">The numbers make the decision obvious. Here's what you're actually comparing.</p>
-    </div>
-
-    <div class="comparison-wrap reveal">
-      <table class="comparison-table">
-        <thead>
-          <tr>
-            <th></th>
-            <th class="col-bad">Full-Time CAIO</th>
-            <th class="col-good">Fractional CAIO with Edge8</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Cost</td>
-            <td class="col-bad">$250K – $400K + benefits annually</td>
-            <td class="col-good"><strong>$5,000 / month</strong></td>
-          </tr>
-          <tr>
-            <td>Time to Start</td>
-            <td class="col-bad">6–12 months to hire</td>
-            <td class="col-good"><strong>Start in 2 weeks</strong></td>
-          </tr>
-          <tr>
-            <td>Risk</td>
-            <td class="col-bad">Wrong hire = $300K+ wasted</td>
-            <td class="col-good"><strong>$15K to validate</strong></td>
-          </tr>
-          <tr>
-            <td>Scalability</td>
-            <td class="col-bad">Must scale up to justify the salary</td>
-            <td class="col-good"><strong>Scales with you</strong></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ THE CHOICE ══════════════════════════════════════════ -->
-<section class="choice section" id="options">
-  <div class="container">
-    <div class="reveal">
-      <span class="section-label">Your Options</span>
-      <h2 class="section-title">Three Paths. One Clear Answer.</h2>
-      <p class="section-sub" style="margin-top:16px">Every company faces the same decision when AI leadership becomes urgent. Here's what each path actually means.</p>
-    </div>
-
-    <div class="choice-grid">
-      <div class="choice-card reveal">
-        <div class="choice-label">Option A</div>
-        <div class="choice-option">Hire Full-Time Too Early</div>
-        <p class="choice-desc">Spend 6–12 months recruiting, then pay $300K+ annually for a CAIO before your company is ready to leverage that level of leadership.</p>
-        <div class="choice-outcome">✗ Risk $300K+ and 12 months lost</div>
-      </div>
-
-      <div class="choice-card reveal">
-        <div class="choice-label">Option B</div>
-        <div class="choice-option">Wait Until You're "Ready"</div>
-        <p class="choice-desc">Delay AI leadership until you feel the timing is right. Meanwhile, competitors with AI leadership compound their advantage every single month you wait.</p>
-        <div class="choice-outcome">✗ Watch competitors pull ahead</div>
-      </div>
-
-      <div class="choice-card featured reveal">
-        <div class="choice-label">Option C — Recommended</div>
-        <div class="choice-option">Stage-Appropriate Leadership NOW</div>
-        <p class="choice-desc">Get the C-level AI strategy, roadmap, and execution you need — scaled to where your business actually is. Risk $15K to validate, start in 2 weeks, scale as you grow.</p>
-        <div class="choice-outcome">✓ Risk $15K to validate. Start in 2 weeks.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 90-DAY ROADMAP ═════════════════════════════════════ -->
-<section class="roadmap section" id="roadmap">
-  <div class="container">
-    <div class="reveal">
-      <span class="section-label">The Roadmap</span>
-      <h2 class="section-title">Your 90-Day AI Leadership Roadmap</h2>
-      <p class="section-sub" style="margin-top:16px">Three clear phases. Measurable deliverables at every stage. Billing starts when you approve the plan — not before.</p>
-    </div>
-
-    <div class="timeline">
-
-      <!-- Month 1 -->
-      <div class="timeline-step reveal">
-        <div class="timeline-dot-wrap">
-          <div class="timeline-dot mint">
-            <span>Month 1</span>
-          </div>
-        </div>
-        <div class="timeline-card">
-          <div class="timeline-badge mint-badge">Phase 1 — Foundation &amp; Quick Wins</div>
-          <div class="timeline-title">Foundation &amp; First Proof of AI</div>
-          <div class="timeline-cost mint-cost">$5,000</div>
-          <div class="timeline-items">
-            <div class="timeline-item">Complete AI Capabilities Audit — honest baseline, no assumptions</div>
-            <div class="timeline-item">Develop a 90-Day AI Roadmap aligned to your business goals</div>
-            <div class="timeline-item">Deploy first automation: proof that AI works at your company</div>
-            <div class="timeline-item">Prepare executive board presentation with strategy and ROI plan</div>
-          </div>
-          <div class="timeline-deliverable">
-            <span>🎯</span>
-            <span>Deliverable: AI Roadmap + first automation live by end of Month 1</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Month 2–3 -->
-      <div class="timeline-step reveal">
-        <div class="timeline-dot-wrap">
-          <div class="timeline-dot">
-            <span>Month 2–3</span>
-          </div>
-        </div>
-        <div class="timeline-card">
-          <div class="timeline-badge">Phase 2 — Build Momentum</div>
-          <div class="timeline-title">Deploy &amp; Train</div>
-          <div class="timeline-cost">$5,000 / month</div>
-          <div class="timeline-items">
-            <div class="timeline-item">Deploy 3–5 high-impact AI workflows across your key departments</div>
-            <div class="timeline-item">Conduct team training for up to 20 people — real skills, not demos</div>
-            <div class="timeline-item">Establish AI governance framework and data strategy</div>
-            <div class="timeline-item">Build ROI measurement dashboard so results are undeniable</div>
-          </div>
-          <div class="timeline-deliverable">
-            <span>🚀</span>
-            <span>Deliverable: 3–5 live workflows + trained team by Month 3</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Month 4–6 -->
-      <div class="timeline-step reveal">
-        <div class="timeline-dot-wrap">
-          <div class="timeline-dot">
-            <span>Month 4–6</span>
-          </div>
-        </div>
-        <div class="timeline-card">
-          <div class="timeline-badge">Phase 3 — Scale &amp; Optimize</div>
-          <div class="timeline-title">Scale Your AI Program</div>
-          <div class="timeline-cost">$5,000 / month</div>
-          <div class="timeline-items">
-            <div class="timeline-item">Establish AI Center of Excellence structure within your organization</div>
-            <div class="timeline-item">Create full-time AI hiring plan — when you're actually ready</div>
-            <div class="timeline-item">Launch 10+ automated workflows across the business</div>
-            <div class="timeline-item">Deliver quarterly board updates with documented ROI</div>
-          </div>
-          <div class="timeline-deliverable">
-            <span>📈</span>
-            <span>Deliverable: 10+ workflows + full-time hiring plan at Month 6</span>
-          </div>
-
-          <div style="margin-top:20px;padding:24px 28px;background:linear-gradient(135deg,rgba(40,123,232,0.08),rgba(111,242,193,0.06));border:1px solid rgba(40,123,232,0.2);border-radius:var(--radius);display:flex;align-items:flex-start;gap:16px;">
-            <div style="font-size:28px;flex-shrink:0;">🛡️</div>
-            <div>
-              <div style="font-weight:800;font-size:16px;color:var(--dark);margin-bottom:6px;">Results-Based Engagement</div>
-              <p style="font-size:14px;color:var(--grey-mid);line-height:1.65;">Every engagement includes clear deliverables at every phase. If we're not delivering measurable results, we don't expect you to continue. Your investment is always tied to outcomes you can see.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="timeline-after reveal" style="margin-top:32px">
-      <h3>After 6 Months: You Decide What's Next</h3>
-      <p style="font-size:15px;color:rgba(255,255,255,0.6);margin-bottom:20px;line-height:1.65">By month 6, you have a running AI program, a trained team, and the data to make smart decisions about your next step.</p>
-      <div class="timeline-after-options">
-        <div class="timeline-after-option">Continue as Fractional CAIO at a reduced rate as your program matures</div>
-        <div class="timeline-after-option">Hire a full-time CAIO with confidence — you now know exactly what "good" looks like</div>
-        <div class="timeline-after-option">Transition to a self-sufficient internal AI team with Edge8 advisory support</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ WHO IT'S FOR ════════════════════════════════════════ -->
-<section class="who-for section" id="who-for">
-  <div class="container">
-    <div class="reveal">
-      <span class="section-label">Who This Is For</span>
-      <h2 class="section-title">Is Fractional CAIO Right for Your Company?</h2>
-      <p class="section-sub" style="margin-top:16px">This service is built for a specific company at a specific stage. Four signals that it's the right call for you.</p>
+      <span class="section-label">Why AI Agents</span>
+      <h2 class="section-title">Personal Branding Is More Powerful With AI Agents</h2>
     </div>
 
     <div class="who-grid-4">
+
       <div class="who-card-4 reveal">
         <div class="who-card-4-icon">
-          <svg viewBox="0 0 24 24" width="22" height="22" stroke="#fff" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
         </div>
-        <div class="who-card-4-title">50–1,000 Employees</div>
-        <p class="who-card-4-desc">You need AI leadership now, not after a 12-month hiring process.</p>
+        <div class="who-card-4-title">Draft From Notes</div>
+        <p class="who-card-4-desc">Draft articles from short notes or transcripts — instantly.</p>
       </div>
+
       <div class="who-card-4 reveal">
         <div class="who-card-4-icon">
-          <svg viewBox="0 0 24 24" width="22" height="22" stroke="#fff" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
         </div>
-        <div class="who-card-4-title">Growth-Stage Startups</div>
-        <p class="who-card-4-desc">Series B/C companies where every hire is high-stakes and mis-hires are costly.</p>
+        <div class="who-card-4-title">Repurpose Everywhere</div>
+        <p class="who-card-4-desc">Repurpose content across blog, social, and newsletters automatically.</p>
       </div>
+
       <div class="who-card-4 reveal">
         <div class="who-card-4-icon">
-          <svg viewBox="0 0 24 24" width="22" height="22" stroke="#fff" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
         </div>
-        <div class="who-card-4-title">Burned Before</div>
-        <p class="who-card-4-desc">Companies that have had AI hires or initiatives that didn't deliver results.</p>
+        <div class="who-card-4-title">Your Voice, Always</div>
+        <p class="who-card-4-desc">Maintain your authentic brand voice in every channel consistently.</p>
       </div>
+
       <div class="who-card-4 reveal">
         <div class="who-card-4-icon">
-          <svg viewBox="0 0 24 24" width="22" height="22" stroke="#fff" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
         </div>
-        <div class="who-card-4-title">Not Yet $300K Ready</div>
-        <p class="who-card-4-desc">Organizations where a full-time CAIO salary isn't stage-appropriate yet.</p>
+        <div class="who-card-4-title">Topic Intelligence</div>
+        <p class="who-card-4-desc">AI suggests topics aligned with your expertise and audience.</p>
       </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THE PROCESS ════════════════════════════════════════ -->
+<section class="process section">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">The Process</span>
+      <h2 class="section-title">5 Steps to Building Your Personal Brand</h2>
+    </div>
+
+    <div class="process-list">
+
+      <div class="process-step reveal">
+        <div class="process-dot"><span>1</span></div>
+        <div class="process-step-card">
+          <p class="process-step-text">Define your strategic positioning and audience.</p>
+        </div>
+      </div>
+
+      <div class="process-step reveal">
+        <div class="process-dot"><span>2</span></div>
+        <div class="process-step-card">
+          <p class="process-step-text">Build a story-driven homepage and about page.</p>
+        </div>
+      </div>
+
+      <div class="process-step reveal">
+        <div class="process-dot"><span>3</span></div>
+        <div class="process-step-card">
+          <p class="process-step-text">Publish GEO-optimized thought leadership content with AI agent support.</p>
+        </div>
+      </div>
+
+      <div class="process-step reveal">
+        <div class="process-dot"><span>4</span></div>
+        <div class="process-step-card">
+          <p class="process-step-text">Create clear calls-to-action for speaking, consulting, or partnerships.</p>
+        </div>
+      </div>
+
+      <div class="process-step reveal">
+        <div class="process-dot" style="background: var(--mint); box-shadow: 0 0 0 6px rgba(111,242,193,0.15);"><span style="color: var(--dark);">5</span></div>
+        <div class="process-step-card">
+          <p class="process-step-text">Maintain a consistent publishing schedule powered by AI-assisted workflows.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CASE STUDIES ════════════════════════════════════════ -->
+<section class="case-studies section" id="case-studies">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Case Studies</span>
+      <h2 class="section-title">4 Examples of AI-Enhanced Authority</h2>
+    </div>
+
+    <div class="cs-grid">
+
+      <div class="cs-card reveal">
+        <div class="cs-card-img">
+          <img src="/case studies/images/case studies-personal brands-Rich Pham.jpeg" alt="Rich Pham" />
+        </div>
+        <div class="cs-card-body">
+          <span class="cs-card-tag">Personal Brand</span>
+          <div class="cs-card-title">Rich Pham</div>
+          <div class="cs-card-sub">Executive Leadership Reimagined</div>
+          <p class="cs-card-desc">From entry-level to C-suite, Rich Pham's global leadership journey is transformed into a consulting platform powered by consistent, AI-assisted thought leadership.</p>
+          <a href="https://www.edge8.ai/case-studies/rich-pham" class="cs-card-link" target="_blank">Read Case Study →</a>
+        </div>
+      </div>
+
+      <div class="cs-card reveal">
+        <div class="cs-card-img">
+          <img src="/case studies/images/case studies-personal brands-Angi Hurt.jpeg" alt="Angi Hurt" />
+        </div>
+        <div class="cs-card-body">
+          <span class="cs-card-tag">Personal Brand</span>
+          <div class="cs-card-title">Angi Hurt</div>
+          <div class="cs-card-sub">Building the Midwest's Strategic Nexus</div>
+          <p class="cs-card-desc">Angi Hurt's platform connects Midwest business leaders through authentic storytelling and AI-optimized content, making her a regional hub for collaboration.</p>
+          <a href="https://www.edge8.ai/case-studies/angi-hurt" class="cs-card-link" target="_blank">Read Case Study →</a>
+        </div>
+      </div>
+
+      <div class="cs-card reveal">
+        <div class="cs-card-img">
+          <img src="/case studies/images/case studies-personal brands-David Jackson.jpeg" alt="David Jackson" />
+        </div>
+        <div class="cs-card-body">
+          <span class="cs-card-tag">Personal Brand</span>
+          <div class="cs-card-title">David Jackson</div>
+          <div class="cs-card-sub">Illuminating Vietnam's Real Estate Landscape</div>
+          <p class="cs-card-desc">David Jackson's site merges market insight with AI-powered publishing, positioning him as a trusted source for Vietnam property investment guidance.</p>
+          <a href="https://www.edge8.ai/case-studies/david-jackson" class="cs-card-link" target="_blank">Read Case Study →</a>
+        </div>
+      </div>
+
+      <div class="cs-card reveal">
+        <div class="cs-card-img">
+          <img src="/case studies/images/case studies-personal brands-Steve Muller.jpeg" alt="Steve Muller" />
+        </div>
+        <div class="cs-card-body">
+          <span class="cs-card-tag">Personal Brand</span>
+          <div class="cs-card-title">Steve Muller</div>
+          <div class="cs-card-sub">Storytelling Vietnam Through Vespa Adventures</div>
+          <p class="cs-card-desc">Steve Muller's personal brand blends sustainable tourism storytelling with AI-supported content production to attract travelers seeking authentic experiences.</p>
+          <a href="https://www.edge8.ai/case-studies/steve-muller" class="cs-card-link" target="_blank">Read Case Study →</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1190,13 +1034,11 @@
   <div class="container">
     <div class="audit-inner">
       <div class="audit-text reveal">
-        <div class="audit-urgency">Limited to 10 new clients per quarter. 4 spots remaining.</div>
-        <h2 class="section-title">Get Stage-Appropriate AI Leadership Now</h2>
-        <p>A 30-minute call to assess whether Fractional CAIO is right for your stage. No pressure, no pitch — just an honest conversation about where you are and what you actually need.</p>
+        <h2 class="section-title">Ready to Build Your Personal Brand?</h2>
+        <p>Book a free consultation and let's map your AI-powered personal branding strategy.</p>
       </div>
       <div class="audit-cta-btn reveal">
-        <a href="https://www.edge8.ai" class="btn btn-primary">Book Your Strategy Call</a>
-        <a href="https://www.edge8.ai" class="btn btn-ghost">See Pricing Details</a>
+        <a href="https://www.edge8.ai" class="btn btn-white">Book a Consultation</a>
       </div>
     </div>
   </div>
@@ -1234,12 +1076,11 @@
           <a href="/personal-brands">Personal Brands</a>
           <a href="/business-websites">Business Website</a>
           <a href="/ai-programs">AI Programs</a>
-          <a href="https://www.edge8.ai/case-study">All Case Studies</a>
         </div>
         <div class="footer-col-title" style="margin-top:28px">Company</div>
         <div class="footer-links">
           <a href="/about">About</a>
-          <a href="/blog">Blog</a>
+          <a href="https://www.edge8.ai/ai-in-business-blog">Blog</a>
         </div>
       </div>
       <div>
@@ -1338,7 +1179,6 @@
     const nav = document.getElementById('navbar');
     nav.style.background = window.scrollY > 50 ? 'rgba(255,255,255,0.99)' : 'rgba(255,255,255,0.97)';
   });
-
 </script>
 </body>
 </html>
