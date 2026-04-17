@@ -509,14 +509,29 @@
   }
   .cat-post-item {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 18px 0;
+    flex-direction: row;
+    gap: 14px;
+    padding: 16px 0;
     border-bottom: 1px solid var(--tint-deep);
     text-decoration: none;
+    align-items: center;
   }
   .cat-post-item:first-child { padding-top: 0; }
   .cat-post-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .cat-post-img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+  }
+  .cat-post-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
   .cat-post-title {
     font-size: 15px;
     font-weight: 700;
@@ -528,6 +543,35 @@
   .cat-post-date {
     font-size: 12px;
     color: var(--grey-mid);
+  }
+  .cat-post-item.pag-hidden { display: none; }
+  .cat-pagination {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--tint-deep);
+  }
+  .cat-pag-btn {
+    background: none;
+    border: 1.5px solid var(--tint-deep);
+    border-radius: var(--radius-sm);
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font-body);
+  }
+  .cat-pag-btn:hover:not(:disabled) { background: var(--tint); border-color: var(--blue); }
+  .cat-pag-btn:disabled { opacity: 0.35; cursor: default; }
+  .cat-pag-info {
+    font-size: 13px;
+    color: var(--grey-mid);
+    flex: 1;
+    text-align: center;
   }
 
 
@@ -708,31 +752,54 @@
       </a>
 
       <!-- Right list -->
-      <div class="cat-post-list reveal">
+      <div class="cat-post-list reveal" id="list-ai-business">
         <a href="https://www.edge8.ai/post/ai-data-strategy-moats-beat-model-wars" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">AI Data Strategy: Why Data Moats Beat Model Wars in 2025</div>
-          <div class="cat-post-date">Jun 2, 2025</div>
+          <img class="cat-post-img" src="/blog/AI in Business/AI Data Strategy - Why Data Moats Beat Model Wars in 2025/AI Data Strategy.jpeg" alt="AI Data Strategy" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">AI Data Strategy: Why Data Moats Beat Model Wars in 2025</div>
+            <div class="cat-post-date">Jun 2, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/2026-ai-trends-5-game-changing-shifts-that-will-define-business-success" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">2026 AI Trends: 5 Game-Changing Shifts That Will Define Business Success</div>
-          <div class="cat-post-date">Nov 10, 2025</div>
+          <img class="cat-post-img" src="/blog/AI in Business/2026 AI Trends - 5 Game-Changing Shifts That Will Define Business Success/2026 AI Trends.jpeg" alt="2026 AI Trends" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">2026 AI Trends: 5 Game-Changing Shifts That Will Define Business Success</div>
+            <div class="cat-post-date">Nov 10, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/ai-in-data-migration-why-your-ai-program-is-really-a-data-problem" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">AI in Data Migration: Why Your AI Program Is Really a Data Problem</div>
-          <div class="cat-post-date">Sep 19, 2025</div>
+          <img class="cat-post-img" src="/blog/AI in Business/AI in Data Migration - Why Your AI Program Is Really a Data Problem/AI in Data Migration-1.jpeg" alt="AI in Data Migration" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">AI in Data Migration: Why Your AI Program Is Really a Data Problem</div>
+            <div class="cat-post-date">Sep 19, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/5-keys-to-reduce-ai-hallucinations" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">5 Keys to Reduce AI Hallucinations and Build Reliable Business Systems</div>
-          <div class="cat-post-date">Sep 10, 2025</div>
+          <img class="cat-post-img" src="/blog/AI in Business/5 Keys to Reduce AI Hallucinations and Build Reliable Business Systems/5-Keys.jpg" alt="5 Keys to Reduce AI Hallucinations" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">5 Keys to Reduce AI Hallucinations and Build Reliable Business Systems</div>
+            <div class="cat-post-date">Sep 10, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/why-ai-issues-are-really-data-problems-a-guide-for-future-ai-officers" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">Why AI Issues Are Really Data Problems: A Guide for Future AI Officers</div>
-          <div class="cat-post-date">Sep 9, 2025</div>
+          <img class="cat-post-img" src="/blog/AI in Business/Why AI Issues Are Really Data Problems - A Guide for Future AI Officers/Why AI Issues.jpeg" alt="Why AI Issues Are Really Data Problems" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">Why AI Issues Are Really Data Problems: A Guide for Future AI Officers</div>
+            <div class="cat-post-date">Sep 9, 2025</div>
+          </div>
         </a>
-        <a href="https://www.edge8.ai/post/the-hospitality-data-gap-creating-truly-hotel-personalized-experiences" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">The Hospitality Data Gap: Creating Truly Hotel Personalized Experiences</div>
-          <div class="cat-post-date">Sep 4, 2025</div>
+        <a href="https://www.edge8.ai/post/the-hospitality-data-gap-creating-truly-hotel-personalized-experiences" target="_blank" class="cat-post-item pag-hidden">
+          <img class="cat-post-img" src="/blog/AI in Business/The Hospitality Data Gap - Creating Truly Hotel Personalized Experiences/The Hospitality Data Gap-1.jpeg" alt="The Hospitality Data Gap" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">The Hospitality Data Gap: Creating Truly Hotel Personalized Experiences</div>
+            <div class="cat-post-date">Sep 4, 2025</div>
+          </div>
         </a>
+      </div>
+      <div class="cat-pagination">
+        <button class="cat-pag-btn" id="prev-ai-business" onclick="paginate('ai-business',-1)" disabled>‹ Prev</button>
+        <span class="cat-pag-info" id="info-ai-business">Page 1 of 2</span>
+        <button class="cat-pag-btn" id="next-ai-business" onclick="paginate('ai-business',1)">Next ›</button>
       </div>
 
     </div>
@@ -761,24 +828,39 @@
       <!-- Right list -->
       <div class="cat-post-list reveal">
         <a href="https://www.edge8.ai/post/why-every-leader-needs-ai-leadership-case-for-ai-co-ceo" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">The Case for AI Co-CEOs &amp; AI Leadership</div>
-          <div class="cat-post-date">Aug 22, 2025</div>
+          <img class="cat-post-img" src="/blog/Founders' Secrets/The Case for AI Co-CEOs & AI Leadership - Why Every Leader Needs a Digital Decision Partner/The Case for AI Co-CEOs & AI Leadership.jpeg" alt="The Case for AI Co-CEOs" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">The Case for AI Co-CEOs &amp; AI Leadership</div>
+            <div class="cat-post-date">Aug 22, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/from-idea-to-interactive-blog-in-30-minutes-the-founder-s-automation-playbook" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">From Idea to Interactive Blog in 30 Minutes: The Founder's Automation Playbook</div>
-          <div class="cat-post-date">Sep 18, 2025</div>
+          <img class="cat-post-img" src="/blog/Founders' Secrets/From Idea to Interactive Blog in 30 Minutes - The Founder's Automation Playbook/From Idea to Interactive Blog in 30 Minutes.jpeg" alt="From Idea to Interactive Blog" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">From Idea to Interactive Blog in 30 Minutes: The Founder's Automation Playbook</div>
+            <div class="cat-post-date">Sep 18, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/the-business-research-assignment-that-could-transform-your-company-and-your-career" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">The Business Research Assignment That Could Transform Your Company</div>
-          <div class="cat-post-date">Sep 17, 2025</div>
+          <img class="cat-post-img" src="/blog/Founders' Secrets/The Business Research Assignment That Could Transform Your Company (And Your Career)/The Business Research Assignment.jpeg" alt="The Business Research Assignment" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">The Business Research Assignment That Could Transform Your Company</div>
+            <div class="cat-post-date">Sep 17, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/why-ai-training-is-essential-for-your-career-success-in-the-digital-age" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">Why AI Training Is Essential for Your Career Success in the Digital Age</div>
-          <div class="cat-post-date">Aug 22, 2025</div>
+          <img class="cat-post-img" src="/blog/Founders' Secrets/Why AI Training Is Essential for Your Career Success in the Digital Age/Why AI Training Is Essential.jpeg" alt="Why AI Training Is Essential" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">Why AI Training Is Essential for Your Career Success in the Digital Age</div>
+            <div class="cat-post-date">Aug 22, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/why-human-ai-collaboration-is-the-future-of-business-success" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">Why Human-AI Collaboration Is the Future of Business Success</div>
-          <div class="cat-post-date">Aug 22, 2025</div>
+          <img class="cat-post-img" src="/blog/Founders' Secrets/Why Human-AI Collaboration Is the Future of Business Success/Why Human-AI Collaboration.jpeg" alt="Why Human-AI Collaboration" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">Why Human-AI Collaboration Is the Future of Business Success</div>
+            <div class="cat-post-date">Aug 22, 2025</div>
+          </div>
         </a>
       </div>
 
@@ -797,9 +879,7 @@
 
       <!-- Featured left -->
       <a href="https://www.edge8.ai/post/vietnam-ai-silicon-valley" target="_blank" class="blog-card cat-featured reveal">
-        <div class="blog-card-img-placeholder">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        </div>
+        <img class="blog-card-img" src="/blog/Doing Business in Vietnam/Vietnam and the Rise of AI — The New Silicon Valley of Southeast Asia/Vietnam and the Rise of AI.jpeg" alt="Vietnam and the Rise of AI" />
         <div class="blog-card-body">
           <div class="blog-card-title">Vietnam and the Rise of AI — The New Silicon Valley of Southeast Asia</div>
           <div class="blog-card-date">Feb 18, 2025</div>
@@ -810,20 +890,32 @@
       <!-- Right list -->
       <div class="cat-post-list reveal">
         <a href="https://www.edge8.ai/post/how-ai-in-business-success-starts-with-strategic-symbolism" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">How AI in Business Success Starts with Strategic Symbolism</div>
-          <div class="cat-post-date">Jul 11, 2025</div>
+          <img class="cat-post-img" src="/blog/Doing Business in Vietnam/How AI in Business Success Starts with Strategic Symbolism/How AI in Business Success Starts with Strategic Symbolism.jpeg" alt="How AI in Business Success Starts with Strategic Symbolism" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">How AI in Business Success Starts with Strategic Symbolism</div>
+            <div class="cat-post-date">Jul 11, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/vietnam-ai-business-law" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">Vietnam's AI Rules — What Leaders Should Know</div>
-          <div class="cat-post-date">May 8, 2025</div>
+          <img class="cat-post-img" src="/blog/Doing Business in Vietnam/Vietnam's AI Rules — What Leaders Should Know/Vietnam's AI Rules.jpeg" alt="Vietnam's AI Rules" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">Vietnam's AI Rules — What Leaders Should Know</div>
+            <div class="cat-post-date">May 8, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/strategies-to-harness-top-performers-for-business-success" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">Strategies to Harness Top Performers for Business Success</div>
-          <div class="cat-post-date">Apr 19, 2025</div>
+          <img class="cat-post-img" src="/blog/Doing Business in Vietnam/Strategies to Harness Top Performers for Business Success/Strategies to Harness Top Performers for Business Success.jpeg" alt="Strategies to Harness Top Performers" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">Strategies to Harness Top Performers for Business Success</div>
+            <div class="cat-post-date">Apr 19, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/tech-in-entrepreneurship-how-ai-is-disrupting-the-role-of-the-founder" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">Tech In Entrepreneurship: How AI is Disrupting the Role of the Founder</div>
-          <div class="cat-post-date">Feb 18, 2025</div>
+          <img class="cat-post-img" src="/blog/Doing Business in Vietnam/Tech In Entrepreneurship - How AI is disrupting the role of the Founder/Tech In Entrepreneurship.jpeg" alt="Tech In Entrepreneurship" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">Tech In Entrepreneurship: How AI is Disrupting the Role of the Founder</div>
+            <div class="cat-post-date">Feb 18, 2025</div>
+          </div>
         </a>
       </div>
 
@@ -842,9 +934,7 @@
 
       <!-- Featured left -->
       <a href="https://www.edge8.ai/post/how-one-decision-at-a-time-creates-high-performers-in-business-and-life" target="_blank" class="blog-card cat-featured reveal">
-        <div class="blog-card-img-placeholder">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        </div>
+        <img class="blog-card-img" src="/blog/High Performing Cultures/How One Decision at a Time Creates High Performers in Business and Life/How One Decision.jpeg" alt="How One Decision at a Time Creates High Performers" />
         <div class="blog-card-body">
           <div class="blog-card-title">How One Decision at a Time Creates High Performers in Business and Life</div>
           <div class="blog-card-date">Aug 12, 2025</div>
@@ -855,20 +945,32 @@
       <!-- Right list -->
       <div class="cat-post-list reveal">
         <a href="https://www.edge8.ai/post/ai-process-culture-performance" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">AI for Performance Culture: Process Automation that Works</div>
-          <div class="cat-post-date">Apr 24, 2025</div>
+          <img class="cat-post-img" src="/blog/High Performing Cultures/AI for Performance Culture - Process Automation that Works/AI for Performance Culture-1.jpeg" alt="AI for Performance Culture" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">AI for Performance Culture: Process Automation that Works</div>
+            <div class="cat-post-date">Apr 24, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/strategies-to-harness-top-performers-for-business-success" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">Strategies to Harness Top Performers for Business Success</div>
-          <div class="cat-post-date">Apr 19, 2025</div>
+          <img class="cat-post-img" src="/blog/High Performing Cultures/Strategies to Harness Top Performers for Business Success/Strategies to Harness Top Performers.jpeg" alt="Strategies to Harness Top Performers" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">Strategies to Harness Top Performers for Business Success</div>
+            <div class="cat-post-date">Apr 19, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/remote-team-offshore-integration" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">Offshore Teams Made Easy | Remote Integration with AI</div>
-          <div class="cat-post-date">Feb 18, 2025</div>
+          <img class="cat-post-img" src="/blog/High Performing Cultures/Offshore Teams Made Easy | Remote Integration with AI/Offshore Teams Made Easy.jpeg" alt="Offshore Teams Made Easy" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">Offshore Teams Made Easy | Remote Integration with AI</div>
+            <div class="cat-post-date">Feb 18, 2025</div>
+          </div>
         </a>
         <a href="https://www.edge8.ai/post/ai-strategies-high-performing-culture" target="_blank" class="cat-post-item">
-          <div class="cat-post-title">5 AI Strategies for a High-Performing Culture</div>
-          <div class="cat-post-date">Feb 18, 2025</div>
+          <img class="cat-post-img" src="/blog/High Performing Cultures/5 AI Strategies for a High-Performing Culture/5 AI Strategies.jpeg" alt="5 AI Strategies for a High-Performing Culture" />
+          <div class="cat-post-text">
+            <div class="cat-post-title">5 AI Strategies for a High-Performing Culture</div>
+            <div class="cat-post-date">Feb 18, 2025</div>
+          </div>
         </a>
       </div>
 
@@ -1008,6 +1110,29 @@
     const nav = document.getElementById('navbar');
     nav.style.background = window.scrollY > 50 ? 'rgba(255,255,255,0.99)' : 'rgba(255,255,255,0.97)';
   });
+
+  // ── Blog pagination
+  const pagState = {};
+  function paginate(id, dir) {
+    const list = document.getElementById('list-' + id);
+    if (!list) return;
+    const items = Array.from(list.querySelectorAll('.cat-post-item'));
+    const perPage = 5;
+    const totalPages = Math.ceil(items.length / perPage);
+    if (!pagState[id]) pagState[id] = 1;
+    pagState[id] = Math.min(Math.max(pagState[id] + dir, 1), totalPages);
+    const page = pagState[id];
+    items.forEach((item, i) => {
+      const itemPage = Math.floor(i / perPage) + 1;
+      item.classList.toggle('pag-hidden', itemPage !== page);
+    });
+    const prevBtn = document.getElementById('prev-' + id);
+    const nextBtn = document.getElementById('next-' + id);
+    const info = document.getElementById('info-' + id);
+    if (prevBtn) prevBtn.disabled = page === 1;
+    if (nextBtn) nextBtn.disabled = page === totalPages;
+    if (info) info.textContent = 'Page ' + page + ' of ' + totalPages;
+  }
 </script>
 </body>
 </html>
