@@ -2,8 +2,16 @@
 """Generate HTML blog post pages from markdown files."""
 import os, re
 from urllib.parse import quote
+from datetime import datetime
 
-BASE = "/Users/lananh/Documents/Edge8/Edge8 2.0/edge8-website/blog"
+BASE      = "/Users/lananh/Documents/Edge8/Edge8 2.0/edge8-website/blog"
+SITE_ROOT = "/Users/lananh/Documents/Edge8/Edge8 2.0/edge8-website"
+
+def parse_date(d):
+    for fmt in ('%b %d, %Y', '%B %d, %Y', '%b %Y', '%B %Y'):
+        try: return datetime.strptime(d.strip(), fmt)
+        except ValueError: pass
+    return datetime.min
 
 # ── Post definitions ──────────────────────────────────────────────────────────
 
@@ -128,14 +136,17 @@ def esc(text):
     return text.replace('&','&amp;').replace('"','&quot;').replace('<','&lt;').replace('>','&gt;')
 
 def sidebar_html(category, current_slug, all_posts):
-    items = [p for p in all_posts if p['slug'] != current_slug][:4]
-    cat_folder = category
+    # Sort by date descending, exclude current post, take up to 4
+    sorted_posts = sorted(
+        [p for p in all_posts if p['slug'] != current_slug],
+        key=lambda p: parse_date(p['date']),
+        reverse=True
+    )[:4]
     rows = ''
-    for p in items:
-        img_path = f'/blog/{cat_folder}/{p["folder"]}/{p["image"]}'
-        local_path = '/blog/' + quote(cat_folder, safe='') + '/' + quote(p['folder'], safe='') + '/'
+    for p in sorted_posts:
+        img_path = f'/blog/{category}/{p["folder"]}/{p["image"]}'
         rows += f'''
-        <a href="{local_path}" class="sidebar-post">
+        <a href="/post/{p['slug']}/" class="sidebar-post">
           <img class="sidebar-post-img" src="{img_path}" alt="{esc(p['title'])}" loading="lazy" />
           <div class="sidebar-post-text">
             <div class="sidebar-post-title">{esc(p['title'])}</div>
@@ -487,8 +498,18 @@ def generate_html(category, post, all_posts, body_html, description):
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+seen_slugs = set()
+
 for category, posts in CATEGORIES.items():
     for post in posts:
+        slug = post['slug']
+
+        # Duplicate slug: skip, already written from first category
+        if slug in seen_slugs:
+            print(f"  SKIP (dup) {slug}")
+            continue
+        seen_slugs.add(slug)
+
         md_path = os.path.join(BASE, category, post['folder'], post['md'])
         try:
             with open(md_path, 'r', encoding='utf-8') as f:
@@ -510,9 +531,12 @@ for category, posts in CATEGORIES.items():
 
         html = generate_html(category, post, posts, body_html, description)
 
-        out_path = os.path.join(BASE, category, post['folder'], 'index.html')
+        # Write to /post/{slug}/index.html (clean URL matching source structure)
+        out_dir = os.path.join(SITE_ROOT, 'post', slug)
+        os.makedirs(out_dir, exist_ok=True)
+        out_path = os.path.join(out_dir, 'index.html')
         with open(out_path, 'w', encoding='utf-8') as f:
             f.write(html)
-        print(f"  OK  {out_path.replace(BASE+'/', '')}")
+        print(f"  OK  post/{slug}/index.html")
 
 print("\nDone.")
