@@ -132,11 +132,12 @@
   .case-block { margin-bottom: 32px; }
   .case-block-title { font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark); margin-bottom: 10px; }
   .case-body-text { font-size: 15px; color: var(--grey-mid); line-height: 1.75; }
-  .case-highlights { background: var(--tint); border-radius: var(--radius); padding: 28px 32px; margin-bottom: 32px; }
-  .case-highlights-title { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark); margin-bottom: 14px; }
-  .case-highlights-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .case-highlights-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--dark); line-height: 1.55; font-weight: 500; }
-  .case-highlights-list li::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 6px; }
+  .case-body-list { list-style: none; display: flex; flex-direction: column; gap: 8px; padding: 0; }
+  .case-body-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; color: var(--grey-mid); line-height: 1.6; }
+  .case-body-list li::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 7px; }
+  .case-buttons { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .btn-outline { background: var(--blue); color: #fff; }
+  .btn-outline:hover { background: var(--blue-bright); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(40,123,232,0.3); }
 
   .case-media { position: sticky; top: 96px; }
   .case-img-wrap { border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 64px rgba(16,16,20,0.12); border: 1px solid var(--tint-deep); }
@@ -245,9 +246,9 @@
 <section class="case-hero">
   <div class="container">
     <div class="case-hero-inner">
-      <div class="case-eyebrow">AI Program &middot; Case Study</div>
+      <div class="case-eyebrow">AI Program</div>
       <h1 class="case-hero-title">EO APAC Region</h1>
-      <p class="case-hero-sub">Scaling Membership Operations Across Asia Pacific</p>
+      <p class="case-hero-sub">Scaling Membership Systems Across Asia-Pacific</p>
     </div>
   </div>
 </section>
@@ -259,35 +260,56 @@
       <!-- LEFT: Info -->
       <div>
         <a href="/ai-programs" class="case-back">&#8592; Back to AI Programs</a>
-        <div class="case-section-label">Case Study</div>
-        <h2 class="case-section-title">About the Project</h2>
+        <h2 class="case-section-title">EO APAC Region</h2>
+
+        <div class="case-block reveal">
+          <div class="case-block-title">Summary</div>
+          <p class="case-body-text">Entrepreneurs' Organization (EO) is a global peer-to-peer network for founders and leaders. In the APAC region, membership operations were fragmented—with each chapter using its own set of disconnected tools. Edge8 partnered with EO APAC to centralize operations, streamline onboarding, and bring AI-powered visibility through HubSpot CRM and n8n automations. Starting with a pilot in EO Vietnam, this initiative laid the groundwork for scalable, data-informed growth across the region.</p>
+        </div>
 
         <div class="case-block reveal">
           <div class="case-block-title">The Challenge</div>
-          <p class="case-body-text">The Entrepreneurs' Organization APAC Region manages a growing membership community across multiple countries and chapters — each with different communication needs, events, and workflows. Their systems were fragmented, making it impossible to coordinate consistently at the regional level.</p>
+          <ul class="case-body-list">
+            <li>No unified CRM across EO APAC chapters</li>
+            <li>Manual processes relied on Excel, Notion, and Google Sheets</li>
+            <li>Delayed follow-ups for new member applications and event leads</li>
+            <li>No visibility into performance or progress across chapters</li>
+            <li>Onboarding and nurturing sequences were inconsistent and labor-intensive</li>
+          </ul>
         </div>
 
         <div class="case-block reveal">
-          <div class="case-block-title">The Solution</div>
-          <p class="case-body-text">Edge8 deployed HubSpot as the central CRM and built n8n automation integrations that connect all chapter workflows in real time. Automated cross-chapter communications, membership onboarding sequences, and event coordination now run without manual intervention — freeing the team to focus on member experience.</p>
+          <div class="case-block-title">Our Approach</div>
+          <ul class="case-body-list">
+            <li>Deployed HubSpot Sales Hub for EO Vietnam to manage the full membership funnel</li>
+            <li>Created standardized CRM pipelines for prospects, members, and alumni</li>
+            <li>Integrated Wix landing pages and Notion forms with HubSpot using n8n workflows</li>
+            <li>Automated outreach: welcome emails, interest-based nurturing, and internal alerts</li>
+            <li>Built dashboards for tracking member journey progress and chapter KPIs</li>
+            <li>Documented a replicable CRM + automation framework for other chapters</li>
+          </ul>
         </div>
 
-        <div class="case-highlights reveal">
-          <div class="case-highlights-title">Highlights</div>
-          <ul class="case-highlights-list">
-            <li>HubSpot CRM deployment for unified regional membership management</li>
-            <li>n8n automation integrations connecting all chapter workflows</li>
-            <li>Automated cross-chapter communication and onboarding sequences</li>
-            <li>Event coordination automation across multiple countries</li>
-            <li>Real-time membership data sync and reporting dashboard</li>
+        <div class="case-block reveal">
+          <div class="case-block-title">The Result</div>
+          <ul class="case-body-list">
+            <li>Live CRM adoption in EO Vietnam with 100% pipeline visibility</li>
+            <li>Member leads now receive timely, consistent communications</li>
+            <li>Admin workload significantly reduced through automation</li>
+            <li>Improved transparency and data consistency across chapter leadership</li>
+            <li>Foundation in place to expand to other APAC chapters with minimal friction</li>
           </ul>
+        </div>
+
+        <div class="case-buttons reveal">
+          <a href="https://www.eoapac.com" target="_blank" class="btn btn-primary">View Website</a>
         </div>
       </div>
 
       <!-- RIGHT: Image -->
-      <div class="case-media reveal">
-        <div class="case-img-wrap">
-          <img src="/case studies/images/case studies-ai programs-EO APAC Region (HubSpot).jpeg" alt="EO APAC Region HubSpot" />
+      <div class="case-media">
+        <div class="case-img-wrap reveal">
+          <img src="/case studies/ai-programs/eo-apac-region-hubspot/eo-apac-region-hubspot.jpeg" alt="EO APAC Region HubSpot" />
         </div>
       </div>
     </div>
@@ -297,30 +319,30 @@
 <!-- RELATED CASE STUDIES -->
 <section class="related-section section">
   <div class="container">
-    <div class="case-section-label">More Case Studies</div>
-    <h2 class="case-section-title">Related AI Programs</h2>
+    <div class="case-section-label">More AI Programs</div>
+    <h2 class="case-section-title">Related Case Studies</h2>
     <div class="related-grid">
+      <a href="/case-studies/kyungbang" class="related-card reveal">
+        <img src="/case studies/ai-programs/kyungbang/kyungbang.jpeg" alt="Kyungbang" class="related-card-img" />
+        <div class="related-card-body">
+          <div class="related-card-name">Kyungbang</div>
+          <div class="related-card-sub">AI-Powered Quality Platform for Global Textile Manufacturing</div>
+          <div class="related-card-link">View Case Study &#8594;</div>
+        </div>
+      </a>
       <a href="/case-studies/veracity" class="related-card reveal">
-        <img src="/case studies/images/case studies-ai programs-Veracity.jpeg" alt="Veracity" class="related-card-img" />
+        <img src="/case studies/ai-programs/veracity/veracity.jpeg" alt="Veracity" class="related-card-img" />
         <div class="related-card-body">
           <div class="related-card-name">Veracity</div>
-          <div class="related-card-sub">An AI Co-CEO Built for EOS-Aligned Leadership</div>
+          <div class="related-card-sub">Co-CEO AI Agent for EOS-Aligned Leadership</div>
           <div class="related-card-link">View Case Study &#8594;</div>
         </div>
       </a>
       <a href="/case-studies/wink-hotels" class="related-card reveal">
-        <img src="/case studies/images/case studies-ai programs-Wink Hotels (Travel Buddy).jpeg" alt="Wink Hotels" class="related-card-img" />
+        <img src="/case studies/ai-programs/wink-hotels-travel-buddy/wink-hotels-1.jpeg" alt="Wink Hotels" class="related-card-img" />
         <div class="related-card-body">
           <div class="related-card-name">Wink Hotels</div>
-          <div class="related-card-sub">AI-Powered Guest Experiences That Keep Travelers Coming Back</div>
-          <div class="related-card-link">View Case Study &#8594;</div>
-        </div>
-      </a>
-      <a href="/case-studies/ontarget" class="related-card reveal">
-        <img src="/case studies/images/case studies-ai programs-OnTarget (Abound Health).jpeg" alt="OnTarget" class="related-card-img" />
-        <div class="related-card-body">
-          <div class="related-card-name">OnTarget (Abound Health)</div>
-          <div class="related-card-sub">30% Engineering Velocity Boost Without Adding Headcount</div>
+          <div class="related-card-sub">Redefining Guest Experience Through AI Travel Assistant</div>
           <div class="related-card-link">View Case Study &#8594;</div>
         </div>
       </a>
