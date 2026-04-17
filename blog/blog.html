@@ -500,7 +500,10 @@
   }
   .cat-featured {
     text-decoration: none;
+    background: var(--tint);
+    border: none;
   }
+  .cat-featured:hover { border-color: transparent; }
   .cat-featured * { text-decoration: none; }
   .cat-post-list {
     display: flex;
@@ -550,22 +553,20 @@
     align-items: center;
     gap: 12px;
     margin-top: 16px;
-    padding-top: 14px;
-    border-top: 1px solid var(--tint-deep);
   }
   .cat-pag-btn {
     background: none;
-    border: 1.5px solid var(--tint-deep);
-    border-radius: var(--radius-sm);
-    padding: 6px 16px;
+    border: none;
+    padding: 0;
     font-size: 13px;
     font-weight: 700;
     color: var(--blue);
     cursor: pointer;
     transition: var(--transition);
     font-family: var(--font-body);
+    text-decoration: none;
   }
-  .cat-pag-btn:hover:not(:disabled) { background: var(--tint); border-color: var(--blue); }
+  .cat-pag-btn:hover:not(:disabled) { color: var(--blue-bright); }
   .cat-pag-btn:disabled { opacity: 0.35; cursor: default; }
   .cat-pag-info {
     font-size: 13px;
@@ -907,7 +908,7 @@
             </div>
           </a>
           <a href="https://www.edge8.ai/post/vietnam-ai-business-law" class="cat-post-item">
-            <img class="cat-post-img" src="/blog/Doing Business in Vietnam/Vietnam's AI Rules — What Leaders Should Know/Vietnam's AI Rules.jpeg" alt="Vietnam's AI Rules" />
+            <img class="cat-post-img" src="/blog/Doing Business in Vietnam/Vietnam&#x2019;s AI Rules &#x2014; What Leaders Should Know/Vietnam&#x2019;s AI Rules.jpeg" alt="Vietnam's AI Rules" />
             <div class="cat-post-text">
               <div class="cat-post-title">Vietnam's AI Rules — What Leaders Should Know</div>
               <div class="cat-post-date">May 8, 2025</div>
