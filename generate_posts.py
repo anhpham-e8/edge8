@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate HTML blog post pages from markdown files."""
 import os, re
+from urllib.parse import quote
 
 BASE = "/Users/lananh/Documents/Edge8/Edge8 2.0/edge8-website/blog"
 
@@ -132,8 +133,9 @@ def sidebar_html(category, current_slug, all_posts):
     rows = ''
     for p in items:
         img_path = f'/blog/{cat_folder}/{p["folder"]}/{p["image"]}'
+        local_path = '/blog/' + quote(cat_folder, safe='') + '/' + quote(p['folder'], safe='') + '/'
         rows += f'''
-        <a href="https://www.edge8.ai/post/{p['slug']}" class="sidebar-post">
+        <a href="{local_path}" class="sidebar-post">
           <img class="sidebar-post-img" src="{img_path}" alt="{esc(p['title'])}" loading="lazy" />
           <div class="sidebar-post-text">
             <div class="sidebar-post-title">{esc(p['title'])}</div>
