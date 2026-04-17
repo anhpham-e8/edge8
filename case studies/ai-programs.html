@@ -390,23 +390,14 @@
   /* ─── WHAT IS AN AI PROGRAM ─── */
   .what-is { background: var(--white); }
   .problem-damage {
-    background: var(--dark);
+    background: var(--tint);
+    border: 1px solid var(--tint-deep);
     border-radius: var(--radius);
     padding: 36px 40px;
-    position: relative; overflow: hidden;
     margin-bottom: 40px;
   }
-  .problem-damage::before {
-    content: '"';
-    position: absolute;
-    top: -20px; left: 10px;
-    font-size: 200px;
-    font-family: Georgia, serif;
-    color: rgba(255,255,255,0.05);
-    line-height: 1; pointer-events: none;
-  }
-  .problem-damage p { font-size: 16px; color: rgba(255,255,255,0.75); line-height: 1.7; position: relative; z-index: 1; }
-  .problem-damage p strong { color: var(--mint); }
+  .problem-damage p { font-size: 16px; color: var(--grey-mid); line-height: 1.7; }
+  .problem-damage p strong { color: var(--dark); }
 
   .stat-cards {
     display: grid;
@@ -759,7 +750,6 @@
           <img src="/case studies/images/case studies-ai programs-Kyungbang.jpeg" alt="Kyungbang" />
         </div>
         <div class="cs-card-body">
-          <span class="cs-card-highlights">PDF parsing · Anomaly flagging · NL data search</span>
           <div class="cs-card-title">AI-Powered Quality Data Platform for Smarter Textile Manufacturing</div>
           <p class="cs-card-desc">Kyungbang needed a smarter way to manage quality data across its textile operations. We built an AI platform that parses complex PDFs, flags anomalies automatically, and lets teams search production data using plain language.</p>
           <a href="https://www.edge8.ai/case-studies/kyungbang" class="cs-card-link" target="_blank">Read Case Study →</a>
@@ -771,7 +761,6 @@
           <img src="/case studies/images/case studies-ai programs-Veracity.jpeg" alt="Veracity" />
         </div>
         <div class="cs-card-body">
-          <span class="cs-card-highlights">Multi-agent coordination · EOS logic · Real-time summaries</span>
           <div class="cs-card-title">AI-Powered Co-CEO for EOS-Aligned Leadership</div>
           <p class="cs-card-desc">Veracity needed executive-level intelligence embedded into their EOS leadership model. We built a multi-agent Co-CEO system that coordinates across business functions and delivers real-time insight summaries aligned to their operating system.</p>
           <a href="https://www.edge8.ai/case-studies/veracity" class="cs-card-link" target="_blank">Read Case Study →</a>
@@ -783,7 +772,6 @@
           <img src="/case studies/images/case studies-ai programs-Wink Hotels (Travel Buddy).jpeg" alt="Wink Hotels — Travel Buddy" />
         </div>
         <div class="cs-card-body">
-          <span class="cs-card-highlights">AI Chat Agent · Audio Guide · Discover Feed · UGC Platform</span>
           <div class="cs-card-title">Revolutionizing Guest Experience with AI Travel Assistance</div>
           <p class="cs-card-desc">Wink Hotels partnered with Edge8 to create Travel Buddy — an AI-powered guest companion featuring a chat agent, audio guides, a personalized discover feed, and a UGC platform that turns every guest into a content creator.</p>
           <a href="https://www.edge8.ai/case-studies/wink-hotels-travel-buddy" class="cs-card-link" target="_blank">Read Case Study →</a>
@@ -795,7 +783,6 @@
           <img src="/case studies/images/case studies-ai programs-OnTarget (Abound Health).jpeg" alt="OnTarget — Abound Health" />
         </div>
         <div class="cs-card-body">
-          <span class="cs-card-highlights">CI/CD automation · Copilot integration · 30% dev productivity boost</span>
           <div class="cs-card-title">AI-Enhanced Dev Tools for Faster Engineering Execution</div>
           <p class="cs-card-desc">OnTarget (Abound Health) needed to accelerate their engineering velocity without scaling headcount. We integrated AI into their CI/CD pipeline and developer workflows, delivering a 30% boost in team productivity.</p>
           <a href="https://www.edge8.ai/case-studies/ontarget-abound-health" class="cs-card-link" target="_blank">Read Case Study →</a>
@@ -807,7 +794,6 @@
           <img src="/case studies/images/case studies-ai programs-EO APAC Region (HubSpot).jpeg" alt="EO APAC Region — HubSpot" />
         </div>
         <div class="cs-card-body">
-          <span class="cs-card-highlights">HubSpot rollout · n8n integrations · Cross-chapter automation</span>
           <div class="cs-card-title">CRM + Automation Engine for Scalable Regional Membership</div>
           <p class="cs-card-desc">EO APAC Region needed a scalable CRM and automation engine to support a growing regional membership across multiple chapters. We rolled out HubSpot and built n8n integrations to automate cross-chapter communications and workflows.</p>
           <a href="https://www.edge8.ai/case-studies/eo-apac-region-hubspot" class="cs-card-link" target="_blank">Read Case Study →</a>

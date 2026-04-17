@@ -288,150 +288,108 @@
 
   /* ─── BLOG HERO ───────────────────────────────────── */
   .blog-hero {
-    background: var(--dark);
+    background: var(--tint);
     padding-top: 68px;
     overflow: hidden;
     position: relative;
   }
-  .blog-hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 70% at 50% 0%, rgba(40,123,232,0.14) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 50% at 10% 90%, rgba(111,242,193,0.08) 0%, transparent 60%);
-    pointer-events: none;
-  }
-  .blog-hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
-    pointer-events: none;
-  }
   .blog-hero-inner {
-    text-align: center;
-    padding: 96px 0 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    padding: 80px 0;
     position: relative;
     z-index: 1;
-    max-width: 760px;
-    margin: 0 auto;
   }
-  .blog-hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--blue);
-    margin-bottom: 28px;
-    padding: 7px 14px;
-    background: rgba(40,123,232,0.12);
-    border: 1px solid rgba(40,123,232,0.3);
-    border-radius: 100px;
+  .blog-hero-left {
+    text-align: left;
   }
   .blog-hero-title {
     font-family: var(--font-display);
-    font-size: clamp(40px, 6vw, 72px);
+    font-size: clamp(36px, 5vw, 60px);
     font-weight: 900;
-    line-height: 1.0;
+    line-height: 1.05;
     letter-spacing: -0.03em;
-    color: var(--white);
-    margin-bottom: 24px;
+    color: var(--dark);
+    margin-bottom: 20px;
   }
   .blog-hero-sub {
-    font-size: 18px;
-    color: rgba(255,255,255,0.7);
+    font-size: 17px;
+    color: var(--grey-mid);
     line-height: 1.7;
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 480px;
   }
+  /* ─── HERO FEATURED CARD ─── */
+  .hero-featured-card {
+    background: var(--white);
+    border: 1px solid var(--tint-deep);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 24px rgba(16,16,20,0.07);
+  }
+  .hero-featured-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(16,16,20,0.12);
+    border-color: rgba(40,123,232,0.25);
+  }
+  .hero-featured-card-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+  }
+  .hero-featured-card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .hero-featured-card-date {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--grey-mid);
+  }
+  .hero-featured-card-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--dark);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .hero-featured-card-desc {
+    font-size: 14px;
+    color: var(--grey-mid);
+    line-height: 1.6;
+  }
+  .hero-featured-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue);
+    text-decoration: none;
+    margin-top: 4px;
+    transition: var(--transition);
+  }
+  .hero-featured-card-link:hover { color: var(--blue-bright); gap: 10px; }
 
   @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.4; transform: scale(0.7); }
   }
 
-  /* ─── FEATURED POST ─── */
-  .featured-section { background: var(--white); }
-  .featured-card {
-    background: var(--dark-card);
-    border: 1px solid var(--dark-border);
-    border-left: 4px solid var(--blue);
-    border-radius: var(--radius);
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 1fr 40%;
-    margin-top: 40px;
-    transition: var(--transition);
-  }
-  .featured-card:hover {
-    border-color: var(--blue-bright);
-    border-left-color: var(--blue-bright);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    transform: translateY(-3px);
-  }
-  .featured-card-body {
-    padding: 48px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .featured-card-meta {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--mint);
-    margin-bottom: 16px;
-  }
-  .featured-card-title {
-    font-family: var(--font-display);
-    font-size: clamp(22px, 3vw, 32px);
-    font-weight: 900;
-    color: var(--white);
-    line-height: 1.15;
-    margin-bottom: 16px;
-    letter-spacing: -0.02em;
-  }
-  .featured-card-desc {
-    font-size: 15px;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.7;
-    margin-bottom: 28px;
-    max-width: 500px;
-  }
-  .featured-card-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--blue);
-    text-decoration: none;
-    transition: var(--transition);
-  }
-  .featured-card-link:hover { color: var(--blue-bright); gap: 12px; }
-  .featured-card-img {
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-  .featured-card-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
-  }
-  .featured-card:hover .featured-card-img img { transform: scale(1.04); }
 
   /* ─── BLOG CATEGORY SECTIONS ─── */
   .blog-category { background: var(--white); padding: 72px 0; }
-  .blog-category:nth-child(even) { background: var(--tint); }
   .blog-category-header { margin-bottom: 0; }
   .blog-category-label {
     font-size: 10px;
@@ -494,14 +452,6 @@
     flex-direction: column;
     flex: 1;
   }
-  .blog-card-tag {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--blue);
-    margin-bottom: 10px;
-  }
   .blog-card-title {
     font-weight: 700;
     font-size: 16px;
@@ -531,24 +481,6 @@
     margin-top: 40px;
   }
 
-  /* ─── CTA ─────────────────────────────────── */
-  .audit-cta { background: var(--blue); position: relative; overflow: hidden; padding: 96px 0; }
-  .audit-cta::before {
-    content: ''; position: absolute; top: -120px; right: -120px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(111,242,193,0.18) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .audit-inner {
-    position: relative; z-index: 1;
-    display: flex; flex-direction: row; align-items: center;
-    justify-content: space-between; gap: 48px; flex-wrap: nowrap;
-  }
-  .audit-text { flex: 1 1 0; text-align: left; }
-  .audit-text .section-title { margin-bottom: 12px; color: var(--white); text-align: left; }
-  .audit-text p { font-size: 16px; color: rgba(255,255,255,0.75); max-width: 560px; line-height: 1.65; text-align: left; }
-  .audit-cta-btn { flex-shrink: 0; display: flex; flex-direction: column; gap: 12px; align-items: stretch; min-width: 260px; }
-  .audit-cta-btn .btn { padding: 18px 36px; font-size: 15px; white-space: nowrap; width: 100%; justify-content: center; }
 
   /* ─── FOOTER ────────────────────────────────────────── */
   footer { background: var(--dark); border-top: 1px solid rgba(234,238,242,0.08); padding: 64px 0 32px; }
@@ -581,27 +513,22 @@
   /* ─── RESPONSIVE ────────────────────────────────────── */
   @media (max-width: 1024px) {
     .footer-top { grid-template-columns: 1fr 1fr; }
-    .featured-card { grid-template-columns: 1fr; }
-    .featured-card-img { aspect-ratio: 16/9; max-height: 280px; }
     .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    .blog-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .blog-hero-sub { max-width: 100%; }
   }
   @media (max-width: 768px) {
     .section { padding: 64px 0; }
     .blog-category { padding: 56px 0; }
     .nav-links, .nav-cta { display: none; }
     .nav-hamburger { display: flex; }
-    .featured-card { grid-template-columns: 1fr; }
-    .featured-card-body { padding: 32px 24px; }
-    .featured-card-img { order: -1; }
+    .blog-hero-inner { grid-template-columns: 1fr; padding: 56px 0; gap: 32px; }
     .blog-grid { grid-template-columns: repeat(2, 1fr); }
-    .audit-inner { flex-direction: column; align-items: flex-start; flex-wrap: wrap; }
-    .audit-cta-btn { width: 100%; }
-    .audit-cta-btn .btn { width: 100%; justify-content: center; }
     .footer-top { grid-template-columns: 1fr; }
     .footer-bottom { flex-direction: column; align-items: flex-start; }
   }
   @media (max-width: 480px) {
-    .blog-hero-title { font-size: 36px; }
+    .blog-hero-title { font-size: 34px; }
     .blog-grid { grid-template-columns: 1fr; }
   }
 </style>
@@ -688,32 +615,22 @@
 
 <!-- ═══ BLOG HERO ══════════════════════════════════════════ -->
 <section class="blog-hero">
-  <div class="blog-hero-bg"></div>
-  <div class="blog-hero-grid"></div>
   <div class="container">
-    <div class="blog-hero-inner reveal">
-      <div class="blog-hero-eyebrow">Edge8 Blog</div>
-      <h1 class="blog-hero-title">Insights at the Speed of AI</h1>
-      <p class="blog-hero-sub">Discover how leaders, innovators, and businesses are using AI to transform strategy, branding, and growth. Designed to help you Be Tech-Forward.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FEATURED POST ══════════════════════════════════════ -->
-<section class="featured-section section">
-  <div class="container">
-    <div class="reveal">
-      <span class="section-label">Featured</span>
-    </div>
-    <div class="featured-card reveal">
-      <div class="featured-card-body">
-        <div class="featured-card-meta">Must-read &nbsp;|&nbsp; Nov 10, 2025</div>
-        <div class="featured-card-title">2026 AI Trends: 5 Game-Changing Shifts That Will Define Business Success</div>
-        <p class="featured-card-desc">Explore the five 2026 AI trends transforming business — from AI leadership to data discipline — and see why the winners will be defined by their data, not tools.</p>
-        <a href="https://www.edge8.ai/post/2026-ai-trends-5-game-changing-shifts-that-will-define-business-success" target="_blank" class="featured-card-link">Read Article →</a>
+    <div class="blog-hero-inner">
+      <div class="blog-hero-left reveal">
+        <h1 class="blog-hero-title">Insights at the Speed of AI</h1>
+        <p class="blog-hero-sub">Discover how leaders, innovators, and businesses are using AI to transform strategy, branding, and growth. Designed to help you Be Tech-Forward.</p>
       </div>
-      <div class="featured-card-img">
-        <img src="/homepage/images/blog-posts/2026 AI Trends- 5 Game-Changing Shifts That Will Define Business Success.jpg" alt="2026 AI Trends" />
+      <div class="reveal">
+        <a href="https://www.edge8.ai/post/2026-ai-trends-5-game-changing-shifts-that-will-define-business-success" target="_blank" class="hero-featured-card">
+          <img class="hero-featured-card-img" src="/homepage/images/blog-posts/2026 AI Trends- 5 Game-Changing Shifts That Will Define Business Success.jpg" alt="2026 AI Trends" />
+          <div class="hero-featured-card-body">
+            <div class="hero-featured-card-date">Nov 10, 2025</div>
+            <div class="hero-featured-card-title">2026 AI Trends: 5 Game-Changing Shifts That Will Define Business Success</div>
+            <p class="hero-featured-card-desc">Explore the five 2026 AI trends transforming business — from AI leadership to data discipline — and see why the winners will be defined by their data, not tools.</p>
+            <span class="hero-featured-card-link">Read Article →</span>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -733,7 +650,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">AI in Business</div>
           <div class="blog-card-title">AI Data Strategy: Why Data Moats Beat Model Wars in 2025</div>
           <div class="blog-card-date">Jun 2, 2025</div>
           <a href="https://www.edge8.ai/post/ai-data-strategy-moats-beat-model-wars" target="_blank" class="blog-card-link">Read →</a>
@@ -743,7 +659,6 @@
       <div class="blog-card reveal">
         <img class="blog-card-img" src="/homepage/images/blog-posts/Your Next AI Hire Isnt a Person.jpg" alt="Your Next AI Hire Isn't a Person" />
         <div class="blog-card-body">
-          <div class="blog-card-tag">AI in Business</div>
           <div class="blog-card-title">Your Next AI Hire Isn't a Person</div>
           <div class="blog-card-date">Feb 4, 2025</div>
           <a href="https://www.edge8.ai/post/your-next-ai-hire-isn-t-a-person" target="_blank" class="blog-card-link">Read →</a>
@@ -755,7 +670,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">AI in Business</div>
           <div class="blog-card-title">2026 AI Trends: 5 Game-Changing Shifts That Will Define Business Success</div>
           <div class="blog-card-date">Nov 10, 2025</div>
           <a href="https://www.edge8.ai/post/2026-ai-trends-5-game-changing-shifts-that-will-define-business-success" target="_blank" class="blog-card-link">Read →</a>
@@ -765,7 +679,6 @@
       <div class="blog-card reveal">
         <img class="blog-card-img" src="/homepage/images/blog-posts/AI in Data Migration- Why Your AI Program Is Really a Data Problem.jpg" alt="AI in Data Migration" />
         <div class="blog-card-body">
-          <div class="blog-card-tag">AI in Business</div>
           <div class="blog-card-title">AI in Data Migration: Why Your AI Program Is Really a Data Problem</div>
           <div class="blog-card-date">Sep 19, 2025</div>
           <a href="https://www.edge8.ai/post/ai-in-data-migration-why-your-ai-program-is-really-a-data-problem" target="_blank" class="blog-card-link">Read →</a>
@@ -777,7 +690,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">AI in Business</div>
           <div class="blog-card-title">5 Keys to Reduce AI Hallucinations and Build Reliable Business Systems</div>
           <div class="blog-card-date">Sep 10, 2025</div>
           <a href="https://www.edge8.ai/post/5-keys-to-reduce-ai-hallucinations" target="_blank" class="blog-card-link">Read →</a>
@@ -789,7 +701,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">AI in Business</div>
           <div class="blog-card-title">Why AI Issues Are Really Data Problems: A Guide for Future AI Officers</div>
           <div class="blog-card-date">Sep 9, 2025</div>
           <a href="https://www.edge8.ai/post/why-ai-issues-are-really-data-problems-a-guide-for-future-ai-officers" target="_blank" class="blog-card-link">Read →</a>
@@ -801,7 +712,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">AI in Business</div>
           <div class="blog-card-title">The Hospitality Data Gap: Creating Truly Hotel Personalized Experiences</div>
           <div class="blog-card-date">Sep 4, 2025</div>
           <a href="https://www.edge8.ai/post/the-hospitality-data-gap-creating-truly-hotel-personalized-experiences" target="_blank" class="blog-card-link">Read →</a>
@@ -826,7 +736,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">Founders' Secrets</div>
           <div class="blog-card-title">The Case for AI Co-CEOs &amp; AI Leadership</div>
           <div class="blog-card-date">Aug 22, 2025</div>
           <a href="https://www.edge8.ai/post/why-every-leader-needs-ai-leadership-case-for-ai-co-ceo" target="_blank" class="blog-card-link">Read →</a>
@@ -836,7 +745,6 @@
       <div class="blog-card reveal">
         <img class="blog-card-img" src="/homepage/images/blog-posts/Why Smart Founders Are Already Planning for Meta Ray-Ban Glasses (Even When Demos Fail).jpg" alt="Meta Ray-Ban Glasses" />
         <div class="blog-card-body">
-          <div class="blog-card-tag">Founders' Secrets</div>
           <div class="blog-card-title">Why Smart Founders Are Already Planning for Meta Ray-Ban Glasses</div>
           <div class="blog-card-date">Sep 24, 2025</div>
           <a href="https://www.edge8.ai/post/why-smart-founders-are-already-planning-for-meta-ray-ban-glasses-even-when-demos-fail" target="_blank" class="blog-card-link">Read →</a>
@@ -848,7 +756,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">Founders' Secrets</div>
           <div class="blog-card-title">From Idea to Interactive Blog in 30 Minutes: The Founder's Automation Playbook</div>
           <div class="blog-card-date">Sep 18, 2025</div>
           <a href="https://www.edge8.ai/post/from-idea-to-interactive-blog-in-30-minutes-the-founder-s-automation-playbook" target="_blank" class="blog-card-link">Read →</a>
@@ -860,7 +767,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">Founders' Secrets</div>
           <div class="blog-card-title">The Business Research Assignment That Could Transform Your Company</div>
           <div class="blog-card-date">Sep 17, 2025</div>
           <a href="https://www.edge8.ai/post/the-business-research-assignment-that-could-transform-your-company-and-your-career" target="_blank" class="blog-card-link">Read →</a>
@@ -872,7 +778,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">Founders' Secrets</div>
           <div class="blog-card-title">Why AI Training Is Essential for Your Career Success in the Digital Age</div>
           <div class="blog-card-date">Aug 22, 2025</div>
           <a href="https://www.edge8.ai/post/why-ai-training-is-essential-for-your-career-success-in-the-digital-age" target="_blank" class="blog-card-link">Read →</a>
@@ -884,7 +789,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">Founders' Secrets</div>
           <div class="blog-card-title">Why Human-AI Collaboration Is the Future of Business Success</div>
           <div class="blog-card-date">Aug 22, 2025</div>
           <a href="https://www.edge8.ai/post/why-human-ai-collaboration-is-the-future-of-business-success" target="_blank" class="blog-card-link">Read →</a>
@@ -909,7 +813,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">Doing Business in Vietnam</div>
           <div class="blog-card-title">How AI in Business Success Starts with Strategic Symbolism</div>
           <div class="blog-card-date">Jul 11, 2025</div>
           <a href="https://www.edge8.ai/post/how-ai-in-business-success-starts-with-strategic-symbolism" target="_blank" class="blog-card-link">Read →</a>
@@ -921,7 +824,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">Doing Business in Vietnam</div>
           <div class="blog-card-title">Vietnam's AI Rules — What Leaders Should Know</div>
           <div class="blog-card-date">May 8, 2025</div>
           <a href="https://www.edge8.ai/post/vietnam-ai-business-law" target="_blank" class="blog-card-link">Read →</a>
@@ -933,7 +835,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">Doing Business in Vietnam</div>
           <div class="blog-card-title">Strategies to Harness Top Performers for Business Success</div>
           <div class="blog-card-date">Apr 19, 2025</div>
           <a href="https://www.edge8.ai/post/strategies-to-harness-top-performers-for-business-success" target="_blank" class="blog-card-link">Read →</a>
@@ -945,7 +846,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">Doing Business in Vietnam</div>
           <div class="blog-card-title">Vietnam and the Rise of AI — The New Silicon Valley of Southeast Asia</div>
           <div class="blog-card-date">Feb 18, 2025</div>
           <a href="https://www.edge8.ai/post/vietnam-ai-silicon-valley" target="_blank" class="blog-card-link">Read →</a>
@@ -957,7 +857,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">Doing Business in Vietnam</div>
           <div class="blog-card-title">Tech In Entrepreneurship: How AI is Disrupting the Role of the Founder</div>
           <div class="blog-card-date">Feb 18, 2025</div>
           <a href="https://www.edge8.ai/post/tech-in-entrepreneurship-how-ai-is-disrupting-the-role-of-the-founder" target="_blank" class="blog-card-link">Read →</a>
@@ -982,7 +881,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">High Performing Cultures</div>
           <div class="blog-card-title">How One Decision at a Time Creates High Performers in Business and Life</div>
           <div class="blog-card-date">Aug 12, 2025</div>
           <a href="https://www.edge8.ai/post/how-one-decision-at-a-time-creates-high-performers-in-business-and-life" target="_blank" class="blog-card-link">Read →</a>
@@ -994,7 +892,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">High Performing Cultures</div>
           <div class="blog-card-title">AI for Performance Culture: Process Automation that Works</div>
           <div class="blog-card-date">Apr 24, 2025</div>
           <a href="https://www.edge8.ai/post/ai-process-culture-performance" target="_blank" class="blog-card-link">Read →</a>
@@ -1006,7 +903,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">High Performing Cultures</div>
           <div class="blog-card-title">Strategies to Harness Top Performers for Business Success</div>
           <div class="blog-card-date">Apr 19, 2025</div>
           <a href="https://www.edge8.ai/post/strategies-to-harness-top-performers-for-business-success" target="_blank" class="blog-card-link">Read →</a>
@@ -1018,7 +914,6 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">High Performing Cultures</div>
           <div class="blog-card-title">Offshore Teams Made Easy | Remote Integration with AI</div>
           <div class="blog-card-date">Feb 18, 2025</div>
           <a href="https://www.edge8.ai/post/remote-team-offshore-integration" target="_blank" class="blog-card-link">Read →</a>
@@ -1030,28 +925,12 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
         <div class="blog-card-body">
-          <div class="blog-card-tag">High Performing Cultures</div>
           <div class="blog-card-title">5 AI Strategies for a High-Performing Culture</div>
           <div class="blog-card-date">Feb 18, 2025</div>
           <a href="https://www.edge8.ai/post/ai-strategies-high-performing-culture" target="_blank" class="blog-card-link">Read →</a>
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- ═══ CTA SECTION ════════════════════════════════════════ -->
-<section class="audit-cta">
-  <div class="container">
-    <div class="audit-inner">
-      <div class="audit-text reveal">
-        <h2 class="section-title">Never Miss an Insight</h2>
-        <p>Subscribe at edge8.ai for the latest AI in business content delivered directly to you.</p>
-      </div>
-      <div class="audit-cta-btn reveal">
-        <a href="https://www.edge8.ai/ai-in-business-blog" target="_blank" class="btn btn-white">Visit edge8.ai Blog</a>
-      </div>
     </div>
   </div>
 </section>

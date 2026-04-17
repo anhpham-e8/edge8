@@ -668,7 +668,7 @@
   .founder { background: var(--white); }
   .founder-inner {
     display: grid;
-    grid-template-columns: 420px 1fr;
+    grid-template-columns: 380px 1fr;
     gap: 72px;
     align-items: center;
   }
@@ -676,21 +676,26 @@
     position: relative;
     border-radius: var(--radius);
     overflow: hidden;
-    aspect-ratio: 3/4;
     box-shadow: 0 24px 64px rgba(16,16,20,0.12);
     border: 1px solid var(--tint-deep);
   }
-  .founder-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .founder-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
   .founder-img-wrap::after {
     content: '';
-    position: absolute; inset: 0;
+    position: absolute;
+    inset: 0;
     background: linear-gradient(to bottom, transparent 60%, rgba(16,16,20,0.25));
     pointer-events: none;
   }
-  .founder-content { display: flex; flex-direction: column; gap: 24px; }
+  .founder-content {}
   .founder-name {
     font-family: var(--font-display);
-    font-size: 36px;
+    font-size: clamp(28px, 4vw, 42px);
     font-weight: 900;
     color: var(--dark);
     letter-spacing: -0.02em;
@@ -702,41 +707,36 @@
     color: var(--blue);
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    margin-bottom: 24px;
   }
   .founder-bio {
-    font-size: 15px;
+    font-size: 16px;
     color: var(--grey-mid);
     line-height: 1.7;
+    margin-bottom: 16px;
   }
+  .founder-bio strong { color: var(--dark); }
   .founder-quote {
-    background: var(--dark);
-    border-radius: var(--radius);
-    padding: 28px 32px;
-    position: relative;
-  }
-  .founder-quote::before {
-    content: '"';
-    position: absolute;
-    top: -10px; left: 12px;
-    font-size: 80px;
-    font-family: Georgia, serif;
-    color: rgba(255,255,255,0.07);
-    line-height: 1;
+    margin-top: 28px;
+    padding: 24px 28px;
+    background: var(--tint);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
   .founder-quote p {
-    font-size: 15px;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.7;
+    font-size: 16px;
     font-style: italic;
-    position: relative; z-index: 1;
+    color: var(--dark);
+    line-height: 1.65;
   }
   .founder-stats {
     display: flex;
     gap: 32px;
+    margin-top: 28px;
     flex-wrap: wrap;
   }
-  .founder-stat { display: flex; flex-direction: column; gap: 4px; }
-  .founder-stat-number {
+  .founder-stat {}
+  .founder-stat-num {
     font-family: var(--font-display);
     font-size: 28px;
     font-weight: 900;
@@ -798,7 +798,7 @@
     .choice-grid { grid-template-columns: 1fr; max-width: 520px; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
     .founder-inner { grid-template-columns: 1fr; gap: 40px; }
-    .founder-img-wrap { max-width: 420px; margin: 0 auto; aspect-ratio: 4/3; }
+    .founder-img-wrap { max-width: 340px; margin: 0 auto; aspect-ratio: 1/1; }
     .roi-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 768px) {
@@ -1153,40 +1153,31 @@
 <!-- ═══ MEET THE CAIO ════════════════════════════════════════ -->
 <section class="founder section" id="founder">
   <div class="container">
-    <div class="reveal">
-      <span class="section-label">Meet the CAIO</span>
-      <h2 class="section-title">The Leader Behind the Program</h2>
-    </div>
-
-    <div class="founder-inner" style="margin-top:48px">
+    <div class="founder-inner">
       <div class="founder-img-wrap reveal">
         <img src="/services/images/services-training-and-certification-Dave Hajdu.jpeg" alt="Dave Hajdu — Founder, Edge8 AI &amp; AI Officer Institute" />
       </div>
 
       <div class="founder-content reveal">
-        <div>
-          <div class="founder-name">Dave Hajdu</div>
-          <div class="founder-role">Founder, Edge8 AI &amp; AI Officer Institute</div>
-        </div>
-
+        <span class="section-label">Meet the CAIO</span>
+        <div class="founder-name">Dave Hajdu</div>
+        <div class="founder-role">Founder, Edge8 AI &amp; AI Officer Institute</div>
         <p class="founder-bio">Founder of Edge8 AI &amp; AI Officer Institute. Co-founder of TINYpulse (acquired by WebMD). Microsoft alum. EO Leader for 500+ SEA businesses.</p>
         <p class="founder-bio">Dave leads the AI Officer Certification and helps organizations worldwide move from AI awareness to implementation success.</p>
-
         <div class="founder-quote">
           <p>"The AI Officer Certification isn't about tools. It's about building the leadership capability to turn AI into a repeatable business advantage."</p>
         </div>
-
         <div class="founder-stats">
           <div class="founder-stat">
-            <div class="founder-stat-number">8yr</div>
+            <div class="founder-stat-num">8yr</div>
             <div class="founder-stat-label">AI Experience</div>
           </div>
           <div class="founder-stat">
-            <div class="founder-stat-number">1000s+</div>
+            <div class="founder-stat-num">1000s+</div>
             <div class="founder-stat-label">Certified</div>
           </div>
           <div class="founder-stat">
-            <div class="founder-stat-number">500+</div>
+            <div class="founder-stat-num">500+</div>
             <div class="founder-stat-label">SEA Businesses</div>
           </div>
         </div>
@@ -1205,7 +1196,7 @@
       </div>
       <div class="audit-cta-btn reveal">
         <a href="https://www.ai-officer.com/ai-training-business" class="btn btn-primary">Start Your AI Training Journey</a>
-        <a href="https://www.edge8.ai" class="btn btn-ghost">Book a Consultation</a>
+        <a href="https://www.edge8.ai" class="btn btn-primary">Book a Consultation</a>
       </div>
     </div>
   </div>
