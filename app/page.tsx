@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import Script from 'next/script'
 
 const stepsData = [
   { pct: '10%',  title: 'Get Started',           desc: 'Join a community to learn how your peers and experts are using AI' },
@@ -62,6 +63,7 @@ const extTestimonials = [testimonials[T_COUNT - 1], ...testimonials, testimonial
 export default function HomePage() {
   const [activeStep, setActiveStep] = useState(0)
   const [activeExtIdx, setActiveExtIdx] = useState(T_REAL_OFFSET)
+  // formStatus kept for potential reuse on other pages
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
   const stepsTimelineRef = useRef<HTMLDivElement>(null)
   const viewportRef = useRef<HTMLDivElement>(null)
@@ -590,138 +592,54 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ CONTACT FORM ════════════════════════════════ */}
-      <section className="contact section" id="contact">
-        <div className="container">
-          <div className="contact-inner">
-            <div className="contact-left reveal">
-              <span className="section-label">Get in Touch</span>
-              <h2 className="section-title">Let&apos;s Be Tech-Forward Together</h2>
-              <p className="section-sub" style={{ marginTop: 16 }}>Connect with Edge8&apos;s experts to explore AI Programs for your organization.</p>
-              <div className="contact-detail">
-                <div className="contact-item">
-                  <div className="contact-item-icon">
-                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
-                  </div>
-                  <div>
-                    <div className="contact-item-label">Email</div>
-                    <div className="contact-item-value"><a href="mailto:dave@edge8.ai">dave@edge8.ai</a></div>
-                  </div>
-                </div>
-                <div className="contact-item">
-                  <div className="contact-item-icon">
-                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.16a16 16 0 006.93 6.93l1.52-1.52a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" /></svg>
-                  </div>
-                  <div>
-                    <div className="contact-item-label">Phone</div>
-                    <div className="contact-item-value">
-                      <a href="tel:+84909958581">🇻🇳 +84 90 995 8581</a><br />
-                      <a href="tel:+12063958872">🇺🇸 +1 206 395 8872</a>
-                    </div>
-                  </div>
-                </div>
-                <div className="contact-item">
-                  <div className="contact-item-icon">
-                    <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
-                  </div>
-                  <div>
-                    <div className="contact-item-label">LinkedIn</div>
-                    <div className="contact-item-value"><a href="https://www.linkedin.com/company/edge8ai/" target="_blank" rel="noopener noreferrer">linkedin.com/company/edge8ai</a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="reveal">
-              <form onSubmit={handleSubmit}>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" placeholder="John" required />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" placeholder="Smith" required />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="company">Company Name</label>
-                  <input type="text" id="company" name="company" placeholder="Acme Corp" />
-                </div>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="john@example.com" required />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="phone">Phone</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+1 555 000 0000" />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="challenge">What&apos;s Stopping You from Being Tech-Forward?</label>
-                  <select id="challenge" name="challenge">
-                    <option value="" disabled>Select one...</option>
-                    <option>I need to find a community of Tech-Forward people</option>
-                    <option>My organization doesn&apos;t have an aligned approach to AI</option>
-                    <option>I want to achieve more with AI by implementing a program</option>
-                    <option>I need to build AI Agents</option>
-                    <option>We want to hire Global Talent</option>
-                    <option>My company is ready to scale our AI Efforts</option>
-                    <option>I have a large scale systems integration project</option>
-                    <option>It&apos;s time to build my own personal brand</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="message">Message</label>
-                  <textarea id="message" name="message" placeholder="Tell us about your goals..." />
-                </div>
-                <div className="form-submit">
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    disabled={formStatus !== 'idle'}
-                    style={formStatus === 'sent' ? { background: '#0d9a5e' } : {}}
-                  >
-                    {formStatus === 'idle' ? 'Send Message →' : formStatus === 'sending' ? 'Sending...' : 'Message Sent ✓'}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ═══ PARTNERS ════════════════════════════════════ */}
-      <section className="partners">
+      <PartnerMarquee />
+
+      {/* ═══ CONTACT — TYPEFORM ══════════════════════════ */}
+      <section className="contact-blue section" id="contact">
         <div className="container">
-          <div className="partners-label">Trusted by Leading Organizations</div>
-          <div className="partners-row">
-            <Image src="/homepage/images/home-page-partners-PHO24.png" alt="PHO24" width={130} height={36} className="partner-logo" />
-            <Image src="/homepage/images/home-page-partners-veracity.png" alt="Veracity" width={130} height={36} className="partner-logo" />
-            <Image src="/homepage/images/home-page-partners-vespa.png" alt="Vespa Adventures" width={130} height={36} className="partner-logo" />
-            <Image src="/homepage/images/home-page-partners-EO.png" alt="EO" width={130} height={36} className="partner-logo" />
-            <Image src="/homepage/images/home-page-partners-unlock venture partners.png" alt="Unlock Venture Partners" width={130} height={36} className="partner-logo" />
-            <Image src="/homepage/images/home-page-partners-investmigrate.png" alt="InvestMigrate" width={130} height={36} className="partner-logo" />
-            <Image src="/homepage/images/home-page-partners-abound health group.png" alt="Abound Health Group" width={130} height={36} className="partner-logo" />
+          <div className="contact-blue-inner">
+            <div className="reveal">
+              <span className="section-label">Get in Touch</span>
+              <h2 className="section-title" style={{ marginTop: 12, marginBottom: 16 }}>Let&apos;s Be Tech-Forward Together</h2>
+              <p className="section-sub">Connect with Edge8&apos;s experts to explore AI Programs for your organization.</p>
+            </div>
+            <div className="typeform-wrap reveal">
+              <div data-tf-live="https://ai-officer.typeform.com/letstalk" style={{ width: '100%', height: '420px' }} />
+              <Script src="//embed.typeform.com/next/embed.js" strategy="afterInteractive" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══ AUDIT CTA ═══════════════════════════════════ */}
-      <section className="audit-cta section">
-        <div className="container">
-          <div className="audit-inner">
-            <div className="audit-text reveal">
-              <h2 className="section-title">Schedule a Free AI<br />Automation Review</h2>
-              <p>Ready to transform your business with AI automation? Schedule a free, no-obligation process review with our AI experts. We&apos;ll analyze your current workflows and show you how our solutions can enhance efficiency and drive business growth.</p>
-            </div>
-            <div className="audit-cta-btn reveal">
-              <Link href="/ai-capabilities-audit" className="btn btn-primary">Book Your AI Capabilities Audit</Link>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
+  )
+}
+
+const partnerLogos = [
+  { src: '/homepage/images/home-page-partners-PHO24.png', alt: 'PHO24' },
+  { src: '/homepage/images/home-page-partners-veracity.png', alt: 'Veracity' },
+  { src: '/homepage/images/home-page-partners-vespa.png', alt: 'Vespa Adventures' },
+  { src: '/homepage/images/home-page-partners-EO.png', alt: 'EO' },
+  { src: '/homepage/images/home-page-partners-unlock venture partners.png', alt: 'Unlock Venture Partners' },
+  { src: '/homepage/images/home-page-partners-investmigrate.png', alt: 'InvestMigrate' },
+  { src: '/homepage/images/home-page-partners-abound health group.png', alt: 'Abound Health Group' },
+]
+
+function PartnerMarquee() {
+  const doubled = [...partnerLogos, ...partnerLogos]
+  return (
+    <section className="partners">
+      <div className="container">
+        <h4 className="partners-label">Trusted by Leading Organizations</h4>
+      </div>
+      <div className="partners-viewport">
+        <div className="partners-track">
+          {doubled.map((logo, i) => (
+            <Image key={i} src={logo.src} alt={logo.alt} width={130} height={36} className="partner-logo" />
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
