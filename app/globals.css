@@ -40,6 +40,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 a { transition: color 0.2s ease; }
+h1, h2, h3, h4, h5, h6 { font-weight: 400; }
 .nav-logo img { width: auto; }
 .footer-logo img { width: auto; }
 
