@@ -1,0 +1,669 @@
+'use client'
+
+import { useState, useEffect, useRef } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+
+const stepsData = [
+  { pct: '10%',  title: 'Get Started',           desc: 'Join a community to learn how your peers and experts are using AI' },
+  { pct: '20%',  title: 'Company Alignment',      desc: 'Ensure leadership and employees are aligned on the strategic potential of AI. Assign a dedicated AI Officer to lead implementation.' },
+  { pct: '30%',  title: 'Organize Your Data',     desc: 'Create your company database, starting with just the right amount of data for your first program' },
+  { pct: '40%',  title: 'Build AI Agents',        desc: 'Develop intelligent AI agents that assist with tasks, improving decision-making and efficiency' },
+  { pct: '50%',  title: 'Hire AI-Driven Talent',  desc: 'Leverage local and global talent and onboard AI-empowered people to enhance your workforce' },
+  { pct: '60%',  title: 'Scale AI-Orchestration', desc: 'Implement AI Programs across your organization and start generating revenue, increasing operational efficiency, and developing your talent' },
+  { pct: '80%',  title: 'Full System Integration',desc: 'Replace antiquated systems and processes with a new AI-Driven approach, led by AI Officers who understand your business and your technology' },
+  { pct: '100%', title: 'Tech-Forward ✦',         desc: 'Reclaim Your Time. With AI automating repetitive work, focus on what truly matters—growing your business while achieving 8x efficiency.' },
+]
+
+const testimonials = [
+  {
+    text: "I invited Dave to speak at the AI Summit in Sabah, and he was a natural on stage, bringing a fresh style the audience loved. We are looking forward to collaborating with the AI Officer Institute and Edge8 to bring their AI Certification Program to Malaysia and have signed an MOU to broaden the reach of our organization.",
+    name: 'Dato George Lim',
+    role: 'Founder & CEO — G&A GROUP & GA SPACE',
+    avatar: '/homepage/images/home-page-testimonials-Dato.jpg',
+  },
+  {
+    text: "We were lucky enough to have Dave Hajdu work with our forum to help understand how AI is automating tasks and exploding output across a wide range of applications. He was able to greatly expand our general knowledge of AI and demystify the challenges of implementation. I highly recommend Edge8.ai as a YPO resource.",
+    name: 'John VanNewkirk',
+    role: 'YPO Gold Seattle, Forum 6',
+    avatar: '/homepage/images/home-page-testimonials-John.jpg',
+  },
+  {
+    text: "I am very grateful to Dave Hajdu, who spoke to graduate students in our international business and public policy program during our visit to Vietnam about Negotiations and AI. He was extremely knowledgeable and engaging. Real-world experiences complemented our class discussions perfectly.",
+    name: 'Dr. Brooks Holtom',
+    role: 'Professor of Management, Georgetown',
+    avatar: '/homepage/images/home-page-testimonials-Dr Holtom.jpg',
+  },
+  {
+    text: "Love the new look and branding. The website looks so good. I'm deeply grateful. The brand interview really made me think about our positioning and business in ways I never expected.",
+    name: 'Dao Nguyen',
+    role: 'Founder, DN Legal',
+    avatar: '/homepage/images/home-page-testimonials-Dao Nguyen.jpg',
+  },
+  {
+    text: "I can't stop looking at the new website and brand book. With Edge8's help, we're finally presenting ourselves the way we've always wanted. The speed, the quality, and the care were all top-notch. Everything is just amazing. More than happy.",
+    name: 'Tuan Anh Le',
+    role: 'Managing Partner, DN Legal',
+    avatar: '/homepage/images/home-page-testimonials-Tuan Anh.jpg',
+  },
+  {
+    text: "Working with Edge8 has been a pleasure. When I launched Fab Four Academy, I needed support to build a strong brand and digital presence. Dave and the team stepped in and not only helped with the branding and digital presence, but showed us how to leverage AI to streamline our processes.",
+    name: 'Dan Absher',
+    role: 'CEO, Absher Construction Company',
+    avatar: '/homepage/images/home-page-testimonials-Dan Absher.jpg',
+  },
+]
+
+export default function HomePage() {
+  const [activeStep, setActiveStep] = useState(0)
+  const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+  const stepsTimelineRef = useRef<HTMLDivElement>(null)
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
+
+  // Scroll reveal
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    )
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
+  // Steps auto-init on scroll
+  useEffect(() => {
+    if (!stepsTimelineRef.current) return
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => setActiveStep(0), 300)
+            obs.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.3 }
+    )
+    obs.observe(stepsTimelineRef.current)
+    return () => obs.disconnect()
+  }, [])
+
+  // Testimonials scroll sync
+  useEffect(() => {
+    const viewport = viewportRef.current
+    const track = trackRef.current
+    if (!viewport || !track) return
+
+    const cards = track.querySelectorAll<HTMLElement>('.t-card-real')
+    const total = cards.length
+    if (total === 0) return
+
+    const updateActive = () => {
+      const cx = viewport.scrollLeft + viewport.offsetWidth / 2
+      let closest = 0
+      let minDist = Infinity
+      cards.forEach((card, i) => {
+        const cardCx = card.offsetLeft + card.offsetWidth / 2
+        const dist = Math.abs(cx - cardCx)
+        if (dist < minDist) { minDist = dist; closest = i }
+      })
+      setCurrentTestimonial(closest)
+    }
+    viewport.addEventListener('scroll', updateActive, { passive: true })
+
+    // Set padding so first/last card can center
+    const setEdgePadding = () => {
+      if (!viewport || !cards[0]) return
+      const cardW = cards[0].offsetWidth
+      const vw = viewport.offsetWidth
+      const pad = Math.max(0, (vw - cardW) / 2)
+      track.style.paddingLeft = `${pad}px`
+      track.style.paddingRight = `${pad}px`
+      // Scroll to first real card
+      viewport.scrollLeft = cards[0].offsetLeft - pad
+    }
+    setEdgePadding()
+
+    return () => viewport.removeEventListener('scroll', updateActive)
+  }, [])
+
+  const scrollToTestimonial = (idx: number) => {
+    const viewport = viewportRef.current
+    const track = trackRef.current
+    if (!viewport || !track) return
+    const cards = track.querySelectorAll<HTMLElement>('.t-card-real')
+    if (!cards[idx]) return
+    const pad = parseFloat(track.style.paddingLeft || '0')
+    viewport.scrollTo({ left: cards[idx].offsetLeft - pad, behavior: 'smooth' })
+  }
+
+  const progressPositions = [0, 100/7, 200/7, 300/7, 400/7, 500/7, 600/7, 100]
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setFormStatus('sending')
+    setTimeout(() => {
+      setFormStatus('sent')
+      ;(e.target as HTMLFormElement).reset()
+      setTimeout(() => setFormStatus('idle'), 3000)
+    }, 1200)
+  }
+
+  return (
+    <main>
+      {/* ═══ HERO ═══════════════════════════════════════════ */}
+      <section className="hero" id="hero">
+        <div className="hero-bg" />
+        <div className="hero-grid" />
+        <div className="container">
+          <div className="hero-content">
+            <div className="hero-eyebrow">Be Tech-Forward</div>
+            <h1 className="hero-headline">
+              <span className="num">8</span><span className="x">x</span> IMPACT
+            </h1>
+            <p className="hero-sub">Stop overthinking AI—Start implementing your AI Programs</p>
+            <div className="hero-actions">
+              <a href="https://www.edge8.ai" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+              <a href="#solutions" className="btn btn-outline" style={{ background: '#287BE8', color: '#fff', borderColor: '#287BE8' }}>Explore Solutions</a>
+            </div>
+          </div>
+        </div>
+        <div className="hero-video-wrap">
+          <div className="hero-video-frame">
+            <video autoPlay muted loop playsInline className="hero-video">
+              <source src="/homepage/images/home-page-hero.mp4" type="video/mp4" />
+            </video>
+            <div className="hero-video-overlay" />
+          </div>
+        </div>
+        <div className="hero-scroll">
+          <div className="scroll-line" />
+          <span>Scroll</span>
+        </div>
+      </section>
+
+      {/* ═══ WHY AI ═══════════════════════════════════════════ */}
+      <section className="why-ai section" id="why">
+        <div className="container">
+          <div className="why-ai-inner">
+            <div className="why-left reveal">
+              <span className="section-label">The Problem</span>
+              <h2 className="section-title">Why Do I Need an AI Program?</h2>
+            </div>
+            <div className="why-right reveal">
+              <p><strong>Ad-hoc usage of AI is limiting you to minimal gains.</strong></p>
+              <p style={{ marginTop: 16 }}>Lack of focus traps your business in mediocrity—keeping you stuck in repetitive tasks, wasted resources, and missed opportunities. Without a structured AI Program, competitors will outpace you, innovation stalls, costs balloon, and growth suffers.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ TESTIMONIALS ═══════════════════════════════════ */}
+      <section className="testimonials section" id="testimonials">
+        <div className="container">
+          <div className="testimonials-header reveal">
+            <span className="section-label">Testimonials</span>
+            <h2 className="section-title">Trusted by Leaders Worldwide</h2>
+          </div>
+        </div>
+        <div className="container" style={{ overflow: 'visible' }}>
+          <div className="testimonials-viewport" ref={viewportRef}>
+            <div className="testimonials-track" ref={trackRef}>
+              {testimonials.map((t, i) => (
+                <div
+                  key={i}
+                  className={`testimonial-card t-card-real${i === currentTestimonial ? ' active' : ''}`}
+                >
+                  <span className="testimonial-quote">&ldquo;</span>
+                  <p className="testimonial-text">{t.text}</p>
+                  <div className="testimonial-person">
+                    <Image src={t.avatar} alt={t.name} width={52} height={52} className="testimonial-avatar" />
+                    <div>
+                      <div className="testimonial-name">{t.name}</div>
+                      <div className="testimonial-role">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="testimonials-nav">
+            <div className="testimonials-dots">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  className={`testimonials-dot${i === currentTestimonial ? ' active' : ''}`}
+                  onClick={() => scrollToTestimonial(i)}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                />
+              ))}
+            </div>
+            <div className="testimonials-arrows">
+              <button
+                className="testimonials-arrow"
+                id="testimonialPrev"
+                aria-label="Previous"
+                onClick={() => scrollToTestimonial(Math.max(0, currentTestimonial - 1))}
+              >
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" /></svg>
+              </button>
+              <button
+                className="testimonials-arrow"
+                id="testimonialNext"
+                aria-label="Next"
+                onClick={() => scrollToTestimonial(Math.min(testimonials.length - 1, currentTestimonial + 1))}
+              >
+                <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" /></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ TECH-FORWARD DEFINITION ═══════════════════════ */}
+      <section className="definition section">
+        <div className="container">
+          <div className="definition-inner reveal">
+            <div className="definition-word">Tech-Forward</div>
+            <div className="definition-phonetic">/ˈtɛk ˈfɔrwərd/ &nbsp;·&nbsp; <em>adjective</em></div>
+            <p className="definition-text">
+              Describing an organization or individual with the capability to strategically orchestrate AI resources to drive measurable value within their department or business.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ 8 STEPS ══════════════════════════════════════ */}
+      <section className="steps section" id="steps">
+        <div className="container">
+          <div className="steps-header reveal">
+            <span className="section-label">The Framework</span>
+            <h2 className="section-title">8 Steps to Becoming Tech-Forward</h2>
+            <p className="section-sub">Orchestrate AI Resources for Maximum Impact, and you will unlock new levels of efficiency, automation, and decision-making in your business.</p>
+          </div>
+          <div className="steps-timeline reveal" ref={stepsTimelineRef}>
+            <div className="steps-track-container">
+              <div className="steps-progress-bar">
+                <div
+                  className="steps-progress-fill"
+                  style={{ width: `${progressPositions[activeStep]}%` }}
+                />
+              </div>
+              <div className="steps-milestones">
+                {stepsData.map((s, i) => (
+                  <button
+                    key={i}
+                    className={`step-milestone${i === activeStep ? ' active' : ''}${i < activeStep ? ' completed' : ''}${i === 7 ? ' final' : ''}`}
+                    onClick={() => setActiveStep(i)}
+                  >
+                    <div className="step-dot">{String(i + 1).padStart(2, '0')}</div>
+                    <div className="step-dot-label">
+                      {['Get\nStarted', 'Company\nAlignment', 'Organize\nData', 'Build AI\nAgents', 'Hire\nTalent', 'Scale AI\nOrch.', 'Full\nIntegration', 'Tech-\nForward'][i]}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="steps-panel">
+              <div className={`steps-panel-inner${activeStep === 7 ? ' final' : ''}`}>
+                <div className="steps-panel-num">{String(activeStep + 1).padStart(2, '0')}</div>
+                <div className="steps-panel-body">
+                  <div className="steps-panel-step">Step {String(activeStep + 1).padStart(2, '0')}</div>
+                  <div className="steps-panel-pct">{stepsData[activeStep].pct}</div>
+                  <div className="steps-panel-title">{stepsData[activeStep].title}</div>
+                  <div className="steps-panel-desc">{stepsData[activeStep].desc}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style={{ textAlign: 'center', marginTop: 48 }} className="reveal">
+            <p style={{ color: 'var(--grey-mid)', marginBottom: 20, fontSize: 15 }}>Book your free consultation today and take the first step toward an AI-driven future.</p>
+            <a href="https://www.edge8.ai" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ IMPACT METRICS ═══════════════════════════════ */}
+      <section className="metrics section" id="metrics">
+        <div className="container">
+          <div className="metrics-header reveal">
+            <span className="section-label">Real Results</span>
+            <h2 className="section-title">Real Results for Real Businesses</h2>
+            <p className="section-sub" style={{ marginTop: 16 }}>Discover how Edge8 helps companies Be Tech-Forward through Global Talent Staffing, AI Programs and AI Officer Leadership.</p>
+          </div>
+          <div className="metrics-grid">
+            <div className="metric-card reveal">
+              <div className="metric-multiplier"><span>2</span>x</div>
+              <div className="metric-area">AI Officer Leadership</div>
+              <p className="metric-desc">Established the leadership needed to effectively run an AI Program within 10+ organizations</p>
+            </div>
+            <div className="metric-card reveal">
+              <div className="metric-multiplier"><span>5</span>x</div>
+              <div className="metric-area">Global Talent Staffing</div>
+              <p className="metric-desc">Helping a leading healthcare provider build a tech-forward team, doubling productivity while cutting costs dramatically</p>
+            </div>
+            <div className="metric-card reveal">
+              <div className="metric-multiplier"><span>8</span>x</div>
+              <div className="metric-area">AI Programs</div>
+              <p className="metric-desc">Eliminated 100% of data entry tasks, enriched entrepreneur submissions, and enhanced deal flow analysis for a Venture Capital firm</p>
+            </div>
+          </div>
+          <div style={{ textAlign: 'center', marginTop: 48 }} className="reveal">
+            <a href="https://www.edge8.ai/case-study" className="btn btn-primary" target="_blank" rel="noopener noreferrer">View Our Success Case Studies</a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ CORE SOLUTIONS ══════════════════════════════ */}
+      <section className="solutions section" id="solutions">
+        <div className="container">
+          <div className="solutions-header reveal">
+            <span className="section-label">Core Solutions</span>
+            <h2 className="section-title">AI-Powered Solutions for a Tech-Forward Future</h2>
+            <p className="section-sub" style={{ marginTop: 16 }}>Empowering Organizations to use AI effectively through clear leadership, thoughtful implementation and strong global talent.</p>
+          </div>
+          <div className="solutions-grid">
+            <div className="solution-card reveal">
+              <Image src="/homepage/images/home-page-solutions-AI Programs.jpg" alt="AI Programs" width={400} height={220} className="solution-img" />
+              <div className="solution-body">
+                <h3 className="solution-title">AI Programs</h3>
+                <p className="solution-desc">From Strategy to Implementation, We Build not Pitch. We don&apos;t just talk AI—we build with it. From CRM flows to marketing automation, our AI solutions power content creation, sales engagement, and customer journeys.</p>
+              </div>
+            </div>
+            <div className="solution-card reveal">
+              <Image src="/homepage/images/home-page-solutions-Global Talent Network.jpg" alt="Global Talent Network" width={400} height={220} className="solution-img" />
+              <div className="solution-body">
+                <h3 className="solution-title">Global Talent Network</h3>
+                <p className="solution-desc">Scale Smarter with AI-Empowered Teams. Access Vietnam&apos;s top AI-trained professionals to accelerate your initiatives—without compromising on quality or speed.</p>
+              </div>
+            </div>
+            <div className="solution-card reveal">
+              <Image src="/homepage/images/home-page-solutions-AI Officer Certification & Workshops.jpg" alt="AI Officer Certification" width={400} height={220} className="solution-img" />
+              <div className="solution-body">
+                <h3 className="solution-title">AI Officer Certification &amp; Workshops</h3>
+                <p className="solution-desc">Make Your Team AI-Literate and Leadership-Ready. We equip founders and teams to lead with confidence through our AI Officer certification and hands-on workshops.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ CASE STUDIES ════════════════════════════════ */}
+      <section className="case-studies section" id="case-studies">
+        <div className="container">
+          <div className="case-studies-header reveal">
+            <div>
+              <span className="section-label">Case Studies</span>
+              <h2 className="section-title">The Path to Tech-Forward</h2>
+            </div>
+            <a href="https://www.edge8.ai/case-study" className="btn btn-ghost-light" target="_blank" rel="noopener noreferrer">Full List of Case Studies →</a>
+          </div>
+          <div className="case-studies-grid">
+            <a href="https://www.pho-24.com/" target="_blank" rel="noopener noreferrer" className="case-card reveal">
+              <Image src="/homepage/images/home-page-case studies-PHO24.jpg" alt="PHO24" width={400} height={533} />
+              <div className="case-overlay">
+                <span className="case-tag">AI Agents</span>
+                <div className="case-name">PHO24</div>
+              </div>
+            </a>
+            <a href="https://www.investmigrate.com/" target="_blank" rel="noopener noreferrer" className="case-card reveal">
+              <Image src="/homepage/images/home-page-case studies-InvestMigrate.jpg" alt="InvestMigrate" width={400} height={533} />
+              <div className="case-overlay">
+                <span className="case-tag">Featured</span>
+                <div className="case-name">InvestMigrate</div>
+              </div>
+            </a>
+            <a href="https://vespaadventures.com/" target="_blank" rel="noopener noreferrer" className="case-card reveal">
+              <Image src="/homepage/images/home-page-case studies-Vespa Adventures.jpg" alt="Vespa Adventures" width={400} height={533} />
+              <div className="case-overlay">
+                <span className="case-tag">AI Program</span>
+                <div className="case-name">Vespa Adventures</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ SOLUTIONS DETAIL ════════════════════════════ */}
+      <section className="solutions-detail section" id="solutions-detail">
+        <div className="container">
+          <div className="solutions-detail-header reveal">
+            <span className="section-label">What We Do</span>
+            <h2 className="section-title">AI Automation Designed to Elevate Your Business</h2>
+          </div>
+          <div className="solutions-detail-grid">
+            <div className="sol-tile reveal">
+              <div className="sol-icon">✦</div>
+              <div className="sol-title">Personal Branding with AI</div>
+              <p className="sol-desc">Build your brands similar to leaders like Rich Pham, Angi Hurt, and Steve Mueller. Develop a powerful personal presence that drives business.</p>
+              <a href="https://www.edge8.ai" className="sol-link" target="_blank" rel="noopener noreferrer">Schedule a Consultation →</a>
+            </div>
+            <div className="sol-tile reveal">
+              <div className="sol-icon">◈</div>
+              <div className="sol-title">Private &amp; Public Workshops</div>
+              <p className="sol-desc">Get your team aligned with an interactive session where we break down AI fundamentals, dive into real case studies, and leave you with practical tools.</p>
+              <a href="https://www.ai-officer.com/ai-in-business-events" className="sol-link" target="_blank" rel="noopener noreferrer">Join a Workshop →</a>
+            </div>
+            <div className="sol-tile reveal">
+              <div className="sol-icon">⬡</div>
+              <div className="sol-title">AI in HR Workflows &amp; Recruitment</div>
+              <p className="sol-desc">Optimize talent acquisition, onboarding, and coaching with intelligent AI Agents that streamline every step of the HR process.</p>
+              <a href="https://www.edge8.ai" className="sol-link" target="_blank" rel="noopener noreferrer">Schedule a Consultation →</a>
+            </div>
+            <div className="sol-tile reveal">
+              <div className="sol-icon">▲</div>
+              <div className="sol-title">Revolutionizing Sales with AI</div>
+              <p className="sol-desc">Transform your sales process with your own chatbot, CRM and nurture campaigns. Turn every prospect interaction into a revenue opportunity.</p>
+              <a href="https://www.edge8.ai" className="sol-link" target="_blank" rel="noopener noreferrer">Schedule a Consultation →</a>
+            </div>
+            <div className="sol-tile reveal">
+              <div className="sol-icon">◎</div>
+              <div className="sol-title">AI for Social Media &amp; Content</div>
+              <p className="sol-desc">Stay ahead with AI-driven content for improved engagement and visibility. Try it out at Thoughtflow.life — your AI content engine.</p>
+              <a href="https://www.ai-officer.com/ai-in-business-events" className="sol-link" target="_blank" rel="noopener noreferrer">Join a Workshop →</a>
+            </div>
+            <div className="sol-tile reveal">
+              <div className="sol-icon">⬢</div>
+              <div className="sol-title">Global Talent Solutions</div>
+              <p className="sol-desc">Find, train, and scale with AI-empowered professionals located in Vietnam. Build the team that powers your AI ambitions.</p>
+              <Link href="/global-staffing" className="sol-link">Schedule a Consultation →</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ BLOG ════════════════════════════════════════ */}
+      <section className="blog section" id="blog">
+        <div className="container">
+          <div className="blog-header reveal">
+            <div>
+              <span className="section-label">Insights</span>
+              <h2 className="section-title">AI Is Driving Rapid Change</h2>
+            </div>
+            <Link href="/blog" className="btn btn-ghost-light">View All Posts →</Link>
+          </div>
+          <div className="blog-layout">
+            <Link href="/post/your-next-ai-hire-isnt-a-person" className="blog-featured reveal">
+              <div className="blog-featured-visual">
+                <Image src="/homepage/images/blog-posts/Your Next AI Hire Isnt a Person.jpg" alt="Your Next AI Hire Isn't a Person" width={600} height={338} />
+              </div>
+              <div className="blog-featured-body">
+                <h3 className="blog-featured-title">Your Next AI Hire Isn&apos;t a Person</h3>
+                <p className="blog-excerpt">Most companies don&apos;t fail at AI because of the tech. They fail because no one owns it. AI agents need managers, engineers, and real teams, just like people.</p>
+                <span className="blog-more">Read Article →</span>
+              </div>
+            </Link>
+            <div className="blog-stack">
+              <Link href="/post/2026-ai-trends-5-game-changing-shifts-that-will-define-business-success" className="blog-item reveal">
+                <Image src="/homepage/images/blog-posts/2026 AI Trends- 5 Game-Changing Shifts That Will Define Business Success.jpg" alt="2026 AI Trends" width={80} height={80} className="blog-item-thumb" />
+                <div className="blog-item-body">
+                  <h4 className="blog-item-title">2026 AI Trends: 5 Game-Changing Shifts</h4>
+                  <p className="blog-item-excerpt">Explore the five 2026 AI trends transforming business—from AI leadership to data discipline.</p>
+                </div>
+                <span className="blog-item-arrow">→</span>
+              </Link>
+              <Link href="/post/why-smart-founders-are-already-planning-for-meta-ray-ban-glasses-even-when-demos-fail" className="blog-item reveal">
+                <Image src="/homepage/images/blog-posts/Why Smart Founders Are Already Planning for Meta Ray-Ban Glasses (Even When Demos Fail).jpg" alt="Meta Ray-Ban Glasses" width={80} height={80} className="blog-item-thumb" />
+                <div className="blog-item-body">
+                  <h4 className="blog-item-title">Why Smart Founders Are Already Planning for Meta Ray-Ban Glasses</h4>
+                  <p className="blog-item-excerpt">Technology always catches up—the question is whether you&apos;re truly ready when it does.</p>
+                </div>
+                <span className="blog-item-arrow">→</span>
+              </Link>
+              <Link href="/post/ai-in-data-migration-why-your-ai-program-is-really-a-data-problem" className="blog-item reveal">
+                <Image src="/homepage/images/blog-posts/AI in Data Migration- Why Your AI Program Is Really a Data Problem.jpg" alt="AI in Data Migration" width={80} height={80} className="blog-item-thumb" />
+                <div className="blog-item-body">
+                  <h4 className="blog-item-title">AI in Data Migration: Why Your AI Program Is Really a Data Problem</h4>
+                  <p className="blog-item-excerpt">AI in Data Migration isn&apos;t a technology problem—it&apos;s a data strategy challenge.</p>
+                </div>
+                <span className="blog-item-arrow">→</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ CONTACT FORM ════════════════════════════════ */}
+      <section className="contact section" id="contact">
+        <div className="container">
+          <div className="contact-inner">
+            <div className="contact-left reveal">
+              <span className="section-label">Get in Touch</span>
+              <h2 className="section-title">Let&apos;s Be Tech-Forward Together</h2>
+              <p className="section-sub" style={{ marginTop: 16 }}>Connect with Edge8&apos;s experts to explore AI Programs for your organization.</p>
+              <div className="contact-detail">
+                <div className="contact-item">
+                  <div className="contact-item-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                  </div>
+                  <div>
+                    <div className="contact-item-label">Email</div>
+                    <div className="contact-item-value"><a href="mailto:dave@edge8.ai">dave@edge8.ai</a></div>
+                  </div>
+                </div>
+                <div className="contact-item">
+                  <div className="contact-item-icon">
+                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.16a16 16 0 006.93 6.93l1.52-1.52a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" /></svg>
+                  </div>
+                  <div>
+                    <div className="contact-item-label">Phone</div>
+                    <div className="contact-item-value">
+                      <a href="tel:+84909958581">🇻🇳 +84 90 995 8581</a><br />
+                      <a href="tel:+12063958872">🇺🇸 +1 206 395 8872</a>
+                    </div>
+                  </div>
+                </div>
+                <div className="contact-item">
+                  <div className="contact-item-icon">
+                    <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
+                  </div>
+                  <div>
+                    <div className="contact-item-label">LinkedIn</div>
+                    <div className="contact-item-value"><a href="https://www.linkedin.com/company/edge8ai/" target="_blank" rel="noopener noreferrer">linkedin.com/company/edge8ai</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="reveal">
+              <form onSubmit={handleSubmit}>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" placeholder="John" required />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Smith" required />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="company">Company Name</label>
+                  <input type="text" id="company" name="company" placeholder="Acme Corp" />
+                </div>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="john@example.com" required />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+1 555 000 0000" />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="challenge">What&apos;s Stopping You from Being Tech-Forward?</label>
+                  <select id="challenge" name="challenge">
+                    <option value="" disabled>Select one...</option>
+                    <option>I need to find a community of Tech-Forward people</option>
+                    <option>My organization doesn&apos;t have an aligned approach to AI</option>
+                    <option>I want to achieve more with AI by implementing a program</option>
+                    <option>I need to build AI Agents</option>
+                    <option>We want to hire Global Talent</option>
+                    <option>My company is ready to scale our AI Efforts</option>
+                    <option>I have a large scale systems integration project</option>
+                    <option>It&apos;s time to build my own personal brand</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="message">Message</label>
+                  <textarea id="message" name="message" placeholder="Tell us about your goals..." />
+                </div>
+                <div className="form-submit">
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={formStatus !== 'idle'}
+                    style={formStatus === 'sent' ? { background: '#0d9a5e' } : {}}
+                  >
+                    {formStatus === 'idle' ? 'Send Message →' : formStatus === 'sending' ? 'Sending...' : 'Message Sent ✓'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ PARTNERS ════════════════════════════════════ */}
+      <section className="partners">
+        <div className="container">
+          <div className="partners-label">Trusted by Leading Organizations</div>
+          <div className="partners-row">
+            <Image src="/homepage/images/home-page-partners-PHO24.png" alt="PHO24" width={130} height={36} className="partner-logo" />
+            <Image src="/homepage/images/home-page-partners-veracity.png" alt="Veracity" width={130} height={36} className="partner-logo" />
+            <Image src="/homepage/images/home-page-partners-vespa.png" alt="Vespa Adventures" width={130} height={36} className="partner-logo" />
+            <Image src="/homepage/images/home-page-partners-EO.png" alt="EO" width={130} height={36} className="partner-logo" />
+            <Image src="/homepage/images/home-page-partners-unlock venture partners.png" alt="Unlock Venture Partners" width={130} height={36} className="partner-logo" />
+            <Image src="/homepage/images/home-page-partners-investmigrate.png" alt="InvestMigrate" width={130} height={36} className="partner-logo" />
+            <Image src="/homepage/images/home-page-partners-abound health group.png" alt="Abound Health Group" width={130} height={36} className="partner-logo" />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ AUDIT CTA ═══════════════════════════════════ */}
+      <section className="audit-cta section">
+        <div className="container">
+          <div className="audit-inner">
+            <div className="audit-text reveal">
+              <h2 className="section-title">Schedule a Free AI<br />Automation Review</h2>
+              <p>Ready to transform your business with AI automation? Schedule a free, no-obligation process review with our AI experts. We&apos;ll analyze your current workflows and show you how our solutions can enhance efficiency and drive business growth.</p>
+            </div>
+            <div className="audit-cta-btn reveal">
+              <Link href="/ai-capabilities-audit" className="btn btn-primary">Book Your AI Capabilities Audit</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
