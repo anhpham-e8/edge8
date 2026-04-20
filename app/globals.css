@@ -166,7 +166,7 @@ nav {
   align-items: center;
   gap: 5px;
   padding: 8px 14px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--body-text);
   text-decoration: none;
@@ -1040,7 +1040,7 @@ nav {
 .btn-contact {
   display: inline-block;
   padding: 18px 40px;
-  background: #0A2540;
+  background: #101014;
   color: var(--white);
   border-radius: var(--radius-btn);
   font-weight: 600;
@@ -1051,7 +1051,7 @@ nav {
 }
 .btn-contact:hover {
   background: var(--white);
-  color: #0A2540;
+  color: #101014;
 }
 .typeform-wrap {
   border-radius: 20px;
@@ -1455,7 +1455,7 @@ footer {
 .cs-detail-hero { background: var(--dark); padding-top: 68px; padding-bottom: 80px; text-align: center; position: relative; overflow: hidden; }
 .cs-detail-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(40,123,232,0.18) 0%, transparent 65%); pointer-events: none; }
 .cs-detail-hero-inner { position: relative; z-index: 1; padding: 64px 0 0; }
-.cs-eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue); padding: 7px 16px; background: rgba(40,123,232,0.12); border: 1px solid rgba(40,123,232,0.25); border-radius: 100px; margin-bottom: 28px; }
+.cs-eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mint); padding: 7px 16px; background: rgba(111,242,193,0.12); border: 1px solid rgba(111,242,193,0.35); border-radius: 100px; margin-bottom: 28px; }
 .cs-detail-title { font-size: clamp(44px, 7vw, 80px); font-weight: 900; line-height: 1.0; color: var(--white); margin-bottom: 16px; }
 .cs-detail-sub { font-size: 19px; color: rgba(255,255,255,0.6); line-height: 1.6; max-width: 540px; margin: 0 auto; }
 .cs-detail-content { padding: 96px 0; }
@@ -1527,8 +1527,10 @@ footer {
   .contact-inner { gap: 32px; }
   .solutions-detail-grid { grid-template-columns: 1fr; }
   .hero-actions { flex-direction: column; align-items: center; }
-  .contact-blue-inner { grid-template-columns: 1fr; gap: 40px; }
-  .contact-blue-cta { justify-content: flex-start; }
+  .contact-blue-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+  .contact-blue-cta { justify-content: center; }
+  .contact-blue-inner .section-title,
+  .contact-blue-inner .section-sub { text-align: center; }
   .cs-detail-layout { grid-template-columns: 1fr; gap: 40px; }
   .cs-detail-media { position: static; }
   .cs-related-grid { grid-template-columns: repeat(2, 1fr); }
