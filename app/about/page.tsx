@@ -228,7 +228,7 @@ export default function AboutPage() {
             </div>
             <div className="audit-cta-btn reveal">
               <Link href="/ai-capabilities-audit" className="btn btn-primary">Book Your AI Capabilities Audit</Link>
-              <a href="https://www.edge8.ai" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
             </div>
           </div>
         </div>

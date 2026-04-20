@@ -146,7 +146,7 @@ export default function TrainingAndCertificationPage() {
               </p>
               <div style={{ display: 'flex', gap: 16, marginTop: 28, flexWrap: 'wrap' }}>
                 <a href="https://www.ai-officer.com" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Explore the AI Officer Institute</a>
-                <a href="https://www.edge8.ai" className="btn btn-outline" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+                <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-outline" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
               </div>
             </div>
             <Image src="/services/images/services-training-and-certification-Dave Hajdu.jpeg" alt="Dave Hajdu" width={500} height={420} className="meet-dave-img reveal" />
@@ -164,7 +164,7 @@ export default function TrainingAndCertificationPage() {
             </div>
             <div className="audit-cta-btn reveal">
               <a href="https://www.ai-officer.com" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Explore the Program</a>
-              <a href="https://www.edge8.ai" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
             </div>
           </div>
         </div>

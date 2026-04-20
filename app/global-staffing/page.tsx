@@ -28,7 +28,7 @@ export default function GlobalStaffingPage() {
             <span className="section-label">Global Staffing</span>
             <h1 className="section-title">Let&apos;s Build Your AI-Ready Team</h1>
             <p className="page-hero-sub">Access Vietnam&apos;s top AI-trained professionals — at 75% less than US market rates. Start in weeks, not months.</p>
-            <a href="https://www.edge8.ai" className="btn btn-mint" target="_blank" rel="noopener noreferrer">Build Your Team →</a>
+            <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-mint" target="_blank" rel="noopener noreferrer">Build Your Team →</a>
           </div>
         </div>
       </section>
@@ -144,7 +144,7 @@ export default function GlobalStaffingPage() {
               <p>Start with a free consultation to find the right global talent for your needs.</p>
             </div>
             <div className="audit-cta-btn reveal">
-              <a href="https://www.edge8.ai" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
             </div>
           </div>
         </div>

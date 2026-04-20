@@ -22,7 +22,7 @@ export default function CaioLeadershipPage() {
             <span className="section-label">CAIO Leadership</span>
             <h1 className="section-title">Get C-Level AI Leadership Without the $300K Mistake</h1>
             <p className="page-hero-sub">Most companies don&apos;t need a $300K full-time CAIO. They need strategic AI leadership that drives real results — without the risk of the wrong hire.</p>
-            <a href="https://www.edge8.ai" className="btn btn-mint" target="_blank" rel="noopener noreferrer">Start with a Free Consultation →</a>
+            <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-mint" target="_blank" rel="noopener noreferrer">Start with a Free Consultation →</a>
           </div>
         </div>
       </section>
@@ -183,7 +183,7 @@ export default function CaioLeadershipPage() {
               <p>Schedule a free consultation to find the right CAIO model for your organization.</p>
             </div>
             <div className="audit-cta-btn reveal">
-              <a href="https://www.edge8.ai" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
               <Link href="/ai-capabilities-audit" className="btn btn-ghost">Start with a Free Audit</Link>
             </div>
           </div>

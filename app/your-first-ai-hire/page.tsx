@@ -33,7 +33,7 @@ export default function YourFirstAIHirePage() {
             <h1 className="section-title">Your First AI Hire — Done Right</h1>
             <div className="page-hero-urgency">⚡ We&apos;re placing 100 companies this year. 77 spots remaining.</div>
             <p className="page-hero-sub">Stop guessing about AI. Get your first dedicated AI Officer in place within 30 days — and start seeing real results by Month 2.</p>
-            <a href="https://www.edge8.ai" className="btn btn-mint" target="_blank" rel="noopener noreferrer">Claim Your Spot Now →</a>
+            <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-mint" target="_blank" rel="noopener noreferrer">Claim Your Spot Now →</a>
           </div>
         </div>
       </section>
@@ -183,7 +183,7 @@ export default function YourFirstAIHirePage() {
               <p style={{ fontSize: 17, color: 'var(--grey-mid)', lineHeight: 1.75, marginTop: 16 }}>
                 When you work with Edge8, you get Dave&apos;s methodology, his team&apos;s execution, and a proven system for turning AI experiments into business results.
               </p>
-              <a href="https://www.edge8.ai" className="btn btn-primary" style={{ marginTop: 28 }} target="_blank" rel="noopener noreferrer">Schedule Your Free Consultation</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" style={{ marginTop: 28 }} target="_blank" rel="noopener noreferrer">Schedule Your Free Consultation</a>
             </div>
             <Image src="/services/images/services-your-first-ai-hire-Dave Hajdu.jpeg" alt="Dave Hajdu" width={500} height={420} className="meet-dave-img reveal" />
           </div>
@@ -224,7 +224,7 @@ export default function YourFirstAIHirePage() {
               <p>77 spots remaining this year. Claim yours before your competitor does.</p>
             </div>
             <div className="audit-cta-btn reveal">
-              <a href="https://www.edge8.ai" className="btn btn-mint" style={{ justifyContent: 'center' }} target="_blank" rel="noopener noreferrer">Claim Your Spot Now →</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-mint" style={{ justifyContent: 'center' }} target="_blank" rel="noopener noreferrer">Claim Your Spot Now →</a>
               <Link href="/ai-capabilities-audit" className="btn btn-ghost" style={{ justifyContent: 'center' }}>Start with a Free Audit</Link>
             </div>
           </div>

@@ -114,7 +114,7 @@ export default function AiCapabilitiesAuditPage() {
                   <div key={f} className="pricing-feature">{f}</div>
                 ))}
               </div>
-              <a href="https://www.edge8.ai" className="btn pricing-cta-ghost" target="_blank" rel="noopener noreferrer">Get Started →</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn pricing-cta-ghost" target="_blank" rel="noopener noreferrer">Get Started →</a>
             </div>
             <div className="pricing-card featured reveal">
               <div className="pricing-badge">Most Popular</div>
@@ -126,7 +126,7 @@ export default function AiCapabilitiesAuditPage() {
                   <div key={f} className="pricing-feature">{f}</div>
                 ))}
               </div>
-              <a href="https://www.edge8.ai" className="btn pricing-cta-filled" target="_blank" rel="noopener noreferrer">Get Started →</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn pricing-cta-filled" target="_blank" rel="noopener noreferrer">Get Started →</a>
             </div>
             <div className="pricing-card reveal">
               <div className="pricing-name">Peak</div>
@@ -137,7 +137,7 @@ export default function AiCapabilitiesAuditPage() {
                   <div key={f} className="pricing-feature">{f}</div>
                 ))}
               </div>
-              <a href="https://www.edge8.ai" className="btn pricing-cta-ghost" target="_blank" rel="noopener noreferrer">Get Started →</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn pricing-cta-ghost" target="_blank" rel="noopener noreferrer">Get Started →</a>
             </div>
           </div>
         </div>
