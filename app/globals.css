@@ -39,6 +39,9 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+a { transition: color 0.2s ease; }
+.nav-logo img { width: auto; }
+.footer-logo img { width: auto; }
 
 body {
   background: var(--white);
@@ -518,14 +521,14 @@ nav {
 .testimonials-grid .testimonial-quote { font-size: 56px; margin-bottom: 8px; }
 
 /* ─── TECH-FORWARD DEF ────────────────────────────── */
-.definition { background: var(--dark); position: relative; overflow: hidden; }
+.definition { background: var(--white); position: relative; overflow: hidden; }
 .definition::before {
   content: '"';
   position: absolute;
   top: -40px; left: -20px;
   font-size: 400px;
   font-family: Georgia, serif;
-  color: rgba(255,255,255,0.07);
+  color: rgba(16,16,20,0.04);
   line-height: 1;
   pointer-events: none;
 }
@@ -534,14 +537,14 @@ nav {
   font-family: var(--font-display);
   font-size: clamp(48px, 8vw, 80px);
   font-weight: 900;
-  color: var(--mint);
+  color: var(--blue);
   line-height: 1;
   margin-bottom: 12px;
 }
-.definition-phonetic { font-size: 18px; color: rgba(255,255,255,0.65); margin-bottom: 28px; }
+.definition-phonetic { font-size: 18px; color: var(--body-text); margin-bottom: 28px; }
 .definition-text {
   font-size: clamp(18px, 2.5vw, 24px);
-  color: #fff;
+  color: var(--body-text);
   line-height: 1.6;
   font-style: italic;
 }
@@ -1075,8 +1078,22 @@ textarea { resize: vertical; min-height: 120px; }
 /* Form card */
 .form-card { background: var(--white); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 40px; }
 
+/* ─── TEXT LINK ───────────────────────────────────── */
+.text-link {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+}
+.text-link:hover { color: var(--dark); }
+
 /* ─── AUDIT CTA ────────────────────────────────────── */
 .audit-cta { background: var(--blue); position: relative; overflow: hidden; }
+.audit-cta .btn-primary:hover { background: var(--white); color: var(--dark); }
 .audit-cta::before {
   content: '';
   position: absolute;
@@ -1128,9 +1145,9 @@ footer {
   text-decoration: none; transition: var(--transition);
 }
 .footer-social a:hover { color: var(--mint); }
-.footer-col-title { font-size: 11px; font-weight: 700; color: var(--tint); margin-bottom: 18px; }
+.footer-col-title { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 18px; }
 .footer-links { display: flex; flex-direction: column; gap: 10px; }
-.footer-links a { font-size: 13.5px; color: var(--grey-mid); text-decoration: none; transition: var(--transition); }
+.footer-links a { font-size: 16px; color: var(--grey-mid); text-decoration: none; transition: color 0.2s ease; }
 .footer-links a:hover { color: var(--tint); }
 .footer-contact { display: flex; flex-direction: column; gap: 12px; }
 .footer-contact-item { display: flex; align-items: flex-start; gap: 12px; font-size: 13.5px; color: var(--grey-mid); }

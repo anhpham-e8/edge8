@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -54,13 +54,23 @@ const testimonials = [
   },
 ]
 
+// Infinite carousel: prepend clone of last card, append clone of first
+const T_COUNT = testimonials.length
+const T_REAL_OFFSET = 1
+const extTestimonials = [testimonials[T_COUNT - 1], ...testimonials, testimonials[0]]
+
 export default function HomePage() {
   const [activeStep, setActiveStep] = useState(0)
-  const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [activeExtIdx, setActiveExtIdx] = useState(T_REAL_OFFSET)
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
   const stepsTimelineRef = useRef<HTMLDivElement>(null)
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
+  const snapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const isSnappingRef = useRef(false)
+
+  // currentTestimonial: real 0-(T_COUNT-1), derived from activeExtIdx
+  const currentTestimonial = ((activeExtIdx - T_REAL_OFFSET) % T_COUNT + T_COUNT) % T_COUNT
 
   // Scroll reveal
   useEffect(() => {
@@ -97,54 +107,103 @@ export default function HomePage() {
     return () => obs.disconnect()
   }, [])
 
-  // Testimonials scroll sync
+  // Testimonials scroll sync (infinite loop)
   useEffect(() => {
     const viewport = viewportRef.current
     const track = trackRef.current
     if (!viewport || !track) return
 
     const cards = track.querySelectorAll<HTMLElement>('.t-card-real')
-    const total = cards.length
-    if (total === 0) return
+    if (cards.length === 0) return
 
     const updateActive = () => {
+      if (isSnappingRef.current) return
       const cx = viewport.scrollLeft + viewport.offsetWidth / 2
-      let closest = 0
-      let minDist = Infinity
+      let closest = 0, minDist = Infinity
       cards.forEach((card, i) => {
         const cardCx = card.offsetLeft + card.offsetWidth / 2
         const dist = Math.abs(cx - cardCx)
         if (dist < minDist) { minDist = dist; closest = i }
       })
-      setCurrentTestimonial(closest)
+      setActiveExtIdx(closest)
+
+      // Snap from clone back to real card (invisible)
+      if (snapTimerRef.current) clearTimeout(snapTimerRef.current)
+      snapTimerRef.current = setTimeout(() => {
+        const pad = parseFloat(track.style.paddingLeft || '0')
+        if (closest === 0) {
+          // clone of last card → snap to real last card
+          isSnappingRef.current = true
+          viewport.scrollLeft = cards[T_COUNT].offsetLeft - pad
+          setActiveExtIdx(T_COUNT)
+          setTimeout(() => { isSnappingRef.current = false }, 50)
+        } else if (closest === T_COUNT + 1) {
+          // clone of first card → snap to real first card
+          isSnappingRef.current = true
+          viewport.scrollLeft = cards[T_REAL_OFFSET].offsetLeft - pad
+          setActiveExtIdx(T_REAL_OFFSET)
+          setTimeout(() => { isSnappingRef.current = false }, 50)
+        }
+      }, 150)
     }
+
     viewport.addEventListener('scroll', updateActive, { passive: true })
 
-    // Set padding so first/last card can center
     const setEdgePadding = () => {
-      if (!viewport || !cards[0]) return
-      const cardW = cards[0].offsetWidth
+      if (!cards[T_REAL_OFFSET]) return
+      const cardW = cards[T_REAL_OFFSET].offsetWidth
       const vw = viewport.offsetWidth
       const pad = Math.max(0, (vw - cardW) / 2)
       track.style.paddingLeft = `${pad}px`
       track.style.paddingRight = `${pad}px`
-      // Scroll to first real card
-      viewport.scrollLeft = cards[0].offsetLeft - pad
+      viewport.scrollLeft = cards[T_REAL_OFFSET].offsetLeft - pad
     }
     setEdgePadding()
 
-    return () => viewport.removeEventListener('scroll', updateActive)
+    return () => {
+      viewport.removeEventListener('scroll', updateActive)
+      if (snapTimerRef.current) clearTimeout(snapTimerRef.current)
+    }
   }, [])
 
-  const scrollToTestimonial = (idx: number) => {
+  const scrollToTestimonial = useCallback((realIdx: number) => {
     const viewport = viewportRef.current
     const track = trackRef.current
     if (!viewport || !track) return
     const cards = track.querySelectorAll<HTMLElement>('.t-card-real')
-    if (!cards[idx]) return
     const pad = parseFloat(track.style.paddingLeft || '0')
-    viewport.scrollTo({ left: cards[idx].offsetLeft - pad, behavior: 'smooth' })
-  }
+
+    // Wrap-around: animate through clone then snap to real
+    if (currentTestimonial === T_COUNT - 1 && realIdx === 0) {
+      // Going forward past last card → animate to append clone then snap to real first
+      const cloneIdx = T_COUNT + 1
+      if (cards[cloneIdx]) {
+        viewport.scrollTo({ left: cards[cloneIdx].offsetLeft - pad, behavior: 'smooth' })
+        setTimeout(() => {
+          isSnappingRef.current = true
+          viewport.scrollLeft = cards[T_REAL_OFFSET].offsetLeft - pad
+          setActiveExtIdx(T_REAL_OFFSET)
+          setTimeout(() => { isSnappingRef.current = false }, 50)
+        }, 380)
+      }
+    } else if (currentTestimonial === 0 && realIdx === T_COUNT - 1) {
+      // Going backward past first card → animate to prepend clone then snap to real last
+      if (cards[0]) {
+        viewport.scrollTo({ left: cards[0].offsetLeft - pad, behavior: 'smooth' })
+        setTimeout(() => {
+          isSnappingRef.current = true
+          viewport.scrollLeft = cards[T_COUNT].offsetLeft - pad
+          setActiveExtIdx(T_COUNT)
+          setTimeout(() => { isSnappingRef.current = false }, 50)
+        }, 380)
+      }
+    } else {
+      const extIdx = T_REAL_OFFSET + realIdx
+      if (cards[extIdx]) {
+        viewport.scrollTo({ left: cards[extIdx].offsetLeft - pad, behavior: 'smooth' })
+      }
+    }
+  }, [currentTestimonial])
 
   const progressPositions = [0, 100/7, 200/7, 300/7, 400/7, 500/7, 600/7, 100]
 
@@ -173,7 +232,6 @@ export default function HomePage() {
             <p className="hero-sub">Stop overthinking AI—Start implementing your AI Programs</p>
             <div className="hero-actions">
               <a href="https://www.edge8.ai" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
-              <a href="#solutions" className="btn btn-outline" style={{ background: '#287BE8', color: '#fff', borderColor: '#287BE8' }}>Explore Solutions</a>
             </div>
           </div>
         </div>
@@ -218,10 +276,10 @@ export default function HomePage() {
         <div className="container" style={{ overflow: 'visible' }}>
           <div className="testimonials-viewport" ref={viewportRef}>
             <div className="testimonials-track" ref={trackRef}>
-              {testimonials.map((t, i) => (
+              {extTestimonials.map((t, i) => (
                 <div
                   key={i}
-                  className={`testimonial-card t-card-real${i === currentTestimonial ? ' active' : ''}`}
+                  className={`testimonial-card t-card-real${i === activeExtIdx ? ' active' : ''}`}
                 >
                   <span className="testimonial-quote">&ldquo;</span>
                   <p className="testimonial-text">{t.text}</p>
@@ -252,7 +310,7 @@ export default function HomePage() {
                 className="testimonials-arrow"
                 id="testimonialPrev"
                 aria-label="Previous"
-                onClick={() => scrollToTestimonial(Math.max(0, currentTestimonial - 1))}
+                onClick={() => scrollToTestimonial((currentTestimonial - 1 + T_COUNT) % T_COUNT)}
               >
                 <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" /></svg>
               </button>
@@ -260,7 +318,7 @@ export default function HomePage() {
                 className="testimonials-arrow"
                 id="testimonialNext"
                 aria-label="Next"
-                onClick={() => scrollToTestimonial(Math.min(testimonials.length - 1, currentTestimonial + 1))}
+                onClick={() => scrollToTestimonial((currentTestimonial + 1) % T_COUNT)}
               >
                 <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" /></svg>
               </button>
@@ -405,7 +463,7 @@ export default function HomePage() {
               <span className="section-label">Case Studies</span>
               <h2 className="section-title">The Path to Tech-Forward</h2>
             </div>
-            <a href="https://www.edge8.ai/case-study" className="btn btn-ghost-light" target="_blank" rel="noopener noreferrer">Full List of Case Studies →</a>
+            <a href="https://www.edge8.ai/case-study" className="text-link" target="_blank" rel="noopener noreferrer">Full List of Case Studies →</a>
           </div>
           <div className="case-studies-grid">
             <a href="https://www.pho-24.com/" target="_blank" rel="noopener noreferrer" className="case-card reveal">
@@ -489,7 +547,7 @@ export default function HomePage() {
               <span className="section-label">Insights</span>
               <h2 className="section-title">AI Is Driving Rapid Change</h2>
             </div>
-            <Link href="/blog" className="btn btn-ghost-light">View All Posts →</Link>
+            <Link href="/blog" className="text-link">View All Posts →</Link>
           </div>
           <div className="blog-layout">
             <Link href="/post/your-next-ai-hire-isnt-a-person" className="blog-featured reveal">

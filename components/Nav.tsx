@@ -44,7 +44,7 @@ export default function Nav() {
         <div className="container">
           <div className="nav-inner">
             <Link href="/" className="nav-logo">
-              <Image src="/logo.png" alt="Edge8" width={120} height={36} priority />
+              <Image src="/logo.png" alt="Edge8" width={120} height={36} style={{ width: 'auto', height: '36px' }} priority />
             </Link>
 
             <ul className="nav-links">
