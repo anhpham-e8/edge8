@@ -578,9 +578,15 @@ export default function HomePage() {
               <h2 className="section-title" style={{ marginBottom: 16 }}>Let&apos;s Be Tech-Forward Together</h2>
               <p className="section-sub">Connect with Edge8&apos;s experts to explore AI Programs for your organization.</p>
             </div>
-            <div className="typeform-wrap reveal">
-              <div data-tf-live="01KJVHQ0YPP1ZQ33TS3WEBT8BP" style={{ width: '100%', height: '420px' }} />
-              <Script src="//embed.typeform.com/next/embed.js" strategy="afterInteractive" />
+            <div className="contact-blue-cta reveal">
+              <a
+                href="https://ai-officer.typeform.com/letstalk"
+                className="btn btn-contact"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Bring AI to Your Organization
+              </a>
             </div>
           </div>
         </div>

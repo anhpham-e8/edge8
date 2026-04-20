@@ -1032,6 +1032,27 @@ nav {
 .contact-blue-inner .section-label { background: rgba(255,255,255,0.18); color: #fff; }
 .contact-blue-inner .section-title { color: #fff; }
 .contact-blue-inner .section-sub { color: rgba(255,255,255,0.82); }
+.contact-blue-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-contact {
+  display: inline-block;
+  padding: 18px 40px;
+  background: var(--white);
+  color: var(--blue);
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+}
+.btn-contact:hover {
+  background: var(--dark);
+  color: var(--white);
+}
 .typeform-wrap {
   border-radius: 20px;
   overflow: hidden;
