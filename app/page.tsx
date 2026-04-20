@@ -55,10 +55,10 @@ const testimonials = [
   },
 ]
 
-// Infinite carousel: prepend clone of last card, append clone of first
+// Infinite carousel: 3 full copies — middle copy is "real", wrap-snap to middle when scrolling off edges
 const T_COUNT = testimonials.length
-const T_REAL_OFFSET = 1
-const extTestimonials = [testimonials[T_COUNT - 1], ...testimonials, testimonials[0]]
+const T_REAL_OFFSET = T_COUNT
+const extTestimonials = [...testimonials, ...testimonials, ...testimonials]
 
 export default function HomePage() {
   const [activeStep, setActiveStep] = useState(0)
@@ -129,21 +129,21 @@ export default function HomePage() {
       })
       setActiveExtIdx(closest)
 
-      // Snap from clone back to real card (invisible)
+      // Snap from edge copies back to middle copy (invisible)
       if (snapTimerRef.current) clearTimeout(snapTimerRef.current)
       snapTimerRef.current = setTimeout(() => {
         const pad = parseFloat(track.style.paddingLeft || '0')
-        if (closest === 0) {
-          // clone of last card → snap to real last card
+        if (closest < T_COUNT) {
+          // In first copy → snap to matching card in middle copy
           isSnappingRef.current = true
-          viewport.scrollLeft = cards[T_COUNT].offsetLeft - pad
-          setActiveExtIdx(T_COUNT)
+          viewport.scrollLeft = cards[closest + T_COUNT].offsetLeft - pad
+          setActiveExtIdx(closest + T_COUNT)
           setTimeout(() => { isSnappingRef.current = false }, 50)
-        } else if (closest === T_COUNT + 1) {
-          // clone of first card → snap to real first card
+        } else if (closest >= T_COUNT * 2) {
+          // In third copy → snap to matching card in middle copy
           isSnappingRef.current = true
-          viewport.scrollLeft = cards[T_REAL_OFFSET].offsetLeft - pad
-          setActiveExtIdx(T_REAL_OFFSET)
+          viewport.scrollLeft = cards[closest - T_COUNT].offsetLeft - pad
+          setActiveExtIdx(closest - T_COUNT)
           setTimeout(() => { isSnappingRef.current = false }, 50)
         }
       }, 150)
@@ -175,35 +175,10 @@ export default function HomePage() {
     const cards = track.querySelectorAll<HTMLElement>('.t-card-real')
     const pad = parseFloat(track.style.paddingLeft || '0')
 
-    // Wrap-around: animate through clone then snap to real
-    if (currentTestimonial === T_COUNT - 1 && realIdx === 0) {
-      // Going forward past last card → animate to append clone then snap to real first
-      const cloneIdx = T_COUNT + 1
-      if (cards[cloneIdx]) {
-        viewport.scrollTo({ left: cards[cloneIdx].offsetLeft - pad, behavior: 'smooth' })
-        setTimeout(() => {
-          isSnappingRef.current = true
-          viewport.scrollLeft = cards[T_REAL_OFFSET].offsetLeft - pad
-          setActiveExtIdx(T_REAL_OFFSET)
-          setTimeout(() => { isSnappingRef.current = false }, 50)
-        }, 380)
-      }
-    } else if (currentTestimonial === 0 && realIdx === T_COUNT - 1) {
-      // Going backward past first card → animate to prepend clone then snap to real last
-      if (cards[0]) {
-        viewport.scrollTo({ left: cards[0].offsetLeft - pad, behavior: 'smooth' })
-        setTimeout(() => {
-          isSnappingRef.current = true
-          viewport.scrollLeft = cards[T_COUNT].offsetLeft - pad
-          setActiveExtIdx(T_COUNT)
-          setTimeout(() => { isSnappingRef.current = false }, 50)
-        }, 380)
-      }
-    } else {
-      const extIdx = T_REAL_OFFSET + realIdx
-      if (cards[extIdx]) {
-        viewport.scrollTo({ left: cards[extIdx].offsetLeft - pad, behavior: 'smooth' })
-      }
+    // Always scroll to middle copy equivalent
+    const extIdx = T_REAL_OFFSET + realIdx
+    if (cards[extIdx]) {
+      viewport.scrollTo({ left: cards[extIdx].offsetLeft - pad, behavior: 'smooth' })
     }
   }, [currentTestimonial])
 
@@ -233,7 +208,7 @@ export default function HomePage() {
             </h1>
             <p className="hero-sub">Stop overthinking AI—Start implementing your AI Programs</p>
             <div className="hero-actions">
-              <a href="https://www.edge8.ai" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
             </div>
           </div>
         </div>
@@ -387,7 +362,7 @@ export default function HomePage() {
           </div>
           <div style={{ textAlign: 'center', marginTop: 48 }} className="reveal">
             <p style={{ color: 'var(--grey-mid)', marginBottom: 20, fontSize: 15 }}>Book your free consultation today and take the first step toward an AI-driven future.</p>
-            <a href="https://www.edge8.ai" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+            <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
           </div>
         </div>
       </section>
@@ -418,7 +393,7 @@ export default function HomePage() {
             </div>
           </div>
           <div style={{ textAlign: 'center', marginTop: 48 }} className="reveal">
-            <a href="https://www.edge8.ai/case-study" className="btn btn-primary" target="_blank" rel="noopener noreferrer">View Our Success Case Studies</a>
+            <a href="#case-studies" className="btn btn-primary">View Our Success Case Studies</a>
           </div>
         </div>
       </section>
@@ -465,7 +440,7 @@ export default function HomePage() {
               <span className="section-label">Case Studies</span>
               <h2 className="section-title">The Path to Tech-Forward</h2>
             </div>
-            <a href="https://www.edge8.ai/case-study" className="text-link" target="_blank" rel="noopener noreferrer">Full List of Case Studies →</a>
+            <Link href="/business-websites" className="text-link">Full List of Case Studies →</Link>
           </div>
           <div className="case-studies-grid">
             <a href="https://www.pho-24.com/" target="_blank" rel="noopener noreferrer" className="case-card reveal">
@@ -505,7 +480,7 @@ export default function HomePage() {
               <div className="sol-icon">✦</div>
               <div className="sol-title">Personal Branding with AI</div>
               <p className="sol-desc">Build your brands similar to leaders like Rich Pham, Angi Hurt, and Steve Mueller. Develop a powerful personal presence that drives business.</p>
-              <a href="https://www.edge8.ai" className="sol-link" target="_blank" rel="noopener noreferrer">Schedule a Consultation →</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="sol-link" target="_blank" rel="noopener noreferrer">Schedule a Consultation →</a>
             </div>
             <div className="sol-tile reveal">
               <div className="sol-icon">◈</div>
@@ -517,13 +492,13 @@ export default function HomePage() {
               <div className="sol-icon">⬡</div>
               <div className="sol-title">AI in HR Workflows &amp; Recruitment</div>
               <p className="sol-desc">Optimize talent acquisition, onboarding, and coaching with intelligent AI Agents that streamline every step of the HR process.</p>
-              <a href="https://www.edge8.ai" className="sol-link" target="_blank" rel="noopener noreferrer">Schedule a Consultation →</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="sol-link" target="_blank" rel="noopener noreferrer">Schedule a Consultation →</a>
             </div>
             <div className="sol-tile reveal">
               <div className="sol-icon">▲</div>
               <div className="sol-title">Revolutionizing Sales with AI</div>
               <p className="sol-desc">Transform your sales process with your own chatbot, CRM and nurture campaigns. Turn every prospect interaction into a revenue opportunity.</p>
-              <a href="https://www.edge8.ai" className="sol-link" target="_blank" rel="noopener noreferrer">Schedule a Consultation →</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="sol-link" target="_blank" rel="noopener noreferrer">Schedule a Consultation →</a>
             </div>
             <div className="sol-tile reveal">
               <div className="sol-icon">◎</div>
@@ -600,8 +575,7 @@ export default function HomePage() {
         <div className="container">
           <div className="contact-blue-inner">
             <div className="reveal">
-              <span className="section-label">Get in Touch</span>
-              <h2 className="section-title" style={{ marginTop: 12, marginBottom: 16 }}>Let&apos;s Be Tech-Forward Together</h2>
+              <h2 className="section-title" style={{ marginBottom: 16 }}>Let&apos;s Be Tech-Forward Together</h2>
               <p className="section-sub">Connect with Edge8&apos;s experts to explore AI Programs for your organization.</p>
             </div>
             <div className="typeform-wrap reveal">
@@ -630,9 +604,6 @@ function PartnerMarquee() {
   const doubled = [...partnerLogos, ...partnerLogos]
   return (
     <section className="partners">
-      <div className="container">
-        <h4 className="partners-label">Trusted by Leading Organizations</h4>
-      </div>
       <div className="partners-viewport">
         <div className="partners-track">
           {doubled.map((logo, i) => (
