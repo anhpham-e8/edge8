@@ -101,7 +101,7 @@ export default function Nav() {
             </ul>
 
             <a
-              href="https://www.edge8.ai"
+              href="https://ai-officer.typeform.com/letstalk"
               className="btn btn-primary nav-cta"
               target="_blank"
               rel="noopener noreferrer"
@@ -142,7 +142,7 @@ export default function Nav() {
         <Link href="/blog" onClick={() => setMenuOpen(false)}>Blog</Link>
         <Link href="/about" onClick={() => setMenuOpen(false)}>About</Link>
         <a
-          href="https://www.edge8.ai"
+          href="https://ai-officer.typeform.com/letstalk"
           className="btn btn-primary"
           target="_blank"
           rel="noopener noreferrer"
