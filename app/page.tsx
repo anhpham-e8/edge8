@@ -367,6 +367,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ═══ PARTNERS ════════════════════════════════════ */}
+      <PartnerMarquee />
+
       {/* ═══ IMPACT METRICS ═══════════════════════════════ */}
       <section className="metrics section" id="metrics">
         <div className="container">
@@ -567,9 +570,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ PARTNERS ════════════════════════════════════ */}
-      <PartnerMarquee />
-
       {/* ═══ CONTACT — TYPEFORM ══════════════════════════ */}
       <section className="contact-blue section" id="contact">
         <div className="container">
@@ -579,7 +579,7 @@ export default function HomePage() {
               <p className="section-sub">Connect with Edge8&apos;s experts to explore AI Programs for your organization.</p>
             </div>
             <div className="typeform-wrap reveal">
-              <div data-tf-live="https://ai-officer.typeform.com/letstalk" style={{ width: '100%', height: '420px' }} />
+              <div data-tf-live="01KJVHQ0YPP1ZQ33TS3WEBT8BP" style={{ width: '100%', height: '420px' }} />
               <Script src="//embed.typeform.com/next/embed.js" strategy="afterInteractive" />
             </div>
           </div>
