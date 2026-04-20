@@ -1393,14 +1393,16 @@ footer {
 
 /* Case study cards (individual pages) */
 .cs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-.cs-card { background: var(--white); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; transition: var(--transition); }
+.cs-card { display: block; text-decoration: none; background: var(--white); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; transition: var(--transition); }
 .cs-card:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(16,16,20,0.08); }
 .cs-card-img { width: 100%; height: 220px; object-fit: cover; display: block; }
-.cs-card-body { padding: 28px; }
+.cs-card-body { padding: 28px; display: flex; flex-direction: column; }
 .cs-card-title { font-weight: 800; font-size: 18px; color: var(--dark); margin-bottom: 10px; }
 .cs-card-desc { font-size: 14px; color: var(--body-text); line-height: 1.65; margin-bottom: 16px; }
-.cs-card-highlights { display: flex; flex-wrap: wrap; gap: 8px; }
+.cs-card-highlights { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
 .cs-card-highlight { font-size: 11.5px; font-weight: 700; color: var(--blue); background: rgba(40,123,232,0.08); padding: 4px 10px; border-radius: 100px; }
+.cs-card-more { font-size: 13px; font-weight: 600; color: var(--blue); margin-top: auto; transition: color 0.2s ease; }
+.cs-card:hover .cs-card-more { color: var(--dark); }
 
 /* Process steps (personal brands) */
 .process-steps { display: flex; flex-direction: column; gap: 0; }

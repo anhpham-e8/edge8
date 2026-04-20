@@ -3,13 +3,9 @@
 import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { getCaseStudiesByCategory } from '@/lib/caseStudies'
 
-const caseStudies = [
-  { name: 'Rich Pham', image: '/case studies/images/case studies-personal brands-Rich Pham.jpeg', highlights: ['Thought Leadership', 'SEO Optimization', 'GEO Strategy'], desc: 'Built a dominant personal brand in the tech leadership space with AI-powered content and distribution.' },
-  { name: 'Angi Hurt', image: '/case studies/images/case studies-personal brands-Angi Hurt.jpeg', highlights: ['Executive Branding', 'LinkedIn Growth', 'Content Automation'], desc: 'Transformed an executive into a recognized industry voice with AI-driven content strategy.' },
-  { name: 'David Jackson', image: '/case studies/images/case studies-personal brands-David Jackson.jpeg', highlights: ['Authority Building', 'SEO', 'Community Growth'], desc: 'Systematically built authority and search visibility using AI agent-driven content production.' },
-  { name: 'Steve Muller', image: '/case studies/images/case studies-personal brands-Steve Muller.jpeg', highlights: ['Thought Leadership', 'Content Strategy', 'Brand Voice'], desc: 'Developed a distinctive AI-powered leadership brand that drives business development.' },
-]
+const caseStudies = getCaseStudiesByCategory('personal-brands')
 
 export default function PersonalBrandsPage() {
   useEffect(() => {
@@ -116,18 +112,19 @@ export default function PersonalBrandsPage() {
           </div>
           <div className="cs-grid" style={{ marginTop: 48 }}>
             {caseStudies.map((cs) => (
-              <div key={cs.name} className="cs-card reveal">
-                <Image src={cs.image} alt={cs.name} width={600} height={220} className="cs-card-img" />
+              <Link key={cs.slug} href={`/case-studies/${cs.slug}`} className="cs-card reveal">
+                <Image src={cs.image} alt={cs.title} width={600} height={220} className="cs-card-img" />
                 <div className="cs-card-body">
-                  <div className="cs-card-title">{cs.name}</div>
-                  <p className="cs-card-desc">{cs.desc}</p>
+                  <div className="cs-card-title">{cs.title}</div>
+                  <p className="cs-card-desc">{cs.description}</p>
                   <div className="cs-card-highlights">
                     {cs.highlights.map((h) => (
                       <span key={h} className="cs-card-highlight">{h}</span>
                     ))}
                   </div>
+                  <span className="cs-card-more">View Case Study →</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -142,7 +139,7 @@ export default function PersonalBrandsPage() {
               <p>The best time to build your personal brand was yesterday. The second best time is today.</p>
             </div>
             <div className="audit-cta-btn reveal">
-              <a href="https://www.edge8.ai" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
             </div>
           </div>
         </div>

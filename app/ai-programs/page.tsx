@@ -2,14 +2,10 @@
 
 import { useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { getCaseStudiesByCategory } from '@/lib/caseStudies'
 
-const caseStudies = [
-  { name: 'Kyungbang', image: '/case studies/images/case studies-ai programs-Kyungbang.jpeg', highlights: ['Manufacturing AI', 'Data Systems', 'Process Automation'], desc: 'Enterprise AI program for global textile manufacturer, automating complex data workflows and decision-making.' },
-  { name: 'Veracity', image: '/case studies/images/case studies-ai programs-Veracity.jpeg', highlights: ['AI Agents', 'Market Intelligence', 'Automation'], desc: 'AI intelligence program that automated research synthesis and client report generation at scale.' },
-  { name: 'Wink Hotels (Travel Buddy)', image: '/case studies/images/case studies-ai programs-Wink Hotels (Travel Buddy).jpeg', highlights: ['AI Concierge', 'Hospitality', 'Guest Experience'], desc: 'Travel Buddy AI concierge deployed across Wink Hotels portfolio, enhancing guest experience and driving upsells.' },
-  { name: 'OnTarget (Abound Health)', image: '/case studies/images/case studies-ai programs-OnTarget (Abound Health).jpeg', highlights: ['Healthcare AI', 'Patient Engagement', 'Data Analytics'], desc: 'AI program for health-focused enterprise that transformed patient engagement and operational efficiency.' },
-  { name: 'EO APAC Region (HubSpot)', image: '/case studies/images/case studies-ai programs-EO APAC Region (HubSpot).jpeg', highlights: ['CRM AI', 'APAC Growth', 'HubSpot Integration'], desc: 'AI-enhanced CRM program deployed across EO APAC region, driving member engagement and operational scale.' },
-]
+const caseStudies = getCaseStudiesByCategory('ai-programs')
 
 export default function AiProgramsPage() {
   useEffect(() => {
@@ -70,18 +66,19 @@ export default function AiProgramsPage() {
           </div>
           <div className="cs-grid" style={{ marginTop: 48 }}>
             {caseStudies.map((cs) => (
-              <div key={cs.name} className="cs-card reveal">
-                <Image src={cs.image} alt={cs.name} width={600} height={220} className="cs-card-img" />
+              <Link key={cs.slug} href={`/case-studies/${cs.slug}`} className="cs-card reveal">
+                <Image src={cs.image} alt={cs.title} width={600} height={220} className="cs-card-img" />
                 <div className="cs-card-body">
-                  <div className="cs-card-title">{cs.name}</div>
-                  <p className="cs-card-desc">{cs.desc}</p>
+                  <div className="cs-card-title">{cs.title}</div>
+                  <p className="cs-card-desc">{cs.description}</p>
                   <div className="cs-card-highlights">
                     {cs.highlights.map((h) => (
                       <span key={h} className="cs-card-highlight">{h}</span>
                     ))}
                   </div>
+                  <span className="cs-card-more">View Case Study →</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

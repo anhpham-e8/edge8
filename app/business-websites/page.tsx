@@ -2,16 +2,10 @@
 
 import { useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { getCaseStudiesByCategory } from '@/lib/caseStudies'
 
-const caseStudies = [
-  { name: 'Vespa Adventures', image: '/case studies/images/case studies-business website-Vespa Adventures.jpeg', highlights: ['Conversion Optimization', 'AI SEO', 'Booking Engine'], desc: 'Adventure travel website transformed with AI marketing to drive 3x booking growth.' },
-  { name: 'PHO24', image: '/case studies/images/case studies-business website-PHO24.jpeg', highlights: ['Brand Refresh', 'Digital Presence', 'AI Content'], desc: 'Restaurant chain digital transformation with AI-powered content and CRM integration.' },
-  { name: 'InvestMigrate', image: '/case studies/images/case studies-business website-InvestMigrate.jpeg', highlights: ['Lead Generation', 'SEO', 'GEO Optimization'], desc: 'Investment migration platform generating 5x more qualified leads through AI marketing.' },
-  { name: 'Grady Golf', image: '/case studies/images/case studies-business website-Grady Golf.jpeg', highlights: ['E-commerce', 'AI Personalization', 'Conversion Uplift'], desc: 'Golf equipment brand with AI-driven personalization increasing average order value by 40%.' },
-  { name: 'Nhau Vodka', image: '/case studies/images/case studies-business website-Nhau Vodka.jpeg', highlights: ['Brand Launch', 'Digital Strategy', 'AI Content'], desc: 'Premium spirits brand launched with AI marketing that generated immediate market traction.' },
-  { name: 'AI Officer Institute', image: '/case studies/images/case studies-business website-AI Officer Institute.jpeg', highlights: ['Education Platform', 'SEO', 'Lead Generation'], desc: 'AI education platform built for scale, driving enrollment across Asia and North America.' },
-  { name: 'Fab Four Academy', image: '/case studies/images/case studies-business website-Fab Four Academy.jpeg', highlights: ['Music Education', 'AI Marketing', 'Enrollment Growth'], desc: 'Music academy grown with AI-powered digital strategy, doubling enrollment in 6 months.' },
-]
+const caseStudies = getCaseStudiesByCategory('business-websites')
 
 export default function BusinessWebsitesPage() {
   useEffect(() => {
@@ -68,18 +62,19 @@ export default function BusinessWebsitesPage() {
           </div>
           <div className="cs-grid" style={{ marginTop: 48 }}>
             {caseStudies.map((cs) => (
-              <div key={cs.name} className="cs-card reveal">
-                <Image src={cs.image} alt={cs.name} width={600} height={220} className="cs-card-img" />
+              <Link key={cs.slug} href={`/case-studies/${cs.slug}`} className="cs-card reveal">
+                <Image src={cs.image} alt={cs.title} width={600} height={220} className="cs-card-img" />
                 <div className="cs-card-body">
-                  <div className="cs-card-title">{cs.name}</div>
-                  <p className="cs-card-desc">{cs.desc}</p>
+                  <div className="cs-card-title">{cs.title}</div>
+                  <p className="cs-card-desc">{cs.description}</p>
                   <div className="cs-card-highlights">
                     {cs.highlights.map((h) => (
                       <span key={h} className="cs-card-highlight">{h}</span>
                     ))}
                   </div>
+                  <span className="cs-card-more">View Case Study →</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -94,7 +89,7 @@ export default function BusinessWebsitesPage() {
               <p>Let&apos;s talk about transforming your digital presence with AI-powered marketing.</p>
             </div>
             <div className="audit-cta-btn reveal">
-              <a href="https://www.edge8.ai" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
             </div>
           </div>
         </div>
