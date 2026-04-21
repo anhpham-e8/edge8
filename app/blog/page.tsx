@@ -5,16 +5,20 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { allPosts, categories } from '@/lib/postData'
 
+const allTabs = [{ slug: 'all', label: 'All Posts' }, ...categories]
+
 export default function BlogPage() {
-  const [activeCategory, setActiveCategory] = useState('revenue')
+  const [activeCategory, setActiveCategory] = useState('all')
 
   const featured = [...allPosts].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )[0]
 
-  const filteredPosts = allPosts
-    .filter((p) => p.categorySlug === activeCategory)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const filteredPosts = (
+    activeCategory === 'all'
+      ? [...allPosts]
+      : allPosts.filter((p) => p.categorySlug === activeCategory)
+  ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -65,7 +69,7 @@ export default function BlogPage() {
         <div className="container">
           {/* Category filter tabs */}
           <div className="blog-filter-tabs">
-            {categories.map((cat) => (
+            {allTabs.map((cat) => (
               <button
                 key={cat.slug}
                 className={`blog-filter-tab${activeCategory === cat.slug ? ' active' : ''}`}
