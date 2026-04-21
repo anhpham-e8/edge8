@@ -193,7 +193,7 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
                     src={r.image}
                     alt={r.title}
                     width={400}
-                    height={300}
+                    height={225}
                     className="cs-related-card-img"
                   />
                   <div className="cs-related-card-body">
