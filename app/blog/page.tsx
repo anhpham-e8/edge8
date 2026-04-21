@@ -10,10 +10,6 @@ const allTabs = [{ slug: 'all', label: 'All Posts' }, ...categories]
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState('all')
 
-  const featured = [...allPosts].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  )[0]
-
   const filteredPosts = (
     activeCategory === 'all'
       ? [...allPosts]
@@ -41,25 +37,6 @@ export default function BlogPage() {
           <div className="blog-hero-inner">
             <h1 className="section-title" style={{ color: '#fff' }}>AI Insights &amp; Business Intelligence</h1>
             <p className="blog-hero-sub">Expert perspectives on AI strategy, leadership, and implementation from the Edge8 team.</p>
-
-            {featured && (
-              <Link href={`/post/${featured.slug}`} className="hero-featured-card">
-                <Image
-                  src={featured.image}
-                  alt={featured.title}
-                  width={600}
-                  height={338}
-                  className="hero-featured-img"
-                />
-                <div className="hero-featured-body">
-                  <h2 className="hero-featured-title">{featured.title}</h2>
-                  <p className="hero-featured-excerpt">
-                    {new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                  </p>
-                  <span className="hero-featured-more">Read Article →</span>
-                </div>
-              </Link>
-            )}
           </div>
         </div>
       </section>
@@ -93,12 +70,10 @@ export default function BlogPage() {
                     className="blog-card-img"
                   />
                   <div className="blog-card-body">
-                    <div className="blog-card-meta">
-                      <span className="blog-card-cat">{post.category}</span>
-                      <span className="blog-card-date">
-                        {new Date(post.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                      </span>
-                    </div>
+                    <span className="blog-card-cat">{post.category}</span>
+                    <span className="blog-card-date">
+                      {new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                    </span>
                     <div className="blog-card-title">{post.title}</div>
                     <span className="blog-card-more">Read Article →</span>
                   </div>
