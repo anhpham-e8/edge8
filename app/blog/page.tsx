@@ -1,14 +1,19 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { allPosts, categories } from '@/lib/postData'
+
+const INITIAL_COUNT = 12
+const LOAD_MORE = 6
 
 const allTabs = [{ slug: 'all', label: 'All Posts' }, ...categories]
 
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState('all')
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT)
+  const sentinelRef = useRef<HTMLDivElement>(null)
 
   const featured = [...allPosts].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -20,6 +25,31 @@ export default function BlogPage() {
       : allPosts.filter((p) => p.categorySlug === activeCategory)
   ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
+  const visiblePosts = filteredPosts.slice(0, visibleCount)
+  const hasMore = visibleCount < filteredPosts.length
+
+  // Reset count when switching categories
+  useEffect(() => {
+    setVisibleCount(INITIAL_COUNT)
+  }, [activeCategory])
+
+  // Infinite scroll: load LOAD_MORE posts when sentinel enters viewport
+  useEffect(() => {
+    const sentinel = sentinelRef.current
+    if (!sentinel) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisibleCount((prev) => prev + LOAD_MORE)
+        }
+      },
+      { rootMargin: '0px 0px 300px 0px' }
+    )
+    observer.observe(sentinel)
+    return () => observer.disconnect()
+  }, [activeCategory, hasMore])
+
+  // Scroll reveal for newly added cards
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -29,9 +59,9 @@ export default function BlogPage() {
       },
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     )
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+    document.querySelectorAll('.reveal:not(.visible)').forEach((el) => observer.observe(el))
     return () => observer.disconnect()
-  }, [])
+  }, [visibleCount])
 
   return (
     <main>
@@ -82,27 +112,31 @@ export default function BlogPage() {
 
           {/* Card grid */}
           {filteredPosts.length > 0 ? (
-            <div className="blog-cards-grid">
-              {filteredPosts.map((post) => (
-                <Link key={post.slug} href={`/post/${post.slug}`} className="blog-card reveal">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    width={600}
-                    height={338}
-                    className="blog-card-img"
-                  />
-                  <div className="blog-card-body">
-                    <span className="blog-card-cat">{post.category}</span>
-                    <span className="blog-card-date">
-                      {new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                    </span>
-                    <div className="blog-card-title">{post.title}</div>
-                    <span className="blog-card-more">Read Article →</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <>
+              <div className="blog-cards-grid">
+                {visiblePosts.map((post) => (
+                  <Link key={post.slug} href={`/post/${post.slug}`} className="blog-card reveal">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      width={600}
+                      height={338}
+                      className="blog-card-img"
+                    />
+                    <div className="blog-card-body">
+                      <span className="blog-card-cat">{post.category}</span>
+                      <span className="blog-card-date">
+                        {new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                      </span>
+                      <div className="blog-card-title">{post.title}</div>
+                      <span className="blog-card-more">Read Article →</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              {/* Sentinel for infinite scroll */}
+              {hasMore && <div ref={sentinelRef} style={{ height: 1 }} aria-hidden="true" />}
+            </>
           ) : (
             <div className="blog-empty">
               <p>No posts in this category yet. Check back soon.</p>
