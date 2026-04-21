@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -9,7 +9,17 @@ const testimonials = [
   { text: "We were skeptical about remote global talent, but Edge8 changed our minds. The quality, professionalism, and AI capabilities of our new team members have exceeded every expectation.", name: 'Henry Albrecht', role: 'CEO, Limeade', avatar: '/services/images/services-global-staffing-testimonials-Henry Albrecht.jpg' },
 ]
 
+const T_COUNT_GS = testimonials.length
+const extTestimonialsGS = [...testimonials, ...testimonials, ...testimonials]
+
 export default function GlobalStaffingPage() {
+  const [activeExtIdxGS, setActiveExtIdxGS] = useState(T_COUNT_GS)
+  const viewportRefGS = useRef<HTMLDivElement>(null)
+  const trackRefGS = useRef<HTMLDivElement>(null)
+  const snapTimerRefGS = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const isSnappingRefGS = useRef(false)
+  const currentTestimonialGS = ((activeExtIdxGS - T_COUNT_GS) % T_COUNT_GS + T_COUNT_GS) % T_COUNT_GS
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) } }),
@@ -18,6 +28,68 @@ export default function GlobalStaffingPage() {
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
     return () => observer.disconnect()
   }, [])
+
+  useEffect(() => {
+    const viewport = viewportRefGS.current
+    const track = trackRefGS.current
+    if (!viewport || !track) return
+    const cards = track.querySelectorAll<HTMLElement>('.t-card-gs')
+    if (cards.length === 0) return
+    const updateActive = () => {
+      if (isSnappingRefGS.current) return
+      const cx = viewport.scrollLeft + viewport.offsetWidth / 2
+      let closest = 0, minDist = Infinity
+      cards.forEach((card, i) => {
+        const cardCx = card.offsetLeft + card.offsetWidth / 2
+        const dist = Math.abs(cx - cardCx)
+        if (dist < minDist) { minDist = dist; closest = i }
+      })
+      setActiveExtIdxGS(closest)
+      if (snapTimerRefGS.current) clearTimeout(snapTimerRefGS.current)
+      const targetIdx = closest < T_COUNT_GS ? closest + T_COUNT_GS
+        : closest >= T_COUNT_GS * 2 ? closest - T_COUNT_GS : -1
+      if (targetIdx >= 0) {
+        snapTimerRefGS.current = setTimeout(() => {
+          const pad = parseFloat(track.style.paddingLeft || '0')
+          isSnappingRefGS.current = true
+          viewport.style.scrollSnapType = 'none'
+          viewport.scrollLeft = cards[targetIdx].offsetLeft - pad
+          setActiveExtIdxGS(targetIdx)
+          requestAnimationFrame(() => {
+            viewport.style.scrollSnapType = ''
+            requestAnimationFrame(() => { isSnappingRefGS.current = false })
+          })
+        }, 50)
+      }
+    }
+    viewport.addEventListener('scroll', updateActive, { passive: true })
+    const setEdgePadding = () => {
+      if (!cards[T_COUNT_GS]) return
+      const cardW = cards[T_COUNT_GS].offsetWidth
+      const vw = viewport.offsetWidth
+      const pad = Math.max(0, (vw - cardW) / 2)
+      track.style.paddingLeft = `${pad}px`
+      track.style.paddingRight = `${pad}px`
+      viewport.scrollLeft = cards[T_COUNT_GS].offsetLeft - pad
+    }
+    setEdgePadding()
+    return () => {
+      viewport.removeEventListener('scroll', updateActive)
+      if (snapTimerRefGS.current) clearTimeout(snapTimerRefGS.current)
+    }
+  }, [])
+
+  const scrollToTestimonialGS = useCallback((realIdx: number) => {
+    const viewport = viewportRefGS.current
+    const track = trackRefGS.current
+    if (!viewport || !track) return
+    const cards = track.querySelectorAll<HTMLElement>('.t-card-gs')
+    const pad = parseFloat(track.style.paddingLeft || '0')
+    const extIdx = T_COUNT_GS + realIdx
+    if (cards[extIdx]) {
+      viewport.scrollTo({ left: cards[extIdx].offsetLeft - pad, behavior: 'smooth' })
+    }
+  }, [currentTestimonialGS])
 
   return (
     <main>
@@ -117,26 +189,45 @@ export default function GlobalStaffingPage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="section">
+      <section className="testimonials section">
         <div className="container">
-          <div className="reveal">
+          <div className="testimonials-header reveal">
             <span className="section-label">Testimonials</span>
             <h2 className="section-title">What Our Clients Say</h2>
           </div>
-          <div className="testimonials-grid" style={{ marginTop: 48 }}>
-            {testimonials.map((t, i) => (
-              <div key={i} className="testimonial-card reveal">
-                <span className="testimonial-quote">&ldquo;</span>
-                <p className="testimonial-text">{t.text}</p>
-                <div className="testimonial-person">
-                  <Image src={t.avatar} alt={t.name} width={52} height={52} className="testimonial-avatar" />
-                  <div>
-                    <div className="testimonial-name">{t.name}</div>
-                    <div className="testimonial-role">{t.role}</div>
+        </div>
+        <div className="container" style={{ overflow: 'visible' }}>
+          <div className="testimonials-viewport" ref={viewportRefGS}>
+            <div className="testimonials-track" ref={trackRefGS}>
+              {extTestimonialsGS.map((t, i) => (
+                <div key={i} className={`testimonial-card t-card-gs${i === activeExtIdxGS ? ' active' : ''}`}>
+                  <span className="testimonial-quote">&ldquo;</span>
+                  <p className="testimonial-text">{t.text}</p>
+                  <div className="testimonial-person">
+                    <Image src={t.avatar} alt={t.name} width={52} height={52} className="testimonial-avatar" />
+                    <div>
+                      <div className="testimonial-name">{t.name}</div>
+                      <div className="testimonial-role">{t.role}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+          <div className="testimonials-nav">
+            <div className="testimonials-dots">
+              {testimonials.map((_, i) => (
+                <button key={i} className={`testimonials-dot${i === currentTestimonialGS ? ' active' : ''}`} onClick={() => scrollToTestimonialGS(i)} aria-label={`Go to testimonial ${i + 1}`} />
+              ))}
+            </div>
+            <div className="testimonials-arrows">
+              <button className="testimonials-arrow" onClick={() => scrollToTestimonialGS((currentTestimonialGS - 1 + T_COUNT_GS) % T_COUNT_GS)} aria-label="Previous">
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" /></svg>
+              </button>
+              <button className="testimonials-arrow" onClick={() => scrollToTestimonialGS((currentTestimonialGS + 1) % T_COUNT_GS)} aria-label="Next">
+                <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" /></svg>
+              </button>
+            </div>
           </div>
         </div>
       </section>

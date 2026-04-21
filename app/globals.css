@@ -1057,8 +1057,8 @@ nav {
   white-space: nowrap;
 }
 .btn-contact:hover {
-  background: var(--white);
-  color: #101014;
+  background: var(--blue);
+  color: var(--white);
 }
 .typeform-wrap {
   border-radius: 20px;
@@ -1321,11 +1321,13 @@ footer {
 .svc-hero-img {
   border-radius: var(--radius);
   overflow: hidden;
+  aspect-ratio: 1 / 1;
 }
 .svc-hero-img img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: cover;
 }
 
 /* ─── ABOUT PAGE ──────────────────────────────────── */
@@ -1351,7 +1353,7 @@ footer {
 .exp-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* ─── SERVICES PAGES ──────────────────────────────── */
-.problem-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.problem-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .problem-card { background: var(--tint); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 28px 24px; transition: var(--transition); }
 .problem-card:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(16,16,20,0.08); }
 .problem-card-icon { font-size: 28px; margin-bottom: 12px; }
@@ -1421,7 +1423,7 @@ footer {
 .math-box { border-radius: var(--radius); padding: 36px 32px; }
 .math-box.bad { background: rgba(239,68,68,0.05); border: 2px solid rgba(239,68,68,0.2); }
 .math-box.good { background: rgba(111,242,193,0.08); border: 2px solid rgba(111,242,193,0.3); }
-.math-price { font-family: var(--font-display); font-size: 48px; font-weight: 900; line-height: 1; margin-bottom: 8px; }
+.math-price { font-family: var(--font-display); font-size: 48px; font-weight: 500; line-height: 1; margin-bottom: 8px; }
 .math-box.bad .math-price { color: #ef4444; }
 .math-box.good .math-price { color: #0aad7a; }
 .math-label { font-size: 13px; color: var(--body-text); }
@@ -1438,9 +1440,16 @@ footer {
 
 /* Choice grid (CAIO, Global Staffing) */
 .choice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.choice-card { background: var(--tint); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 32px 28px; transition: var(--transition); }
+.choice-card { background: var(--white); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 32px 28px; transition: var(--transition); }
 .choice-card:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(16,16,20,0.08); }
-.choice-card.featured { border-color: var(--blue); }
+.choice-card.featured { background: var(--blue); border-color: var(--blue); }
+.choice-card.featured .choice-label { color: rgba(255,255,255,0.7); }
+.choice-card.featured .choice-title { color: var(--white); }
+.choice-card.featured .choice-desc { color: rgba(255,255,255,0.82); }
+.choice-card.featured .choice-outcome { color: rgba(255,255,255,0.9); }
+.choice-card.featured .choice-role-title { color: var(--white); }
+.choice-card.featured .choice-role-bullets li { color: rgba(255,255,255,0.82); }
+.choice-card.featured .choice-role-bullets li::before { color: var(--white); }
 .choice-label { font-size: 11px; font-weight: 500; color: var(--blue); margin-bottom: 8px; }
 .choice-title { font-weight: 500; font-size: 18px; color: var(--dark); margin-bottom: 12px; }
 .choice-desc { font-size: 14px; color: var(--body-text); line-height: 1.65; margin-bottom: 16px; }
@@ -1497,7 +1506,11 @@ footer {
 /* Series cards */
 .series-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .series-card { background: var(--white); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 32px 28px; transition: var(--transition); }
-.series-card.featured { border-color: var(--blue); }
+.series-card.featured { background: var(--blue); border-color: var(--blue); }
+.series-card.featured .series-badge { color: rgba(255,255,255,0.7); }
+.series-card.featured .series-title { color: var(--white); }
+.series-card.featured .series-item { color: rgba(255,255,255,0.82); }
+.series-card.featured .series-item::before { color: var(--white); }
 .series-badge { font-size: 10.5px; font-weight: 500; color: var(--blue); margin-bottom: 10px; }
 .series-title { font-weight: 500; font-size: 18px; color: var(--dark); margin-bottom: 12px; }
 .series-items { display: flex; flex-direction: column; gap: 8px; }
@@ -1505,14 +1518,14 @@ footer {
 .series-item::before { content: '✓'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
 
 /* Track record (training) */
-.track-record { background: var(--dark); border-radius: var(--radius); padding: 40px; }
+.track-record { background: var(--tint); border-radius: var(--radius); padding: 40px; }
 .track-record-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
-.track-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+.track-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--body-text); line-height: 1.5; }
 .track-item::before { content: '✓'; color: var(--mint); font-weight: 700; flex-shrink: 0; }
 
 /* Meet Dave (services) */
 .meet-dave { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-.meet-dave-img { width: 100%; border-radius: var(--radius); display: block; object-fit: cover; max-height: 420px; }
+.meet-dave-img { width: 100%; border-radius: var(--radius); display: block; object-fit: cover; aspect-ratio: 3 / 4; }
 
 /* ─── CASE STUDY DETAIL ──────────────────────────── */
 .cs-detail-hero { background: var(--dark); padding-top: 68px; padding-bottom: 80px; text-align: center; position: relative; overflow: hidden; }
@@ -1605,7 +1618,7 @@ footer {
   .partners-row { gap: 24px; }
   .partner-logo { height: 28px; max-width: 100px; }
   .cs-grid { grid-template-columns: 1fr; }
-  .problem-cards { grid-template-columns: 1fr; }
+  .problem-cards { grid-template-columns: repeat(2, 1fr); }
   .who-grid { grid-template-columns: 1fr; }
   .who-dont-need { grid-template-columns: 1fr; }
   .math-compare { grid-template-columns: 1fr; }

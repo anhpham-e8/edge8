@@ -43,22 +43,18 @@ export default function CaioLeadershipPage() {
             <p className="section-sub" style={{ marginTop: 16 }}>So why hire an AI executive before you have an AI system?</p>
           </div>
           <div className="problem-cards" style={{ marginTop: 48 }}>
-            <div className="problem-card reveal">
-              <div className="problem-card-title">The VP Sales Trap</div>
-              <p className="problem-card-desc">Companies hire a VP Sales before they have a repeatable sales process. The hire fails. They blame the person, not the system.</p>
-            </div>
-            <div className="problem-card reveal">
-              <div className="problem-card-title">The CMO Trap</div>
-              <p className="problem-card-desc">Companies hire a CMO before they know their customer. Millions spent on campaigns. Zero ROI. The CMO is gone in 18 months.</p>
-            </div>
-            <div className="problem-card reveal">
-              <div className="problem-card-title">The CFO Trap</div>
-              <p className="problem-card-desc">Companies hire a CFO before they have clean books. The CFO spends all their time on cleanup instead of strategy.</p>
-            </div>
-            <div className="problem-card reveal">
-              <div className="problem-card-title">The CAIO Trap</div>
-              <p className="problem-card-desc">Companies hire a CAIO before they have an AI program. The hire costs $300K+, takes 6 months, and often fails. We break this cycle.</p>
-            </div>
+            {[
+              { icon: '📉', title: 'The VP Sales Trap', desc: 'Companies hire a VP Sales before they have a repeatable sales process. The hire fails. They blame the person, not the system.' },
+              { icon: '📣', title: 'The CMO Trap', desc: 'Companies hire a CMO before they know their customer. Millions spent on campaigns. Zero ROI. The CMO is gone in 18 months.' },
+              { icon: '📋', title: 'The CFO Trap', desc: 'Companies hire a CFO before they have clean books. The CFO spends all their time on cleanup instead of strategy.' },
+              { icon: '🤖', title: 'The CAIO Trap', desc: 'Companies hire a CAIO before they have an AI program. The hire costs $300K+, takes 6 months, and often fails. We break this cycle.' },
+            ].map((card) => (
+              <div key={card.title} className="problem-card reveal">
+                <div className="problem-card-icon">{card.icon}</div>
+                <div className="problem-card-title">{card.title}</div>
+                <p className="problem-card-desc">{card.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -167,12 +163,13 @@ export default function CaioLeadershipPage() {
           </div>
           <div className="who-grid-4" style={{ marginTop: 48 }}>
             {[
-              { title: 'Series A/B Startups', desc: 'Build AI into your product and operations before your competitors do.' },
-              { title: 'Mid-Market Companies', desc: '$10M–$100M companies ready to use AI for competitive advantage.' },
-              { title: 'Private Equity Portfolio', desc: 'Deploy AI across your portfolio for faster value creation.' },
-              { title: 'Enterprise Divisions', desc: 'Move faster than corporate IT by building your own AI capability.' },
+              { icon: '🚀', title: 'Series A/B Startups', desc: 'Build AI into your product and operations before your competitors do.' },
+              { icon: '🏢', title: 'Mid-Market Companies', desc: '$10M–$100M companies ready to use AI for competitive advantage.' },
+              { icon: '💼', title: 'Private Equity Portfolio', desc: 'Deploy AI across your portfolio for faster value creation.' },
+              { icon: '🏗️', title: 'Enterprise Divisions', desc: 'Move faster than corporate IT by building your own AI capability.' },
             ].map((card) => (
               <div key={card.title} className="who-card-4 reveal">
+                <div className="problem-card-icon">{card.icon}</div>
                 <div className="who-card-title">{card.title}</div>
                 <p className="who-card-desc">{card.desc}</p>
               </div>

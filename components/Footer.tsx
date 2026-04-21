@@ -40,7 +40,6 @@ export default function Footer() {
               <Link href="/personal-brands">Personal Brands</Link>
               <Link href="/business-websites">Business Website</Link>
               <Link href="/ai-programs">AI Programs</Link>
-              <a href="https://www.edge8.ai/case-study" target="_blank" rel="noopener noreferrer">All Case Studies</a>
             </div>
             <div className="footer-col-title" style={{ marginTop: 28 }}>Company</div>
             <div className="footer-links">

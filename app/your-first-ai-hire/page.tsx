@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -13,7 +13,17 @@ const testimonials = [
   { text: "Working with Edge8 has been a pleasure. When I launched Fab Four Academy, I needed support to build a strong brand and digital presence. Dave and the team stepped in and delivered amazing results.", name: 'Dan Absher', role: 'CEO, Absher Construction Company', avatar: '/services/images/services-your-first-ai-hire-testimonials_Dan Absher.jpg' },
 ]
 
+const T_COUNT_T = testimonials.length
+const extTestimonials = [...testimonials, ...testimonials, ...testimonials]
+
 export default function YourFirstAIHirePage() {
+  const [activeExtIdx, setActiveExtIdx] = useState(T_COUNT_T)
+  const viewportRefT = useRef<HTMLDivElement>(null)
+  const trackRefT = useRef<HTMLDivElement>(null)
+  const snapTimerRefT = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const isSnappingRefT = useRef(false)
+  const currentTestimonialT = ((activeExtIdx - T_COUNT_T) % T_COUNT_T + T_COUNT_T) % T_COUNT_T
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) } }),
@@ -22,6 +32,68 @@ export default function YourFirstAIHirePage() {
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
     return () => observer.disconnect()
   }, [])
+
+  useEffect(() => {
+    const viewport = viewportRefT.current
+    const track = trackRefT.current
+    if (!viewport || !track) return
+    const cards = track.querySelectorAll<HTMLElement>('.t-card-svc')
+    if (cards.length === 0) return
+    const updateActive = () => {
+      if (isSnappingRefT.current) return
+      const cx = viewport.scrollLeft + viewport.offsetWidth / 2
+      let closest = 0, minDist = Infinity
+      cards.forEach((card, i) => {
+        const cardCx = card.offsetLeft + card.offsetWidth / 2
+        const dist = Math.abs(cx - cardCx)
+        if (dist < minDist) { minDist = dist; closest = i }
+      })
+      setActiveExtIdx(closest)
+      if (snapTimerRefT.current) clearTimeout(snapTimerRefT.current)
+      const targetIdx = closest < T_COUNT_T ? closest + T_COUNT_T
+        : closest >= T_COUNT_T * 2 ? closest - T_COUNT_T : -1
+      if (targetIdx >= 0) {
+        snapTimerRefT.current = setTimeout(() => {
+          const pad = parseFloat(track.style.paddingLeft || '0')
+          isSnappingRefT.current = true
+          viewport.style.scrollSnapType = 'none'
+          viewport.scrollLeft = cards[targetIdx].offsetLeft - pad
+          setActiveExtIdx(targetIdx)
+          requestAnimationFrame(() => {
+            viewport.style.scrollSnapType = ''
+            requestAnimationFrame(() => { isSnappingRefT.current = false })
+          })
+        }, 50)
+      }
+    }
+    viewport.addEventListener('scroll', updateActive, { passive: true })
+    const setEdgePadding = () => {
+      if (!cards[T_COUNT_T]) return
+      const cardW = cards[T_COUNT_T].offsetWidth
+      const vw = viewport.offsetWidth
+      const pad = Math.max(0, (vw - cardW) / 2)
+      track.style.paddingLeft = `${pad}px`
+      track.style.paddingRight = `${pad}px`
+      viewport.scrollLeft = cards[T_COUNT_T].offsetLeft - pad
+    }
+    setEdgePadding()
+    return () => {
+      viewport.removeEventListener('scroll', updateActive)
+      if (snapTimerRefT.current) clearTimeout(snapTimerRefT.current)
+    }
+  }, [])
+
+  const scrollToTestimonialT = useCallback((realIdx: number) => {
+    const viewport = viewportRefT.current
+    const track = trackRefT.current
+    if (!viewport || !track) return
+    const cards = track.querySelectorAll<HTMLElement>('.t-card-svc')
+    const pad = parseFloat(track.style.paddingLeft || '0')
+    const extIdx = T_COUNT_T + realIdx
+    if (cards[extIdx]) {
+      viewport.scrollTo({ left: cards[extIdx].offsetLeft - pad, behavior: 'smooth' })
+    }
+  }, [currentTestimonialT])
 
   return (
     <main>
@@ -53,18 +125,22 @@ export default function YourFirstAIHirePage() {
           </div>
           <div className="problem-cards" style={{ marginTop: 48 }}>
             <div className="problem-card reveal">
+              <div className="problem-card-icon">🎯</div>
               <div className="problem-card-title">No One Owns AI</div>
               <p className="problem-card-desc">Everyone&apos;s &quot;exploring&quot; AI tools, but no one is accountable for results. Without an owner, nothing gets implemented.</p>
             </div>
             <div className="problem-card reveal">
+              <div className="problem-card-icon">💸</div>
               <div className="problem-card-title">Wrong Hire, Wrong Cost</div>
               <p className="problem-card-desc">A full-time AI executive costs $150K–$300K+ and takes 6+ months to hire. Most companies can&apos;t afford to wait or to guess.</p>
             </div>
             <div className="problem-card reveal">
+              <div className="problem-card-icon">🔀</div>
               <div className="problem-card-title">Scattered Experiments</div>
               <p className="problem-card-desc">Teams run disconnected AI pilots that never scale. Without strategic direction, you get 10% of the potential value.</p>
             </div>
             <div className="problem-card reveal">
+              <div className="problem-card-icon">⏰</div>
               <div className="problem-card-title">Missed Window</div>
               <p className="problem-card-desc">Your competitors are moving now. Every month without AI leadership is a month of competitive advantage lost forever.</p>
             </div>
@@ -79,7 +155,7 @@ export default function YourFirstAIHirePage() {
             <span className="section-label">The Solution</span>
             <h2 className="section-title">Your Dedicated AI Officer — Without the $300K Mistake</h2>
           </div>
-          <div className="timeline-steps" style={{ marginTop: 48, maxWidth: 720 }}>
+          <div className="timeline-steps" style={{ marginTop: 48 }}>
             {[
               { month: 'Month 0', label: 'Free Discovery', title: 'AI Capabilities Audit', desc: 'We assess your current state, identify your biggest opportunities, and design a 90-day AI implementation roadmap.', cost: 'FREE' },
               { month: 'Month 1', label: 'Phase 1', title: 'Foundation & First Win', desc: 'Your AI Officer joins the team. We identify your highest-ROI use case and implement your first AI program—fast.', cost: '$1,800' },
@@ -97,11 +173,11 @@ export default function YourFirstAIHirePage() {
               </div>
             ))}
           </div>
-          <div className="guarantee-box reveal" style={{ maxWidth: 720 }}>
+          <div className="guarantee-box reveal">
             <div className="guarantee-box-title">⚡ Our Guarantee</div>
             <p>If you don&apos;t see measurable AI impact within 90 days, we work for free until you do. We&apos;re that confident.</p>
           </div>
-          <div style={{ maxWidth: 720, marginTop: 32 }}>
+          <div style={{ marginTop: 32 }}>
             <p style={{ fontSize: 16, fontWeight: 500, color: 'var(--dark)', marginBottom: 16 }}>After Month 3</p>
             <p style={{ fontSize: 15, color: 'var(--grey-mid)', lineHeight: 1.65 }}>You have a fully operational AI program, a trained team, and the option to hire your AI Officer full-time, continue with Edge8, or run independently with our playbook.</p>
           </div>
@@ -196,26 +272,45 @@ export default function YourFirstAIHirePage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="section">
+      <section className="testimonials section">
         <div className="container">
-          <div className="reveal">
+          <div className="testimonials-header reveal">
             <span className="section-label">Testimonials</span>
             <h2 className="section-title">What Our Clients Say</h2>
           </div>
-          <div className="testimonials-grid" style={{ marginTop: 48 }}>
-            {testimonials.map((t, i) => (
-              <div key={i} className="testimonial-card reveal">
-                <span className="testimonial-quote">&ldquo;</span>
-                <p className="testimonial-text">{t.text}</p>
-                <div className="testimonial-person">
-                  <Image src={t.avatar} alt={t.name} width={52} height={52} className="testimonial-avatar" />
-                  <div>
-                    <div className="testimonial-name">{t.name}</div>
-                    <div className="testimonial-role">{t.role}</div>
+        </div>
+        <div className="container" style={{ overflow: 'visible' }}>
+          <div className="testimonials-viewport" ref={viewportRefT}>
+            <div className="testimonials-track" ref={trackRefT}>
+              {extTestimonials.map((t, i) => (
+                <div key={i} className={`testimonial-card t-card-svc${i === activeExtIdx ? ' active' : ''}`}>
+                  <span className="testimonial-quote">&ldquo;</span>
+                  <p className="testimonial-text">{t.text}</p>
+                  <div className="testimonial-person">
+                    <Image src={t.avatar} alt={t.name} width={52} height={52} className="testimonial-avatar" />
+                    <div>
+                      <div className="testimonial-name">{t.name}</div>
+                      <div className="testimonial-role">{t.role}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+          <div className="testimonials-nav">
+            <div className="testimonials-dots">
+              {testimonials.map((_, i) => (
+                <button key={i} className={`testimonials-dot${i === currentTestimonialT ? ' active' : ''}`} onClick={() => scrollToTestimonialT(i)} aria-label={`Go to testimonial ${i + 1}`} />
+              ))}
+            </div>
+            <div className="testimonials-arrows">
+              <button className="testimonials-arrow" onClick={() => scrollToTestimonialT((currentTestimonialT - 1 + T_COUNT_T) % T_COUNT_T)} aria-label="Previous">
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" /></svg>
+              </button>
+              <button className="testimonials-arrow" onClick={() => scrollToTestimonialT((currentTestimonialT + 1) % T_COUNT_T)} aria-label="Next">
+                <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" /></svg>
+              </button>
+            </div>
           </div>
         </div>
       </section>

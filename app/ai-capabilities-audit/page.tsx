@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -11,8 +11,16 @@ const testimonials = [
   { text: "Love the new look and branding. The website looks so good. I'm deeply grateful.", name: 'Dao Nguyen', role: 'Founder, DN Legal', avatar: '/homepage/images/home-page-testimonials-Dao Nguyen.jpg' },
 ]
 
+const T_COUNT_A = testimonials.length
+const extTestimonialsA = [...testimonials, ...testimonials, ...testimonials]
+
 export default function AiCapabilitiesAuditPage() {
-  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+  const [activeExtIdxA, setActiveExtIdxA] = useState(T_COUNT_A)
+  const viewportRefA = useRef<HTMLDivElement>(null)
+  const trackRefA = useRef<HTMLDivElement>(null)
+  const snapTimerRefA = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const isSnappingRefA = useRef(false)
+  const currentTestimonialA = ((activeExtIdxA - T_COUNT_A) % T_COUNT_A + T_COUNT_A) % T_COUNT_A
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -23,15 +31,67 @@ export default function AiCapabilitiesAuditPage() {
     return () => observer.disconnect()
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setFormStatus('sending')
-    setTimeout(() => {
-      setFormStatus('sent')
-      ;(e.target as HTMLFormElement).reset()
-      setTimeout(() => setFormStatus('idle'), 3000)
-    }, 1200)
-  }
+  useEffect(() => {
+    const viewport = viewportRefA.current
+    const track = trackRefA.current
+    if (!viewport || !track) return
+    const cards = track.querySelectorAll<HTMLElement>('.t-card-audit')
+    if (cards.length === 0) return
+    const updateActive = () => {
+      if (isSnappingRefA.current) return
+      const cx = viewport.scrollLeft + viewport.offsetWidth / 2
+      let closest = 0, minDist = Infinity
+      cards.forEach((card, i) => {
+        const cardCx = card.offsetLeft + card.offsetWidth / 2
+        const dist = Math.abs(cx - cardCx)
+        if (dist < minDist) { minDist = dist; closest = i }
+      })
+      setActiveExtIdxA(closest)
+      if (snapTimerRefA.current) clearTimeout(snapTimerRefA.current)
+      const targetIdx = closest < T_COUNT_A ? closest + T_COUNT_A
+        : closest >= T_COUNT_A * 2 ? closest - T_COUNT_A : -1
+      if (targetIdx >= 0) {
+        snapTimerRefA.current = setTimeout(() => {
+          const pad = parseFloat(track.style.paddingLeft || '0')
+          isSnappingRefA.current = true
+          viewport.style.scrollSnapType = 'none'
+          viewport.scrollLeft = cards[targetIdx].offsetLeft - pad
+          setActiveExtIdxA(targetIdx)
+          requestAnimationFrame(() => {
+            viewport.style.scrollSnapType = ''
+            requestAnimationFrame(() => { isSnappingRefA.current = false })
+          })
+        }, 50)
+      }
+    }
+    viewport.addEventListener('scroll', updateActive, { passive: true })
+    const setEdgePadding = () => {
+      if (!cards[T_COUNT_A]) return
+      const cardW = cards[T_COUNT_A].offsetWidth
+      const vw = viewport.offsetWidth
+      const pad = Math.max(0, (vw - cardW) / 2)
+      track.style.paddingLeft = `${pad}px`
+      track.style.paddingRight = `${pad}px`
+      viewport.scrollLeft = cards[T_COUNT_A].offsetLeft - pad
+    }
+    setEdgePadding()
+    return () => {
+      viewport.removeEventListener('scroll', updateActive)
+      if (snapTimerRefA.current) clearTimeout(snapTimerRefA.current)
+    }
+  }, [])
+
+  const scrollToTestimonialA = useCallback((realIdx: number) => {
+    const viewport = viewportRefA.current
+    const track = trackRefA.current
+    if (!viewport || !track) return
+    const cards = track.querySelectorAll<HTMLElement>('.t-card-audit')
+    const pad = parseFloat(track.style.paddingLeft || '0')
+    const extIdx = T_COUNT_A + realIdx
+    if (cards[extIdx]) {
+      viewport.scrollTo({ left: cards[extIdx].offsetLeft - pad, behavior: 'smooth' })
+    }
+  }, [currentTestimonialA])
 
   return (
     <main>
@@ -44,7 +104,7 @@ export default function AiCapabilitiesAuditPage() {
             <div className="svc-hero-text">
               <h1>Turn Your AI Experiments Into ROI-Driving Systems</h1>
               <p className="svc-hero-sub">Stop guessing about AI. Get a clear roadmap from experts who&apos;ve built real AI programs — not just consultants who theorize about them.</p>
-              <a href="#audit-form" className="btn btn-contact">Book Your Free Audit →</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-contact" target="_blank" rel="noopener noreferrer">Book Your Free Audit →</a>
             </div>
             <div className="svc-hero-img">
               <Image src="/services/images/services-ai-capabilities-audit-hero.jpg" alt="AI Capabilities Audit" width={640} height={480} priority />
@@ -60,18 +120,19 @@ export default function AiCapabilitiesAuditPage() {
             <span className="section-label">The Problem</span>
             <h2 className="section-title">95% of Companies See Zero ROI from AI</h2>
           </div>
-          <div className="stat-pullquote reveal" style={{ maxWidth: 640, marginTop: 48 }}>
+          <div className="stat-pullquote reveal" style={{ marginTop: 48 }}>
             <div className="stat-num">95%</div>
             <p>of companies report ZERO return on investment despite massive AI investment — MIT Sloan Research</p>
           </div>
           <div className="problem-cards" style={{ marginTop: 48 }}>
             {[
-              { title: 'No Strategic Direction', desc: 'AI tools are adopted ad hoc, with no alignment to business goals or measurable outcomes.' },
-              { title: 'Data Problems Disguised as AI Problems', desc: 'Companies invest in AI models but have data that\'s unstructured, incomplete, or siloed.' },
-              { title: 'No Ownership', desc: 'AI initiatives lack a dedicated leader, so experiments never scale into programs.' },
-              { title: 'Wrong Metrics', desc: 'Teams measure AI by adoption, not by business impact — so they never know if it\'s working.' },
+              { icon: '🧭', title: 'No Strategic Direction', desc: 'AI tools are adopted ad hoc, with no alignment to business goals or measurable outcomes.' },
+              { icon: '🗄️', title: 'Data Problems Disguised as AI Problems', desc: 'Companies invest in AI models but have data that\'s unstructured, incomplete, or siloed.' },
+              { icon: '👤', title: 'No Ownership', desc: 'AI initiatives lack a dedicated leader, so experiments never scale into programs.' },
+              { icon: '📊', title: 'Wrong Metrics', desc: 'Teams measure AI by adoption, not by business impact — so they never know if it\'s working.' },
             ].map((card) => (
               <div key={card.title} className="problem-card reveal">
+                <div className="problem-card-icon">{card.icon}</div>
                 <div className="problem-card-title">{card.title}</div>
                 <p className="problem-card-desc">{card.desc}</p>
               </div>
@@ -149,103 +210,46 @@ export default function AiCapabilitiesAuditPage() {
         </div>
       </section>
 
-      {/* INTAKE FORM */}
-      <section className="section" id="audit-form">
-        <div className="container">
-          <div className="reveal" style={{ maxWidth: 640, margin: '0 auto' }}>
-            <span className="section-label" style={{ display: 'block' }}>Apply Now</span>
-            <h2 className="section-title">Book Your AI Capabilities Audit</h2>
-            <p className="section-sub" style={{ marginTop: 16 }}>Tell us about your biggest AI challenges and we&apos;ll design a custom plan.</p>
-          </div>
-          <div className="form-card reveal" style={{ maxWidth: 640, margin: '48px auto 0' }}>
-            <form onSubmit={handleSubmit}>
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="auditFirstName">First Name</label>
-                  <input type="text" id="auditFirstName" name="firstName" placeholder="John" required />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="auditLastName">Last Name</label>
-                  <input type="text" id="auditLastName" name="lastName" placeholder="Smith" required />
-                </div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="auditCompany">Company</label>
-                <input type="text" id="auditCompany" name="company" placeholder="Acme Corp" required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="auditEmail">Email</label>
-                <input type="email" id="auditEmail" name="email" placeholder="john@example.com" required />
-              </div>
-              <div className="form-group">
-                <label>What are your biggest AI challenges? (Select all that apply)</label>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 8 }}>
-                  {[
-                    'No AI strategy or roadmap',
-                    'Data quality and organization issues',
-                    'No AI leadership or ownership',
-                    'Struggling to measure AI ROI',
-                    'Failed AI experiments or pilots',
-                    'Need to scale existing AI programs',
-                  ].map((challenge) => (
-                    <label key={challenge} className="checkbox-label">
-                      <input type="checkbox" name="challenges" value={challenge} />
-                      {challenge}
-                    </label>
-                  ))}
-                </div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="auditRevenue">Annual Revenue Range</label>
-                <select id="auditRevenue" name="revenue">
-                  <option value="" disabled>Select range...</option>
-                  <option>Under $1M</option>
-                  <option>$1M – $5M</option>
-                  <option>$5M – $20M</option>
-                  <option>$20M – $50M</option>
-                  <option>$50M+</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="auditMessage">Tell us about your AI goals</label>
-                <textarea id="auditMessage" name="message" placeholder="What do you want AI to do for your business?" />
-              </div>
-              <div className="form-submit">
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  disabled={formStatus !== 'idle'}
-                  style={formStatus === 'sent' ? { background: '#0d9a5e' } : {}}
-                >
-                  {formStatus === 'idle' ? 'Book My Free Audit →' : formStatus === 'sending' ? 'Sending...' : 'Request Sent ✓'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-
       {/* TESTIMONIALS */}
-      <section className="section">
+      <section className="testimonials section">
         <div className="container">
-          <div className="reveal">
+          <div className="testimonials-header reveal">
             <span className="section-label">Testimonials</span>
             <h2 className="section-title">What Our Clients Say</h2>
           </div>
-          <div className="testimonials-grid" style={{ marginTop: 48 }}>
-            {testimonials.map((t, i) => (
-              <div key={i} className="testimonial-card reveal">
-                <span className="testimonial-quote">&ldquo;</span>
-                <p className="testimonial-text">{t.text}</p>
-                <div className="testimonial-person">
-                  <Image src={t.avatar} alt={t.name} width={52} height={52} className="testimonial-avatar" />
-                  <div>
-                    <div className="testimonial-name">{t.name}</div>
-                    <div className="testimonial-role">{t.role}</div>
+        </div>
+        <div className="container" style={{ overflow: 'visible' }}>
+          <div className="testimonials-viewport" ref={viewportRefA}>
+            <div className="testimonials-track" ref={trackRefA}>
+              {extTestimonialsA.map((t, i) => (
+                <div key={i} className={`testimonial-card t-card-audit${i === activeExtIdxA ? ' active' : ''}`}>
+                  <span className="testimonial-quote">&ldquo;</span>
+                  <p className="testimonial-text">{t.text}</p>
+                  <div className="testimonial-person">
+                    <Image src={t.avatar} alt={t.name} width={52} height={52} className="testimonial-avatar" />
+                    <div>
+                      <div className="testimonial-name">{t.name}</div>
+                      <div className="testimonial-role">{t.role}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+          <div className="testimonials-nav">
+            <div className="testimonials-dots">
+              {testimonials.map((_, i) => (
+                <button key={i} className={`testimonials-dot${i === currentTestimonialA ? ' active' : ''}`} onClick={() => scrollToTestimonialA(i)} aria-label={`Go to testimonial ${i + 1}`} />
+              ))}
+            </div>
+            <div className="testimonials-arrows">
+              <button className="testimonials-arrow" onClick={() => scrollToTestimonialA((currentTestimonialA - 1 + T_COUNT_A) % T_COUNT_A)} aria-label="Previous">
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" /></svg>
+              </button>
+              <button className="testimonials-arrow" onClick={() => scrollToTestimonialA((currentTestimonialA + 1) % T_COUNT_A)} aria-label="Next">
+                <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" /></svg>
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -259,7 +263,7 @@ export default function AiCapabilitiesAuditPage() {
               <p className="section-sub">Join the companies already seeing real ROI from structured AI programs.</p>
             </div>
             <div className="contact-blue-cta reveal">
-              <a href="#audit-form" className="btn btn-contact">Book Your AI Capabilities Audit →</a>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-contact" target="_blank" rel="noopener noreferrer">Schedule A Consultation →</a>
             </div>
           </div>
         </div>

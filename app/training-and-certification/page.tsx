@@ -43,12 +43,13 @@ export default function TrainingAndCertificationPage() {
           </div>
           <div className="problem-cards" style={{ marginTop: 48 }}>
             {[
-              { title: 'No Starting Point', desc: 'Teams don\'t know where to begin with AI. Generic training gives frameworks, not answers.' },
-              { title: 'No Shared Language', desc: 'Leadership, IT, and business teams can\'t agree on AI priorities because they don\'t speak the same language.' },
-              { title: 'Experiments, Not Programs', desc: 'Employees learn AI tools but never build AI systems. Training produces curiosity, not capability.' },
-              { title: 'Falling Behind', desc: 'The AI landscape changes monthly. One-time training creates skills that are outdated in 6 months.' },
+              { icon: '🚀', title: 'No Starting Point', desc: 'Teams don\'t know where to begin with AI. Generic training gives frameworks, not answers.' },
+              { icon: '💬', title: 'No Shared Language', desc: 'Leadership, IT, and business teams can\'t agree on AI priorities because they don\'t speak the same language.' },
+              { icon: '🔬', title: 'Experiments, Not Programs', desc: 'Employees learn AI tools but never build AI systems. Training produces curiosity, not capability.' },
+              { icon: '⚡', title: 'Falling Behind', desc: 'The AI landscape changes monthly. One-time training creates skills that are outdated in 6 months.' },
             ].map((card) => (
               <div key={card.title} className="problem-card reveal">
+                <div className="problem-card-icon">{card.icon}</div>
                 <div className="problem-card-title">{card.title}</div>
                 <p className="problem-card-desc">{card.desc}</p>
               </div>
@@ -124,8 +125,8 @@ export default function TrainingAndCertificationPage() {
       <section className="section">
         <div className="container">
           <div className="track-record reveal">
-            <span className="section-label" style={{ color: 'var(--mint)' }}>Track Record</span>
-            <h2 className="section-title" style={{ color: '#fff', marginBottom: 0 }}>Proven Results Across Southeast Asia &amp; North America</h2>
+            <span className="section-label" style={{ color: '#0aad7a', background: 'rgba(111,242,193,0.12)', border: '1px solid rgba(111,242,193,0.35)' }}>Track Record</span>
+            <h2 className="section-title" style={{ marginBottom: 0 }}>Proven Results Across Southeast Asia &amp; North America</h2>
             <div className="track-record-grid">
               {[
                 'Certified 500+ AI Officers across Asia & North America',
@@ -152,7 +153,7 @@ export default function TrainingAndCertificationPage() {
               </p>
               <div style={{ display: 'flex', gap: 16, marginTop: 28, flexWrap: 'wrap' }}>
                 <a href="https://www.ai-officer.com" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Explore the AI Officer Institute</a>
-                <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-outline" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+                <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
               </div>
             </div>
             <Image src="/services/images/services-training-and-certification-Dave Hajdu.jpeg" alt="Dave Hajdu" width={500} height={420} className="meet-dave-img reveal" />
