@@ -49,15 +49,6 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <div className="post-layout">
             {/* Main article */}
             <article>
-              <div className="post-meta">
-                <Link href={`/blog#${post.categorySlug}`} className="post-category-tag">
-                  {post.category}
-                </Link>
-                <span className="post-date">
-                  {new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                </span>
-                <span className="post-read-time">{post.readTime}</span>
-              </div>
               <h1 className="post-title">{post.title}</h1>
               <div
                 className="post-body"
@@ -86,13 +77,6 @@ export default async function PostPage({ params }: { params: { slug: string } })
                 </Link>
               ))}
 
-              <div className="sidebar-cta">
-                <div className="sidebar-cta-title">Ready to Be Tech-Forward?</div>
-                <p>Schedule a free AI Capabilities Audit with our team.</p>
-                <Link href="/ai-capabilities-audit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: 13 }}>
-                  Book Your Audit
-                </Link>
-              </div>
             </aside>
           </div>
         </div>

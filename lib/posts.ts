@@ -25,7 +25,12 @@ export async function getPostDataBySlug(slug: string): Promise<Post | null> {
   }
 
   const fileContents = fs.readFileSync(fullPath, 'utf8')
-  const { content } = matter(fileContents)
+  const { content: rawContent } = matter(fileContents)
+
+  // Strip the title (H1) and metadata block (Published, Source, Category, etc.)
+  // that appears before the first --- separator in all post markdown files
+  const hrIndex = rawContent.search(/\n---+\s*\n/)
+  const content = hrIndex !== -1 ? rawContent.slice(hrIndex).replace(/^---+\s*\n/, '') : rawContent
 
   const processedContent = await remark().use(remarkHtml).process(content)
   const contentHtml = processedContent.toString()
