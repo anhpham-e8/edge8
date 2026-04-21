@@ -37,7 +37,6 @@ function CategorySection({ cat }: { cat: typeof categories[0] }) {
       <div className="container">
         <div className="blog-category-header">
           <h2 className="blog-category-title">{cat.label}</h2>
-          <Link href={`/blog#${cat.id}`} className="blog-category-link">View All →</Link>
         </div>
         <div className="cat-layout">
           {/* Featured post */}
@@ -46,13 +45,11 @@ function CategorySection({ cat }: { cat: typeof categories[0] }) {
               src={featured.image}
               alt={featured.title}
               width={600}
-              height={200}
+              height={338}
               className="cat-featured-img"
             />
             <div className="cat-featured-body">
-              <div className="cat-featured-tag">{featured.category}</div>
               <div className="cat-featured-title">{featured.title}</div>
-              <p className="cat-featured-excerpt">{featured.readTime}</p>
               <div className="cat-featured-meta">{new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
             </div>
           </Link>
@@ -71,7 +68,7 @@ function CategorySection({ cat }: { cat: typeof categories[0] }) {
                   />
                   <div className="cat-post-body">
                     <div className="cat-post-title">{post.title}</div>
-                    <div className="cat-post-meta">{post.readTime} · {new Date(post.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</div>
+                    <div className="cat-post-meta">{new Date(post.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</div>
                   </div>
                 </Link>
               ))}
@@ -122,7 +119,6 @@ export default function BlogPage() {
       <section className="blog-hero">
         <div className="container">
           <div className="blog-hero-inner">
-            <span className="section-label">The Blog</span>
             <h1 className="section-title" style={{ color: '#fff' }}>AI Insights &amp; Business Intelligence</h1>
             <p className="blog-hero-sub">Expert perspectives on AI strategy, leadership, and implementation from the Edge8 team.</p>
 
@@ -132,13 +128,12 @@ export default function BlogPage() {
                   src={featured.image}
                   alt={featured.title}
                   width={600}
-                  height={260}
+                  height={338}
                   className="hero-featured-img"
                 />
                 <div className="hero-featured-body">
-                  <div className="hero-featured-tag">{featured.category}</div>
                   <h2 className="hero-featured-title">{featured.title}</h2>
-                  <p className="hero-featured-excerpt">{featured.readTime} · {new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                  <p className="hero-featured-excerpt">{new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
                   <span className="hero-featured-more">Read Article →</span>
                 </div>
               </Link>
