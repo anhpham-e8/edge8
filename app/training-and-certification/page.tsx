@@ -125,8 +125,8 @@ export default function TrainingAndCertificationPage() {
       <section className="section">
         <div className="container">
           <div className="track-record reveal">
-            <span className="section-label" style={{ color: '#0aad7a', background: 'rgba(111,242,193,0.12)', border: '1px solid rgba(111,242,193,0.35)' }}>Track Record</span>
-            <h2 className="section-title" style={{ marginBottom: 0 }}>Proven Results Across Southeast Asia &amp; North America</h2>
+            <span className="section-label" style={{ color: 'var(--mint)', background: 'rgba(111,242,193,0.12)', border: '1px solid rgba(111,242,193,0.35)' }}>Track Record</span>
+            <h2 className="section-title" style={{ color: '#fff', marginBottom: 0 }}>Proven Results Across Southeast Asia &amp; North America</h2>
             <div className="track-record-grid">
               {[
                 'Certified 500+ AI Officers across Asia & North America',
@@ -153,10 +153,9 @@ export default function TrainingAndCertificationPage() {
               </p>
               <div style={{ display: 'flex', gap: 16, marginTop: 28, flexWrap: 'wrap' }}>
                 <a href="https://www.ai-officer.com" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Explore the AI Officer Institute</a>
-                <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
               </div>
             </div>
-            <Image src="/services/images/services-training-and-certification-Dave Hajdu.jpeg" alt="Dave Hajdu" width={500} height={420} className="meet-dave-img reveal" />
+            <Image src="/services/images/services-training-and-certification-Dave Hajdu.jpeg" alt="Dave Hajdu" width={480} height={640} className="meet-dave-img reveal" />
           </div>
         </div>
       </section>

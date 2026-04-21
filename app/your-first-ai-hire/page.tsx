@@ -266,7 +266,7 @@ export default function YourFirstAIHirePage() {
               </p>
               <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" style={{ marginTop: 28 }} target="_blank" rel="noopener noreferrer">Schedule Your Free Consultation</a>
             </div>
-            <Image src="/services/images/services-your-first-ai-hire-Dave Hajdu.jpeg" alt="Dave Hajdu" width={500} height={420} className="meet-dave-img reveal" />
+            <Image src="/services/images/services-your-first-ai-hire-Dave Hajdu.jpeg" alt="Dave Hajdu" width={480} height={640} className="meet-dave-img reveal" />
           </div>
         </div>
       </section>
