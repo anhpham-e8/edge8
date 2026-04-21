@@ -116,13 +116,14 @@ export default function BlogPage() {
               <div className="blog-cards-grid">
                 {visiblePosts.map((post) => (
                   <Link key={post.slug} href={`/post/${post.slug}`} className="blog-card reveal">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      width={600}
-                      height={338}
-                      className="blog-card-img"
-                    />
+                    <div className="blog-card-img-wrap">
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                      />
+                    </div>
                     <div className="blog-card-body">
                       <span className="blog-card-cat">{post.category}</span>
                       <span className="blog-card-date">

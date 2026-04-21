@@ -1023,6 +1023,7 @@ nav {
   flex-direction: column;
 }
 .blog-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(16,16,20,0.12); }
+.blog-card-img-wrap { position: relative; width: 100%; aspect-ratio: 16/9; flex-shrink: 0; overflow: hidden; }
 .blog-card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
 .blog-card-body { padding: 20px 20px 24px; flex: 1; display: flex; flex-direction: column; gap: 0; }
 .blog-card-cat { display: inline-block; align-self: flex-start; font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); background: rgba(40,123,232,0.08); padding: 3px 10px; border-radius: 100px; margin-bottom: 8px; }
