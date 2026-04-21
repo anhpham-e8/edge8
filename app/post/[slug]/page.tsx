@@ -29,62 +29,66 @@ export default async function PostPage({ params }: { params: { slug: string } })
 
   return (
     <main>
-      {/* ═══ POST HERO ══════════════════════════════════════════ */}
+      {/* ═══ POST HERO — dark section, cover image only ══════════ */}
       <section className="post-hero">
-        <div className="container">
-          <div className="post-meta">
-            <Link href="/blog" className="post-tag">{post.category}</Link>
-            <span className="post-date">
-              {new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-            </span>
-            <span className="post-read-time">{post.readTime}</span>
-          </div>
-          <h1 className="post-title">{post.title}</h1>
+        <div className="post-cover-wrap">
+          <Image
+            src={post.image}
+            alt={post.title}
+            width={1600}
+            height={520}
+            className="post-cover"
+            priority
+          />
         </div>
       </section>
 
-      {/* ═══ FEATURED IMAGE ═════════════════════════════════════ */}
-      <div className="container" style={{ paddingTop: 0 }}>
-        <Image
-          src={post.image}
-          alt={post.title}
-          width={1200}
-          height={480}
-          className="post-featured-img"
-          priority
-        />
-      </div>
-
-      {/* ═══ POST BODY ══════════════════════════════════════════ */}
-      <section className="post-body">
+      {/* ═══ POST CONTENT ════════════════════════════════════════ */}
+      <section className="post-section">
         <div className="container">
           <div className="post-layout">
-            <article
-              className="post-content"
-              dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-            />
+            {/* Main article */}
+            <article>
+              <div className="post-meta">
+                <Link href={`/blog#${post.categorySlug}`} className="post-category-tag">
+                  {post.category}
+                </Link>
+                <span className="post-date">
+                  {new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                </span>
+                <span className="post-read-time">{post.readTime}</span>
+              </div>
+              <h1 className="post-title">{post.title}</h1>
+              <div
+                className="post-body"
+                dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+              />
+            </article>
 
             {/* Sidebar */}
             <aside className="post-sidebar">
-              <div className="post-sidebar-card">
-                <div className="post-sidebar-title">More in {post.category}</div>
-                <div className="post-sidebar-list">
-                  {relatedPosts.map((p) => (
-                    <Link key={p.slug} href={`/post/${p.slug}`} className="post-sidebar-item">
-                      <div className="post-sidebar-item-title">{p.title}</div>
-                      <div className="post-sidebar-item-date">
-                        {new Date(p.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+              <div className="sidebar-title">More in {post.category}</div>
+              {relatedPosts.map((p) => (
+                <Link key={p.slug} href={`/post/${p.slug}`} className="sidebar-post">
+                  <Image
+                    src={p.image}
+                    alt={p.title}
+                    width={64}
+                    height={64}
+                    className="sidebar-post-img"
+                  />
+                  <div className="sidebar-post-text">
+                    <div className="sidebar-post-title">{p.title}</div>
+                    <div className="sidebar-post-date">
+                      {new Date(p.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                    </div>
+                  </div>
+                </Link>
+              ))}
 
-              <div className="post-sidebar-card" style={{ background: 'var(--dark)', border: 'none' }}>
-                <div className="post-sidebar-title" style={{ color: 'var(--tint)' }}>Ready to Be Tech-Forward?</div>
-                <p style={{ fontSize: 13, color: 'var(--grey-mid)', lineHeight: 1.65, marginBottom: 16 }}>
-                  Schedule a free AI Capabilities Audit with our team.
-                </p>
+              <div className="sidebar-cta">
+                <div className="sidebar-cta-title">Ready to Be Tech-Forward?</div>
+                <p>Schedule a free AI Capabilities Audit with our team.</p>
                 <Link href="/ai-capabilities-audit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: 13 }}>
                   Book Your Audit
                 </Link>
