@@ -22,13 +22,19 @@ export default function GlobalStaffingPage() {
   return (
     <main>
       {/* HERO */}
-      <section className="page-hero">
+      <section className="svc-hero">
+        <div className="svc-hero-bg" />
+        <div className="svc-hero-grid" />
         <div className="container">
-          <div className="page-hero-inner">
-            <span className="section-label">Global Staffing</span>
-            <h1 className="section-title">Let&apos;s Build Your AI-Ready Team</h1>
-            <p className="page-hero-sub">Access Vietnam&apos;s top AI-trained professionals — at 75% less than US market rates. Start in weeks, not months.</p>
-            <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-mint" target="_blank" rel="noopener noreferrer">Build Your Team →</a>
+          <div className="svc-hero-inner">
+            <div className="svc-hero-text">
+              <h1>Let&apos;s Build Your AI-Ready Team</h1>
+              <p className="svc-hero-sub">Access Vietnam&apos;s top AI-trained professionals — at 75% less than US market rates. Start in weeks, not months.</p>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-contact" target="_blank" rel="noopener noreferrer">Build Your Team →</a>
+            </div>
+            <div className="svc-hero-img">
+              <Image src="/services/images/services-global-staffing-hero.jpeg" alt="Global Staffing" width={640} height={480} priority />
+            </div>
           </div>
         </div>
       </section>
@@ -42,22 +48,22 @@ export default function GlobalStaffingPage() {
           </div>
           <div className="who-grid-4" style={{ marginTop: 48 }}>
             <div className="who-card-4 reveal">
-              <div style={{ fontSize: 36, fontWeight: 900, color: 'var(--blue)', lineHeight: 1, marginBottom: 8 }}>75%</div>
+              <div style={{ fontSize: 36, fontWeight: 500, color: 'var(--blue)', lineHeight: 1, marginBottom: 8 }}>75%</div>
               <div className="who-card-title">Cost Savings</div>
               <p className="who-card-desc">Save up to 75% compared to equivalent US or European talent — without sacrificing quality.</p>
             </div>
             <div className="who-card-4 reveal">
-              <div style={{ fontSize: 36, fontWeight: 900, color: 'var(--blue)', lineHeight: 1, marginBottom: 8 }}>AI</div>
+              <div style={{ fontSize: 36, fontWeight: 500, color: 'var(--blue)', lineHeight: 1, marginBottom: 8 }}>AI</div>
               <div className="who-card-title">AI-Trained</div>
               <p className="who-card-desc">Every team member is trained in our AI Officer methodology before they join your team.</p>
             </div>
             <div className="who-card-4 reveal">
-              <div style={{ fontSize: 36, fontWeight: 900, color: 'var(--blue)', lineHeight: 1, marginBottom: 8 }}>Weeks</div>
+              <div style={{ fontSize: 36, fontWeight: 500, color: 'var(--blue)', lineHeight: 1, marginBottom: 8 }}>Weeks</div>
               <div className="who-card-title">Start Fast</div>
               <p className="who-card-desc">Onboard your first team member in 2–4 weeks. No 6-month hiring cycles.</p>
             </div>
             <div className="who-card-4 reveal">
-              <div style={{ fontSize: 36, fontWeight: 900, color: 'var(--blue)', lineHeight: 1, marginBottom: 8 }}>Flex</div>
+              <div style={{ fontSize: 36, fontWeight: 500, color: 'var(--blue)', lineHeight: 1, marginBottom: 8 }}>Flex</div>
               <div className="who-card-title">Flexible Models</div>
               <p className="who-card-desc">Part-time, full-time, or project-based. Scale your team up or down as your needs evolve.</p>
             </div>
@@ -66,7 +72,7 @@ export default function GlobalStaffingPage() {
       </section>
 
       {/* THREE ROLES */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="reveal">
             <span className="section-label">The Roles</span>
@@ -136,15 +142,15 @@ export default function GlobalStaffingPage() {
       </section>
 
       {/* CTA */}
-      <section className="audit-cta section">
+      <section className="contact-blue section">
         <div className="container">
-          <div className="audit-inner">
-            <div className="audit-text reveal">
-              <h2 className="section-title">Ready to Build Your AI-Ready Team?</h2>
-              <p>Start with a free consultation to find the right global talent for your needs.</p>
+          <div className="contact-blue-inner">
+            <div className="reveal">
+              <h2 className="section-title" style={{ marginBottom: 16 }}>Ready to Build Your AI-Ready Team?</h2>
+              <p className="section-sub">Start with a free consultation to find the right global talent for your needs.</p>
             </div>
-            <div className="audit-cta-btn reveal">
-              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+            <div className="contact-blue-cta reveal">
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-contact" target="_blank" rel="noopener noreferrer">Schedule A Consultation →</a>
             </div>
           </div>
         </div>

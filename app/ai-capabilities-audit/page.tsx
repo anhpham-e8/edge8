@@ -36,13 +36,19 @@ export default function AiCapabilitiesAuditPage() {
   return (
     <main>
       {/* HERO */}
-      <section className="page-hero">
+      <section className="svc-hero">
+        <div className="svc-hero-bg" />
+        <div className="svc-hero-grid" />
         <div className="container">
-          <div className="page-hero-inner">
-            <span className="section-label">AI Capabilities Audit</span>
-            <h1 className="section-title">Turn Your AI Experiments Into ROI-Driving Systems</h1>
-            <p className="page-hero-sub">Stop guessing about AI. Get a clear roadmap from experts who&apos;ve built real AI programs — not just consultants who theorize about them.</p>
-            <a href="#audit-form" className="btn btn-mint">Book Your Free Audit →</a>
+          <div className="svc-hero-inner">
+            <div className="svc-hero-text">
+              <h1>Turn Your AI Experiments Into ROI-Driving Systems</h1>
+              <p className="svc-hero-sub">Stop guessing about AI. Get a clear roadmap from experts who&apos;ve built real AI programs — not just consultants who theorize about them.</p>
+              <a href="#audit-form" className="btn btn-contact">Book Your Free Audit →</a>
+            </div>
+            <div className="svc-hero-img">
+              <Image src="/services/images/services-ai-capabilities-audit-hero.jpg" alt="AI Capabilities Audit" width={640} height={480} priority />
+            </div>
           </div>
         </div>
       </section>
@@ -75,7 +81,7 @@ export default function AiCapabilitiesAuditPage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="reveal">
             <span className="section-label">How It Works</span>
@@ -144,7 +150,7 @@ export default function AiCapabilitiesAuditPage() {
       </section>
 
       {/* INTAKE FORM */}
-      <section className="section" style={{ background: 'var(--tint)' }} id="audit-form">
+      <section className="section" id="audit-form">
         <div className="container">
           <div className="reveal" style={{ maxWidth: 640, margin: '0 auto' }}>
             <span className="section-label" style={{ display: 'block' }}>Apply Now</span>
@@ -245,15 +251,15 @@ export default function AiCapabilitiesAuditPage() {
       </section>
 
       {/* CTA */}
-      <section className="audit-cta section">
+      <section className="contact-blue section">
         <div className="container">
-          <div className="audit-inner">
-            <div className="audit-text reveal">
-              <h2 className="section-title">Ready to Scale AI That Actually Works?</h2>
-              <p>Join the companies already seeing real ROI from structured AI programs.</p>
+          <div className="contact-blue-inner">
+            <div className="reveal">
+              <h2 className="section-title" style={{ marginBottom: 16 }}>Ready to Scale AI That Actually Works?</h2>
+              <p className="section-sub">Join the companies already seeing real ROI from structured AI programs.</p>
             </div>
-            <div className="audit-cta-btn reveal">
-              <a href="#audit-form" className="btn btn-primary">Book Your AI Capabilities Audit</a>
+            <div className="contact-blue-cta reveal">
+              <a href="#audit-form" className="btn btn-contact">Book Your AI Capabilities Audit →</a>
             </div>
           </div>
         </div>

@@ -26,14 +26,19 @@ export default function YourFirstAIHirePage() {
   return (
     <main>
       {/* HERO */}
-      <section className="page-hero">
+      <section className="svc-hero">
+        <div className="svc-hero-bg" />
+        <div className="svc-hero-grid" />
         <div className="container">
-          <div className="page-hero-inner">
-            <span className="section-label">Your First AI Hire</span>
-            <h1 className="section-title">Your First AI Hire — Done Right</h1>
-            <div className="page-hero-urgency">⚡ We&apos;re placing 100 companies this year. 77 spots remaining.</div>
-            <p className="page-hero-sub">Stop guessing about AI. Get your first dedicated AI Officer in place within 30 days — and start seeing real results by Month 2.</p>
-            <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-mint" target="_blank" rel="noopener noreferrer">Claim Your Spot Now →</a>
+          <div className="svc-hero-inner">
+            <div className="svc-hero-text">
+              <h1>Your First AI Hire — Done Right</h1>
+              <p className="svc-hero-sub">Stop guessing about AI. Get your first dedicated AI Officer in place within 30 days — and start seeing real results by Month 2.</p>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-contact" target="_blank" rel="noopener noreferrer">Claim Your Spot Now →</a>
+            </div>
+            <div className="svc-hero-img">
+              <Image src="/services/images/services-your-first-ai-hire-hero.jpg" alt="Your First AI Hire" width={640} height={480} priority />
+            </div>
           </div>
         </div>
       </section>
@@ -68,7 +73,7 @@ export default function YourFirstAIHirePage() {
       </section>
 
       {/* THE SOLUTION */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="reveal">
             <span className="section-label">The Solution</span>
@@ -97,7 +102,7 @@ export default function YourFirstAIHirePage() {
             <p>If you don&apos;t see measurable AI impact within 90 days, we work for free until you do. We&apos;re that confident.</p>
           </div>
           <div style={{ maxWidth: 720, marginTop: 32 }}>
-            <p style={{ fontSize: 16, fontWeight: 700, color: 'var(--dark)', marginBottom: 16 }}>After Month 3</p>
+            <p style={{ fontSize: 16, fontWeight: 500, color: 'var(--dark)', marginBottom: 16 }}>After Month 3</p>
             <p style={{ fontSize: 15, color: 'var(--grey-mid)', lineHeight: 1.65 }}>You have a fully operational AI program, a trained team, and the option to hire your AI Officer full-time, continue with Edge8, or run independently with our playbook.</p>
           </div>
         </div>
@@ -118,7 +123,7 @@ export default function YourFirstAIHirePage() {
               <ul style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 8, listStyle: 'none', padding: 0 }}>
                 {['Dedicated AI Officer on Day 1', 'First program live by Month 1', 'Full team training included', 'ROI guarantee', 'No long-term commitment'].map((item) => (
                   <li key={item} style={{ display: 'flex', gap: 8, fontSize: 14, color: 'var(--grey-mid)', alignItems: 'flex-start' }}>
-                    <span style={{ color: '#0aad7a', fontWeight: 700 }}>✓</span> {item}
+                    <span style={{ color: '#0aad7a', fontWeight: 500 }}>✓</span> {item}
                   </li>
                 ))}
               </ul>
@@ -129,7 +134,7 @@ export default function YourFirstAIHirePage() {
               <ul style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 8, listStyle: 'none', padding: 0 }}>
                 {['6+ months to hire', 'No guarantee of results', 'Risk of wrong hire', 'Benefits & equity on top', 'You get one person\'s knowledge'].map((item) => (
                   <li key={item} style={{ display: 'flex', gap: 8, fontSize: 14, color: 'var(--grey-mid)', alignItems: 'flex-start' }}>
-                    <span style={{ color: '#ef4444', fontWeight: 700 }}>✗</span> {item}
+                    <span style={{ color: '#ef4444', fontWeight: 500 }}>✗</span> {item}
                   </li>
                 ))}
               </ul>
@@ -139,7 +144,7 @@ export default function YourFirstAIHirePage() {
       </section>
 
       {/* WHO IT'S FOR */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="reveal">
             <span className="section-label">Who It&apos;s For</span>
@@ -151,7 +156,7 @@ export default function YourFirstAIHirePage() {
               <ul style={{ display: 'flex', flexDirection: 'column', gap: 10, listStyle: 'none', padding: 0, marginTop: 12 }}>
                 {['$2M–$50M revenue business', 'CEO/founder ready to commit to AI', '10–500 employees', 'Specific business problems to solve', 'Want ROI within 90 days'].map((item) => (
                   <li key={item} style={{ display: 'flex', gap: 8, fontSize: 14, color: 'var(--grey-mid)', alignItems: 'flex-start' }}>
-                    <span style={{ color: 'var(--blue)', fontWeight: 700 }}>✓</span> {item}
+                    <span style={{ color: 'var(--blue)', fontWeight: 500 }}>✓</span> {item}
                   </li>
                 ))}
               </ul>
@@ -161,7 +166,7 @@ export default function YourFirstAIHirePage() {
               <ul style={{ display: 'flex', flexDirection: 'column', gap: 10, listStyle: 'none', padding: 0, marginTop: 12 }}>
                 {['You want AI magic without effort', 'You\'re not ready to change processes', 'You\'re looking for a quick fix', 'You don\'t believe AI has real business value'].map((item) => (
                   <li key={item} style={{ display: 'flex', gap: 8, fontSize: 14, color: 'var(--grey-mid)', alignItems: 'flex-start' }}>
-                    <span style={{ color: '#ef4444', fontWeight: 700 }}>✗</span> {item}
+                    <span style={{ color: '#ef4444', fontWeight: 500 }}>✗</span> {item}
                   </li>
                 ))}
               </ul>
@@ -191,7 +196,7 @@ export default function YourFirstAIHirePage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="reveal">
             <span className="section-label">Testimonials</span>
@@ -216,16 +221,15 @@ export default function YourFirstAIHirePage() {
       </section>
 
       {/* CTA */}
-      <section className="audit-cta section">
+      <section className="contact-blue section">
         <div className="container">
-          <div className="audit-inner">
-            <div className="audit-text reveal">
-              <h2 className="section-title">Ready to Make Your First AI Hire?</h2>
-              <p>77 spots remaining this year. Claim yours before your competitor does.</p>
+          <div className="contact-blue-inner">
+            <div className="reveal">
+              <h2 className="section-title" style={{ marginBottom: 16 }}>Ready to Make Your First AI Hire?</h2>
+              <p className="section-sub">77 spots remaining this year. Claim yours before your competitor does.</p>
             </div>
-            <div className="audit-cta-btn reveal">
-              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-mint" style={{ justifyContent: 'center' }} target="_blank" rel="noopener noreferrer">Claim Your Spot Now →</a>
-              <Link href="/ai-capabilities-audit" className="btn btn-ghost" style={{ justifyContent: 'center' }}>Start with a Free Audit</Link>
+            <div className="contact-blue-cta reveal">
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-contact" target="_blank" rel="noopener noreferrer">Claim Your Spot Now →</a>
             </div>
           </div>
         </div>

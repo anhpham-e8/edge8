@@ -17,13 +17,19 @@ export default function TrainingAndCertificationPage() {
   return (
     <main>
       {/* HERO */}
-      <section className="page-hero">
+      <section className="svc-hero">
+        <div className="svc-hero-bg" />
+        <div className="svc-hero-grid" />
         <div className="container">
-          <div className="page-hero-inner">
-            <span className="section-label">Training &amp; Certification</span>
-            <h1 className="section-title">Build AI Leadership Across Your Organization</h1>
-            <p className="page-hero-sub">The AI Officer Certification Program — the proven curriculum that turns managers into AI leaders and experiments into programs.</p>
-            <a href="https://www.ai-officer.com" className="btn btn-mint" target="_blank" rel="noopener noreferrer">Explore the Program →</a>
+          <div className="svc-hero-inner">
+            <div className="svc-hero-text">
+              <h1>Build AI Leadership Across Your Organization</h1>
+              <p className="svc-hero-sub">The AI Officer Certification Program — the proven curriculum that turns managers into AI leaders and experiments into programs.</p>
+              <a href="https://www.ai-officer.com" className="btn btn-contact" target="_blank" rel="noopener noreferrer">Explore the Program →</a>
+            </div>
+            <div className="svc-hero-img">
+              <Image src="/services/images/services-training-and-certification-hero.jpg" alt="Training and Certification" width={640} height={480} priority />
+            </div>
           </div>
         </div>
       </section>
@@ -52,7 +58,7 @@ export default function TrainingAndCertificationPage() {
       </section>
 
       {/* PROGRAM OVERVIEW */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="reveal">
             <span className="section-label">The Program</span>
@@ -115,7 +121,7 @@ export default function TrainingAndCertificationPage() {
       </section>
 
       {/* TRACK RECORD */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="track-record reveal">
             <span className="section-label" style={{ color: 'var(--mint)' }}>Track Record</span>
@@ -155,16 +161,15 @@ export default function TrainingAndCertificationPage() {
       </section>
 
       {/* CTA */}
-      <section className="audit-cta section">
+      <section className="contact-blue section">
         <div className="container">
-          <div className="audit-inner">
-            <div className="audit-text reveal">
-              <h2 className="section-title">Ready to Build AI Leadership?</h2>
-              <p>Join hundreds of organizations already using the AI Officer Certification to drive real results.</p>
+          <div className="contact-blue-inner">
+            <div className="reveal">
+              <h2 className="section-title" style={{ marginBottom: 16 }}>Ready to Build AI Leadership?</h2>
+              <p className="section-sub">Join hundreds of organizations already using the AI Officer Certification to drive real results.</p>
             </div>
-            <div className="audit-cta-btn reveal">
-              <a href="https://www.ai-officer.com" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Explore the Program</a>
-              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+            <div className="contact-blue-cta reveal">
+              <a href="https://www.ai-officer.com" className="btn btn-contact" target="_blank" rel="noopener noreferrer">Explore the Program →</a>
             </div>
           </div>
         </div>

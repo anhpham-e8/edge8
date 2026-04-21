@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function CaioLeadershipPage() {
@@ -16,13 +17,19 @@ export default function CaioLeadershipPage() {
   return (
     <main>
       {/* HERO */}
-      <section className="page-hero">
+      <section className="svc-hero">
+        <div className="svc-hero-bg" />
+        <div className="svc-hero-grid" />
         <div className="container">
-          <div className="page-hero-inner">
-            <span className="section-label">CAIO Leadership</span>
-            <h1 className="section-title">Get C-Level AI Leadership Without the $300K Mistake</h1>
-            <p className="page-hero-sub">Most companies don&apos;t need a $300K full-time CAIO. They need strategic AI leadership that drives real results — without the risk of the wrong hire.</p>
-            <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-mint" target="_blank" rel="noopener noreferrer">Start with a Free Consultation →</a>
+          <div className="svc-hero-inner">
+            <div className="svc-hero-text">
+              <h1>Get C-Level AI Leadership Without the $300K Mistake</h1>
+              <p className="svc-hero-sub">Most companies don&apos;t need a $300K full-time CAIO. They need strategic AI leadership that drives real results — without the risk of the wrong hire.</p>
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-contact" target="_blank" rel="noopener noreferrer">Start with a Free Consultation →</a>
+            </div>
+            <div className="svc-hero-img">
+              <Image src="/services/images/services-caio-leadership-hero.jpg" alt="CAIO Leadership" width={640} height={480} priority />
+            </div>
           </div>
         </div>
       </section>
@@ -57,7 +64,7 @@ export default function CaioLeadershipPage() {
       </section>
 
       {/* COMPARISON TABLE */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="reveal">
             <span className="section-label">The Comparison</span>
@@ -82,9 +89,9 @@ export default function CaioLeadershipPage() {
                   ['First Results', '3–6 months minimum', 'Within 30–60 days'],
                 ].map(([factor, bad, good]) => (
                   <tr key={factor}>
-                    <td style={{ fontWeight: 700, color: 'var(--dark)' }}>{factor}</td>
+                    <td style={{ fontWeight: 500, color: 'var(--dark)' }}>{factor}</td>
                     <td style={{ color: '#ef4444' }}>{bad}</td>
-                    <td style={{ color: 'var(--blue)', fontWeight: 600 }}>{good}</td>
+                    <td style={{ color: 'var(--blue)', fontWeight: 500 }}>{good}</td>
                   </tr>
                 ))}
               </tbody>
@@ -124,7 +131,7 @@ export default function CaioLeadershipPage() {
       </section>
 
       {/* 90-DAY ROADMAP */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="reveal">
             <span className="section-label">The Roadmap</span>
@@ -175,16 +182,15 @@ export default function CaioLeadershipPage() {
       </section>
 
       {/* CTA */}
-      <section className="audit-cta section">
+      <section className="contact-blue section">
         <div className="container">
-          <div className="audit-inner">
-            <div className="audit-text reveal">
-              <h2 className="section-title">Ready for AI Leadership That Delivers?</h2>
-              <p>Schedule a free consultation to find the right CAIO model for your organization.</p>
+          <div className="contact-blue-inner">
+            <div className="reveal">
+              <h2 className="section-title" style={{ marginBottom: 16 }}>Ready for AI Leadership That Delivers?</h2>
+              <p className="section-sub">Schedule a free consultation to find the right CAIO model for your organization.</p>
             </div>
-            <div className="audit-cta-btn reveal">
-              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
-              <Link href="/ai-capabilities-audit" className="btn btn-ghost">Start with a Free Audit</Link>
+            <div className="contact-blue-cta reveal">
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-contact" target="_blank" rel="noopener noreferrer">Schedule A Consultation →</a>
             </div>
           </div>
         </div>
