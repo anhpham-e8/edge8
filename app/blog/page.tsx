@@ -3,108 +3,24 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { allPosts, PostMeta } from '@/lib/postData'
-
-const ITEMS_PER_PAGE = 4
-
-const categories = [
-  { slug: 'ai-business', label: 'AI in Business', id: 'ai-business' },
-  { slug: 'founders', label: "Founders' Secrets", id: 'founders' },
-  { slug: 'vietnam', label: 'Doing Business in Vietnam', id: 'vietnam' },
-  { slug: 'cultures', label: 'High Performing Cultures', id: 'cultures' },
-]
-
-function getPostsByCategory(catSlug: string) {
-  return allPosts
-    .filter((p) => p.categorySlug === catSlug)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-}
-
-function CategorySection({ cat }: { cat: typeof categories[0] }) {
-  const posts = getPostsByCategory(cat.slug)
-  const [page, setPage] = useState(0)
-  const totalPages = Math.ceil(Math.max(posts.length - 1, 0) / (ITEMS_PER_PAGE - 1)) || 1
-
-  const featured = posts[0]
-  const listStart = 1 + page * (ITEMS_PER_PAGE - 1)
-  const listEnd = listStart + (ITEMS_PER_PAGE - 1)
-  const listPosts = posts.slice(listStart, listEnd)
-
-  if (!featured) return null
-
-  return (
-    <section className="blog-category" id={cat.id}>
-      <div className="container">
-        <div className="blog-category-header">
-          <h2 className="blog-category-title">{cat.label}</h2>
-        </div>
-        <div className="cat-layout">
-          {/* Featured post */}
-          <Link href={`/post/${featured.slug}`} className="cat-featured">
-            <Image
-              src={featured.image}
-              alt={featured.title}
-              width={600}
-              height={338}
-              className="cat-featured-img"
-            />
-            <div className="cat-featured-body">
-              <div className="cat-featured-title">{featured.title}</div>
-              <div className="cat-featured-meta">{new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
-            </div>
-          </Link>
-
-          {/* Post list */}
-          <div>
-            <div className="cat-post-list">
-              {listPosts.map((post) => (
-                <Link key={post.slug} href={`/post/${post.slug}`} className="cat-post-item">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    width={72}
-                    height={72}
-                    className="cat-post-img"
-                  />
-                  <div className="cat-post-body">
-                    <div className="cat-post-title">{post.title}</div>
-                    <div className="cat-post-meta">{new Date(post.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            {totalPages > 1 && (
-              <div className="cat-pagination">
-                {Array.from({ length: totalPages }).map((_, i) => (
-                  <button
-                    key={i}
-                    className={i === page ? 'active' : ''}
-                    onClick={() => setPage(i)}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
+import { allPosts, categories } from '@/lib/postData'
 
 export default function BlogPage() {
-  const featured = allPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0]
+  const [activeCategory, setActiveCategory] = useState('revenue')
+
+  const featured = [...allPosts].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )[0]
+
+  const filteredPosts = allPosts
+    .filter((p) => p.categorySlug === activeCategory)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target)
-          }
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) }
         })
       },
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
@@ -133,7 +49,9 @@ export default function BlogPage() {
                 />
                 <div className="hero-featured-body">
                   <h2 className="hero-featured-title">{featured.title}</h2>
-                  <p className="hero-featured-excerpt">{new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                  <p className="hero-featured-excerpt">
+                    {new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                  </p>
                   <span className="hero-featured-more">Read Article →</span>
                 </div>
               </Link>
@@ -142,10 +60,54 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* ═══ CATEGORY SECTIONS ══════════════════════════════════ */}
-      {categories.map((cat) => (
-        <CategorySection key={cat.slug} cat={cat} />
-      ))}
+      {/* ═══ POSTS SECTION ══════════════════════════════════════ */}
+      <section className="section">
+        <div className="container">
+          {/* Category filter tabs */}
+          <div className="blog-filter-tabs">
+            {categories.map((cat) => (
+              <button
+                key={cat.slug}
+                className={`blog-filter-tab${activeCategory === cat.slug ? ' active' : ''}`}
+                onClick={() => setActiveCategory(cat.slug)}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Card grid */}
+          {filteredPosts.length > 0 ? (
+            <div className="blog-cards-grid">
+              {filteredPosts.map((post) => (
+                <Link key={post.slug} href={`/post/${post.slug}`} className="blog-card reveal">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    width={600}
+                    height={338}
+                    className="blog-card-img"
+                  />
+                  <div className="blog-card-body">
+                    <div className="blog-card-meta">
+                      <span className="blog-card-cat">{post.category}</span>
+                      <span className="blog-card-date">
+                        {new Date(post.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                      </span>
+                    </div>
+                    <div className="blog-card-title">{post.title}</div>
+                    <span className="blog-card-more">Read Article →</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="blog-empty">
+              <p>No posts in this category yet. Check back soon.</p>
+            </div>
+          )}
+        </div>
+      </section>
     </main>
   )
 }
