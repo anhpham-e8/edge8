@@ -1060,6 +1060,10 @@ nav {
   background: var(--white);
   color: #101014;
 }
+.svc-hero .btn-contact:hover {
+  background: var(--blue);
+  color: var(--white);
+}
 .typeform-wrap {
   border-radius: 20px;
   overflow: hidden;
@@ -1361,6 +1365,7 @@ footer {
   height: 48px;
   border-radius: 50%;
   background: var(--blue);
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1368,6 +1373,7 @@ footer {
   margin-bottom: 16px;
   flex-shrink: 0;
 }
+.problem-card-icon svg { width: 22px; height: 22px; }
 .problem-card-title { font-weight: 500; font-size: 16px; color: var(--dark); margin-bottom: 8px; }
 .problem-card-desc { font-size: 13.5px; color: var(--body-text); line-height: 1.65; }
 

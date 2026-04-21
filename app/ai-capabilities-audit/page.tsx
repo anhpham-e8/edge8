@@ -125,18 +125,34 @@ export default function AiCapabilitiesAuditPage() {
             <p>of companies report ZERO return on investment despite massive AI investment — MIT Sloan Research</p>
           </div>
           <div className="problem-cards" style={{ marginTop: 48 }}>
-            {[
-              { icon: '🧭', title: 'No Strategic Direction', desc: 'AI tools are adopted ad hoc, with no alignment to business goals or measurable outcomes.' },
-              { icon: '🗄️', title: 'Data Problems Disguised as AI Problems', desc: 'Companies invest in AI models but have data that\'s unstructured, incomplete, or siloed.' },
-              { icon: '👤', title: 'No Ownership', desc: 'AI initiatives lack a dedicated leader, so experiments never scale into programs.' },
-              { icon: '📊', title: 'Wrong Metrics', desc: 'Teams measure AI by adoption, not by business impact — so they never know if it\'s working.' },
-            ].map((card) => (
-              <div key={card.title} className="problem-card reveal">
-                <div className="problem-card-icon">{card.icon}</div>
-                <div className="problem-card-title">{card.title}</div>
-                <p className="problem-card-desc">{card.desc}</p>
+            <div className="problem-card reveal">
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
               </div>
-            ))}
+              <div className="problem-card-title">No Strategic Direction</div>
+              <p className="problem-card-desc">AI tools are adopted ad hoc, with no alignment to business goals or measurable outcomes.</p>
+            </div>
+            <div className="problem-card reveal">
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              </div>
+              <div className="problem-card-title">Data Problems Disguised as AI Problems</div>
+              <p className="problem-card-desc">Companies invest in AI models but have data that&apos;s unstructured, incomplete, or siloed.</p>
+            </div>
+            <div className="problem-card reveal">
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div className="problem-card-title">No Ownership</div>
+              <p className="problem-card-desc">AI initiatives lack a dedicated leader, so experiments never scale into programs.</p>
+            </div>
+            <div className="problem-card reveal">
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
+              <div className="problem-card-title">Wrong Metrics</div>
+              <p className="problem-card-desc">Teams measure AI by adoption, not by business impact — so they never know if it&apos;s working.</p>
+            </div>
           </div>
         </div>
       </section>

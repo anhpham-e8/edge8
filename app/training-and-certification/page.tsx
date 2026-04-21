@@ -42,18 +42,34 @@ export default function TrainingAndCertificationPage() {
             <h2 className="section-title">Why Most AI Training Programs Fail</h2>
           </div>
           <div className="problem-cards" style={{ marginTop: 48 }}>
-            {[
-              { icon: '🚀', title: 'No Starting Point', desc: 'Teams don\'t know where to begin with AI. Generic training gives frameworks, not answers.' },
-              { icon: '💬', title: 'No Shared Language', desc: 'Leadership, IT, and business teams can\'t agree on AI priorities because they don\'t speak the same language.' },
-              { icon: '🔬', title: 'Experiments, Not Programs', desc: 'Employees learn AI tools but never build AI systems. Training produces curiosity, not capability.' },
-              { icon: '⚡', title: 'Falling Behind', desc: 'The AI landscape changes monthly. One-time training creates skills that are outdated in 6 months.' },
-            ].map((card) => (
-              <div key={card.title} className="problem-card reveal">
-                <div className="problem-card-icon">{card.icon}</div>
-                <div className="problem-card-title">{card.title}</div>
-                <p className="problem-card-desc">{card.desc}</p>
+            <div className="problem-card reveal">
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
               </div>
-            ))}
+              <div className="problem-card-title">No Starting Point</div>
+              <p className="problem-card-desc">Teams don&apos;t know where to begin with AI. Generic training gives frameworks, not answers.</p>
+            </div>
+            <div className="problem-card reveal">
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div className="problem-card-title">No Shared Language</div>
+              <p className="problem-card-desc">Leadership, IT, and business teams can&apos;t agree on AI priorities because they don&apos;t speak the same language.</p>
+            </div>
+            <div className="problem-card reveal">
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v11m0 0H5m4 0h10m-4 7l3-3-3-3M5 19l-3-3 3-3"/></svg>
+              </div>
+              <div className="problem-card-title">Experiments, Not Programs</div>
+              <p className="problem-card-desc">Employees learn AI tools but never build AI systems. Training produces curiosity, not capability.</p>
+            </div>
+            <div className="problem-card reveal">
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div className="problem-card-title">Falling Behind</div>
+              <p className="problem-card-desc">The AI landscape changes monthly. One-time training creates skills that are outdated in 6 months.</p>
+            </div>
           </div>
         </div>
       </section>

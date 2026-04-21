@@ -125,22 +125,30 @@ export default function YourFirstAIHirePage() {
           </div>
           <div className="problem-cards" style={{ marginTop: 48 }}>
             <div className="problem-card reveal">
-              <div className="problem-card-icon">🎯</div>
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              </div>
               <div className="problem-card-title">No One Owns AI</div>
               <p className="problem-card-desc">Everyone&apos;s &quot;exploring&quot; AI tools, but no one is accountable for results. Without an owner, nothing gets implemented.</p>
             </div>
             <div className="problem-card reveal">
-              <div className="problem-card-icon">💸</div>
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
               <div className="problem-card-title">Wrong Hire, Wrong Cost</div>
               <p className="problem-card-desc">A full-time AI executive costs $150K–$300K+ and takes 6+ months to hire. Most companies can&apos;t afford to wait or to guess.</p>
             </div>
             <div className="problem-card reveal">
-              <div className="problem-card-icon">🔀</div>
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+              </div>
               <div className="problem-card-title">Scattered Experiments</div>
               <p className="problem-card-desc">Teams run disconnected AI pilots that never scale. Without strategic direction, you get 10% of the potential value.</p>
             </div>
             <div className="problem-card reveal">
-              <div className="problem-card-icon">⏰</div>
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
               <div className="problem-card-title">Missed Window</div>
               <p className="problem-card-desc">Your competitors are moving now. Every month without AI leadership is a month of competitive advantage lost forever.</p>
             </div>
