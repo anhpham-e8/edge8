@@ -49,6 +49,15 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <div className="post-layout">
             {/* Main article */}
             <article>
+              <div className="post-meta">
+                <Link href={`/blog#${post.categorySlug}`} className="post-category-tag">
+                  {post.category}
+                </Link>
+                <span className="post-date">
+                  {new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                </span>
+                <span className="post-read-time">{post.readTime}</span>
+              </div>
               <h1 className="post-title">{post.title}</h1>
               <div
                 className="post-body"
