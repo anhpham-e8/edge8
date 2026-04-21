@@ -23,7 +23,6 @@ export default function AiProgramsPage() {
       <section className="page-hero">
         <div className="container">
           <div className="page-hero-inner">
-            <span className="section-label">Case Studies</span>
             <h1 className="section-title">We Build Your Team of AI Agents</h1>
             <p className="page-hero-sub">AI Programs are the operating system of the modern business. We design, build, and deploy yours — then train your team to run it.</p>
           </div>
@@ -58,7 +57,7 @@ export default function AiProgramsPage() {
       </section>
 
       {/* CASE STUDIES */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="reveal">
             <span className="section-label">Case Studies</span>

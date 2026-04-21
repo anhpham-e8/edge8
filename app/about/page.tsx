@@ -39,9 +39,8 @@ export default function AboutPage() {
         <div className="container">
           <div className="about-hero-inner">
             <div className="reveal">
-              <span className="section-label">Founder</span>
-              <h1 className="section-title" style={{ color: '#fff', marginBottom: 20 }}>Leading the AI Revolution for Tech-Forward Founders</h1>
-              <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.75)', fontStyle: 'italic', lineHeight: 1.6 }}>
+              <h1 className="section-title" style={{ marginBottom: 20 }}>Leading the AI Revolution for Tech-Forward Founders</h1>
+              <p style={{ fontSize: 18, fontStyle: 'italic', lineHeight: 1.6 }}>
                 &ldquo;It&apos;s not an AI problem. It&apos;s the data.&rdquo; — Dave Hajdu
               </p>
             </div>
@@ -49,9 +48,9 @@ export default function AboutPage() {
               <Image
                 src="/about/images/about-Dave Hajdu.jpeg"
                 alt="Dave Hajdu — Founder, Edge8"
-                width={500}
-                height={480}
-                style={{ width: '100%', borderRadius: 'var(--radius)', objectFit: 'cover', maxHeight: 480 }}
+                width={400}
+                height={600}
+                style={{ width: '100%', borderRadius: 'var(--radius)', objectFit: 'cover' }}
               />
             </div>
           </div>
@@ -127,7 +126,7 @@ export default function AboutPage() {
       {/* ═══ MISSION ════════════════════════════════════════════ */}
       <section className="mission-section section">
         <div className="container">
-          <div className="reveal" style={{ maxWidth: 760 }}>
+          <div className="reveal">
             <span className="section-label">The Mission</span>
             <h2 className="section-title">The Greatest Evolution in Productivity</h2>
             <p style={{ fontSize: 17, color: 'var(--grey-mid)', lineHeight: 1.75, marginTop: 20 }}>
@@ -141,7 +140,7 @@ export default function AboutPage() {
       </section>
 
       {/* ═══ PARTNERS ════════════════════════════════════════════ */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="reveal">
             <span className="section-label">Partners</span>
@@ -177,41 +176,40 @@ export default function AboutPage() {
       </section>
 
       {/* ═══ CONTACT ═════════════════════════════════════════════ */}
-      <section className="section" style={{ background: 'var(--blue)', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', bottom: -100, left: -100, width: 500, height: 500, background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
+      <section className="section" style={{ background: 'var(--tint)' }}>
         <div className="container">
-          <div className="reveal" style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
-            <h2 className="section-title" style={{ color: '#fff', marginBottom: 48 }}>Get In Touch</h2>
+          <div className="reveal" style={{ textAlign: 'center' }}>
+            <h2 className="section-title" style={{ marginBottom: 48 }}>Get In Touch</h2>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 48, flexWrap: 'wrap', marginBottom: 48 }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-                <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'var(--blue)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <svg viewBox="0 0 24 24" style={{ width: 22, height: 22 }} fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
                   </svg>
                 </div>
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)' }}>Email</div>
-                <div style={{ fontSize: 14, color: '#fff' }}><a href="mailto:dave@edge8.ai" style={{ color: 'inherit', textDecoration: 'none' }}>dave@edge8.ai</a></div>
+                <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--grey-mid)' }}>Email</div>
+                <div style={{ fontSize: 14, color: 'var(--dark)' }}><a href="mailto:dave@edge8.ai" style={{ color: 'inherit', textDecoration: 'none' }}>dave@edge8.ai</a></div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-                <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'var(--blue)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <svg viewBox="0 0 24 24" style={{ width: 22, height: 22 }} fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.16a16 16 0 006.93 6.93l1.52-1.52a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
                   </svg>
                 </div>
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)' }}>Vietnam</div>
-                <div style={{ fontSize: 14, color: '#fff' }}>+84 90 995 8581</div>
+                <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--grey-mid)' }}>Vietnam</div>
+                <div style={{ fontSize: 14, color: 'var(--dark)' }}>+84 90 995 8581</div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-                <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'var(--blue)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <svg viewBox="0 0 24 24" style={{ width: 22, height: 22 }} fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.16a16 16 0 006.93 6.93l1.52-1.52a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
                   </svg>
                 </div>
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)' }}>USA</div>
-                <div style={{ fontSize: 14, color: '#fff' }}>+1 206 395 8872</div>
+                <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--grey-mid)' }}>USA</div>
+                <div style={{ fontSize: 14, color: 'var(--dark)' }}>+1 206 395 8872</div>
               </div>
             </div>
-            <a href="https://www.linkedin.com/company/edge8ai/" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ background: 'var(--dark)', color: '#fff' }}>
+            <a href="https://www.linkedin.com/company/edge8ai/" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
               Connect on LinkedIn
             </a>
           </div>

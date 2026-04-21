@@ -23,7 +23,6 @@ export default function PersonalBrandsPage() {
       <section className="page-hero">
         <div className="container">
           <div className="page-hero-inner">
-            <span className="section-label">Case Studies</span>
             <h1 className="section-title">How AI Agents Power Leadership Branding</h1>
             <p className="page-hero-sub">We don&apos;t just build personal brands — we build AI-powered content engines that position leaders as industry authorities.</p>
           </div>
@@ -54,24 +53,41 @@ export default function PersonalBrandsPage() {
       </section>
 
       {/* WHY AI AGENTS */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="reveal">
             <span className="section-label">Why AI Agents</span>
             <h2 className="section-title">What Makes This Different</h2>
           </div>
-          <div className="who-grid-4" style={{ marginTop: 48 }}>
-            {[
-              { title: 'Scale', desc: 'AI agents produce 10x the content of a human team — at a fraction of the cost.' },
-              { title: 'Consistency', desc: 'Your brand voice is codified and delivered consistently across every channel.' },
-              { title: 'Speed', desc: 'From interview to published content in hours, not weeks.' },
-              { title: 'Optimization', desc: 'Continuous SEO and GEO optimization as algorithms evolve.' },
-            ].map((card) => (
-              <div key={card.title} className="who-card-4 reveal">
-                <div className="who-card-title">{card.title}</div>
-                <p className="who-card-desc">{card.desc}</p>
+          <div className="problem-cards" style={{ marginTop: 48 }}>
+            <div className="problem-card reveal">
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
               </div>
-            ))}
+              <div className="problem-card-title">Scale</div>
+              <p className="problem-card-desc">AI agents produce 10x the content of a human team — at a fraction of the cost.</p>
+            </div>
+            <div className="problem-card reveal">
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div className="problem-card-title">Consistency</div>
+              <p className="problem-card-desc">Your brand voice is codified and delivered consistently across every channel.</p>
+            </div>
+            <div className="problem-card reveal">
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div className="problem-card-title">Speed</div>
+              <p className="problem-card-desc">From interview to published content in hours, not weeks.</p>
+            </div>
+            <div className="problem-card reveal">
+              <div className="problem-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+              </div>
+              <div className="problem-card-title">Optimization</div>
+              <p className="problem-card-desc">Continuous SEO and GEO optimization as algorithms evolve.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -104,7 +120,7 @@ export default function PersonalBrandsPage() {
       </section>
 
       {/* CASE STUDIES */}
-      <section className="section" style={{ background: 'var(--tint)' }}>
+      <section className="section">
         <div className="container">
           <div className="reveal">
             <span className="section-label">Case Studies</span>
