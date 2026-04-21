@@ -907,7 +907,7 @@ nav {
   display: flex;
   align-items: center;
   gap: 20px;
-  background: var(--tint);
+  background: var(--white);
   border: 1px solid var(--card-border);
   border-radius: var(--radius);
   padding: 24px 28px;

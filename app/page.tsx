@@ -446,27 +446,27 @@ export default function HomePage() {
             <Link href="/business-websites" className="text-link">Full List of Case Studies →</Link>
           </div>
           <div className="case-studies-grid">
-            <a href="https://www.pho-24.com/" target="_blank" rel="noopener noreferrer" className="case-card reveal">
+            <Link href="/case-studies/pho24" className="case-card reveal">
               <Image src="/homepage/images/home-page-case studies-PHO24.jpg" alt="PHO24" width={400} height={533} />
               <div className="case-overlay">
                 <span className="case-tag">AI Agents</span>
                 <div className="case-name">PHO24</div>
               </div>
-            </a>
-            <a href="https://www.investmigrate.com/" target="_blank" rel="noopener noreferrer" className="case-card reveal">
+            </Link>
+            <Link href="/case-studies/investmigrate" className="case-card reveal">
               <Image src="/homepage/images/home-page-case studies-InvestMigrate.jpg" alt="InvestMigrate" width={400} height={533} />
               <div className="case-overlay">
                 <span className="case-tag">Featured</span>
                 <div className="case-name">InvestMigrate</div>
               </div>
-            </a>
-            <a href="https://vespaadventures.com/" target="_blank" rel="noopener noreferrer" className="case-card reveal">
+            </Link>
+            <Link href="/case-studies/vespa-adventures" className="case-card reveal">
               <Image src="/homepage/images/home-page-case studies-Vespa Adventures.jpg" alt="Vespa Adventures" width={400} height={533} />
               <div className="case-overlay">
                 <span className="case-tag">AI Program</span>
                 <div className="case-name">Vespa Adventures</div>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
