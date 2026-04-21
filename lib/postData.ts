@@ -279,7 +279,7 @@ export const allPosts: PostMeta[] = [
     date: '2025-06-28',
     category: 'Innovation',
     categorySlug: 'innovation',
-    image: "/blog/images/Vietnam's AI Rules.jpeg",
+    image: "/blog/images/Vietnams-AI-Rules.jpeg",
     readTime: '5 min read',
     tags: ['Vietnam', 'AI Regulation'],
     mdFile: 'vietnam-ai-business-law',
