@@ -82,10 +82,12 @@ export default function BlogPage() {
                   className="hero-featured-img"
                 />
                 <div className="hero-featured-body">
-                  <h2 className="hero-featured-title">{featured.title}</h2>
-                  <p className="hero-featured-excerpt">
+                  <span className="hero-featured-cat">{featured.category}</span>
+                  <p className="hero-featured-date">
                     {new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                   </p>
+                  <h2 className="hero-featured-title">{featured.title}</h2>
+                  <p className="hero-featured-excerpt">{featured.excerpt}</p>
                   <span className="hero-featured-more">Read Article →</span>
                 </div>
               </Link>
