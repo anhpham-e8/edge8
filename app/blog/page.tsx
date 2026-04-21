@@ -129,6 +129,7 @@ export default function BlogPage() {
                         {new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                       </span>
                       <div className="blog-card-title">{post.title}</div>
+                      <p className="blog-card-excerpt">{post.excerpt}</p>
                       <span className="blog-card-more">Read Article →</span>
                     </div>
                   </Link>

@@ -9,6 +9,7 @@ export interface PostMeta {
   readTime: string
   tags: string[]
   mdFile: string
+  excerpt: string
 }
 
 // All 23 blog posts - static data only, no fs imports
@@ -24,6 +25,7 @@ export const allPosts: PostMeta[] = [
     readTime: '5 min read',
     tags: ['Hospitality', 'Personalization'],
     mdFile: 'hospitality-data-gap-hotel-personalized-experiences',
+    excerpt: 'Hotels collect massive amounts of data but rarely use it to create the personalized experiences guests expect. Here\'s how AI changes the equation.',
   },
   {
     slug: 'from-idea-to-interactive-blog-in-30-minutes-the-founders-automation-playbook',
@@ -35,6 +37,7 @@ export const allPosts: PostMeta[] = [
     readTime: '5 min read',
     tags: ['Automation', 'Content'],
     mdFile: 'from-idea-to-interactive-blog-in-30-minutes',
+    excerpt: 'Learn how founders are using AI automation to go from a raw idea to a published, interactive blog post in under 30 minutes—without a content team.',
   },
   {
     slug: 'why-human-ai-collaboration-is-the-future-of-business-success',
@@ -46,6 +49,7 @@ export const allPosts: PostMeta[] = [
     readTime: '6 min read',
     tags: ['Human-AI', 'Collaboration'],
     mdFile: 'why-human-ai-collaboration-is-the-future-of-business-success',
+    excerpt: 'The future of business success isn\'t human vs. AI — it\'s human and AI working together. Here\'s what that collaboration looks like in practice.',
   },
   {
     slug: 'how-ai-in-business-success-starts-with-strategic-symbolism',
@@ -57,6 +61,7 @@ export const allPosts: PostMeta[] = [
     readTime: '5 min read',
     tags: ['Vietnam', 'Business Strategy'],
     mdFile: 'how-ai-in-business-success-starts-with-strategic-symbolism',
+    excerpt: 'The fastest path to AI adoption isn\'t technology — it\'s leadership. How symbolic action from the top creates the cultural shift that makes AI work.',
   },
 
   // Talent
@@ -70,6 +75,7 @@ export const allPosts: PostMeta[] = [
     readTime: '5 min read',
     tags: ['AI Hiring', 'Business'],
     mdFile: 'your-next-ai-hire-isnt-a-person',
+    excerpt: "Most companies don't fail at AI because of the tech. They fail because no one owns it. AI agents need managers, engineers, and real teams, just like people.",
   },
   {
     slug: 'why-ai-training-is-essential-for-your-career-success-in-the-digital-age',
@@ -81,6 +87,7 @@ export const allPosts: PostMeta[] = [
     readTime: '5 min read',
     tags: ['AI Training', 'Career'],
     mdFile: 'why-ai-training-is-essential-for-career-success',
+    excerpt: 'AI literacy is the new competitive advantage. Leaders who invest in AI training today will be the ones setting strategy — and capturing the value — tomorrow.',
   },
   {
     slug: 'strategies-to-harness-top-performers-for-business-success',
@@ -92,6 +99,7 @@ export const allPosts: PostMeta[] = [
     readTime: '6 min read',
     tags: ['Performance', 'Vietnam'],
     mdFile: 'strategies-to-harness-top-performers-for-business-success',
+    excerpt: 'High performers don\'t just produce more — they set the cultural standard. Here\'s how to identify, retain, and multiply your top performers using AI-powered systems.',
   },
   {
     slug: 'offshore-teams-remote-integration-with-ai',
@@ -103,6 +111,7 @@ export const allPosts: PostMeta[] = [
     readTime: '5 min read',
     tags: ['Offshore Teams', 'Remote Work'],
     mdFile: 'remote-team-offshore-integration',
+    excerpt: 'Building a high-performing remote team in Vietnam doesn\'t have to be complicated. Here\'s the AI-driven approach that makes offshore integration seamless.',
   },
   {
     slug: 'how-one-decision-at-a-time-creates-high-performers-in-business-and-life',
@@ -114,6 +123,7 @@ export const allPosts: PostMeta[] = [
     readTime: '5 min read',
     tags: ['Decision Making', 'High Performance'],
     mdFile: 'how-one-decision-at-a-time-creates-high-performers',
+    excerpt: 'High performance isn\'t built through massive leaps — it\'s built one decision at a time. Learn the framework that turns daily choices into long-term excellence.',
   },
   {
     slug: 'strategies-to-harness-top-performers-hpc',
@@ -125,6 +135,7 @@ export const allPosts: PostMeta[] = [
     readTime: '6 min read',
     tags: ['Performance', 'Culture'],
     mdFile: 'strategies-to-harness-top-performers-for-business-success',
+    excerpt: 'Discover how AI-powered systems help you identify, develop, and retain the top performers who drive your culture and your business forward.',
   },
 
   // Operations
@@ -138,6 +149,7 @@ export const allPosts: PostMeta[] = [
     readTime: '6 min read',
     tags: ['AI Reliability', 'Business Systems'],
     mdFile: '5-keys-to-reduce-ai-hallucinations',
+    excerpt: 'AI hallucinations are the hidden flaw in today\'s most powerful systems. Here are five proven strategies to detect and reduce them before they spread.',
   },
   {
     slug: 'ai-data-strategy-why-data-moats-beat-model-wars-in-2025',
@@ -149,6 +161,7 @@ export const allPosts: PostMeta[] = [
     readTime: '7 min read',
     tags: ['Data Strategy', 'AI'],
     mdFile: 'ai-data-strategy-moats-beat-model-wars',
+    excerpt: 'The real battle for AI dominance isn\'t happening at the model level — it\'s happening at the data level. Companies that build data moats will win.',
   },
   {
     slug: 'ai-in-data-migration-why-your-ai-program-is-really-a-data-problem',
@@ -160,6 +173,7 @@ export const allPosts: PostMeta[] = [
     readTime: '6 min read',
     tags: ['Data Migration', 'AI Programs'],
     mdFile: 'ai-in-data-migration',
+    excerpt: 'Before you can use AI effectively, you need your data in order. Why most AI programs are really data migration problems in disguise.',
   },
   {
     slug: 'why-ai-issues-are-really-data-problems-a-guide-for-future-ai-officers',
@@ -171,6 +185,7 @@ export const allPosts: PostMeta[] = [
     readTime: '6 min read',
     tags: ['AI Officers', 'Data'],
     mdFile: 'why-ai-issues-are-really-data-problems',
+    excerpt: 'Every AI failure traces back to a data problem. Here\'s the guide future AI Officers need to diagnose and fix the root causes before they compound.',
   },
   {
     slug: 'ai-process-culture-performance-automation-that-works',
@@ -182,6 +197,7 @@ export const allPosts: PostMeta[] = [
     readTime: '6 min read',
     tags: ['Culture', 'Process Automation'],
     mdFile: 'ai-process-culture-performance',
+    excerpt: 'Process automation that actually works doesn\'t replace culture — it amplifies it. Here\'s how to build AI-powered processes your team will actually use.',
   },
 
   // Innovation
@@ -195,6 +211,7 @@ export const allPosts: PostMeta[] = [
     readTime: '8 min read',
     tags: ['AI Trends', 'Business Strategy'],
     mdFile: '2026-ai-trends-5-game-changing-shifts',
+    excerpt: 'The companies that will win in 2026 aren\'t the ones with the best AI tools — they\'re the ones with the best data. Five trends that will define the next year.',
   },
   {
     slug: 'business-research-assignment-that-could-transform-your-company-and-your-career',
@@ -206,6 +223,7 @@ export const allPosts: PostMeta[] = [
     readTime: '6 min read',
     tags: ['Business Research', 'Leadership'],
     mdFile: 'business-research-assignment-transform-your-company',
+    excerpt: 'One assignment that could change how you see your entire business — and your career trajectory. How structured AI-powered research unlocks real competitive intelligence.',
   },
   {
     slug: 'the-case-for-ai-co-ceos-and-ai-leadership-why-every-leader-needs-a-digital-decision-partner',
@@ -217,6 +235,7 @@ export const allPosts: PostMeta[] = [
     readTime: '7 min read',
     tags: ['AI Leadership', 'Co-CEO'],
     mdFile: 'case-for-ai-co-ceo-ai-leadership',
+    excerpt: 'Every leader needs a digital decision partner. Here\'s the case for treating AI not as a tool, but as a co-strategist integrated into your leadership team.',
   },
   {
     slug: 'why-smart-founders-are-already-planning-for-meta-ray-ban-glasses-even-when-demos-fail',
@@ -228,6 +247,7 @@ export const allPosts: PostMeta[] = [
     readTime: '5 min read',
     tags: ['AR Glasses', 'Meta'],
     mdFile: 'why-smart-founders-are-planning-for-meta-ray-ban-glasses',
+    excerpt: 'Technology always catches up. The founders building for Meta Ray-Ban today will have a massive first-mover advantage when the hardware finally delivers.',
   },
   {
     slug: 'tech-in-entrepreneurship-how-ai-is-disrupting-the-role-of-the-founder',
@@ -239,6 +259,7 @@ export const allPosts: PostMeta[] = [
     readTime: '6 min read',
     tags: ['Entrepreneurship', 'Vietnam'],
     mdFile: 'tech-in-entrepreneurship-how-ai-is-disrupting-the-role-of-the-founder',
+    excerpt: 'AI isn\'t just changing how businesses operate — it\'s fundamentally disrupting what it means to be a founder. Here\'s what the new entrepreneur looks like.',
   },
   {
     slug: 'vietnam-ai-silicon-valley-of-southeast-asia',
@@ -250,6 +271,7 @@ export const allPosts: PostMeta[] = [
     readTime: '7 min read',
     tags: ['Vietnam', 'AI Rise'],
     mdFile: 'vietnam-ai-silicon-valley',
+    excerpt: 'Vietnam is emerging as Southeast Asia\'s most exciting AI hub. Why the country\'s talent, culture, and government investment make it the region\'s next Silicon Valley.',
   },
   {
     slug: 'vietnam-ai-business-law-what-leaders-should-know',
@@ -261,6 +283,7 @@ export const allPosts: PostMeta[] = [
     readTime: '5 min read',
     tags: ['Vietnam', 'AI Regulation'],
     mdFile: 'vietnam-ai-business-law',
+    excerpt: 'Vietnam\'s government is moving fast on AI regulation. What business leaders operating in — or entering — the Vietnamese market need to know right now.',
   },
   {
     slug: 'ai-strategies-for-a-high-performing-culture',
@@ -272,6 +295,7 @@ export const allPosts: PostMeta[] = [
     readTime: '6 min read',
     tags: ['Culture', 'AI Strategy'],
     mdFile: 'ai-strategies-high-performing-culture',
+    excerpt: 'Culture doesn\'t change because you buy an AI tool — it changes when leaders model the behavior. Five AI strategies that build high-performing cultures from the inside out.',
   },
 ]
 
