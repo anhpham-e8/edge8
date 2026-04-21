@@ -7,6 +7,13 @@
 }
 @font-face {
   font-family: 'SVN-Gilroy';
+  src: url('/fonts/SVN-Gilroy Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
   src: url('/fonts/SVN-Gilroy Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
@@ -420,7 +427,6 @@ nav {
 .testimonial-card {
   flex-shrink: 0;
   scroll-snap-align: center;
-  scroll-snap-stop: always;
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
 .testimonial-card:not(.active) {
@@ -789,11 +795,11 @@ nav {
 .sol-title { font-weight: 500; font-size: 16px; color: var(--dark); margin-bottom: 10px; }
 .sol-desc { font-size: 13.5px; color: var(--body-text); line-height: 1.65; margin-bottom: 18px; }
 .sol-link {
-  font-size: 13px; font-weight: 700; color: var(--blue);
+  font-size: 15px; font-weight: 600; color: var(--blue);
   text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
   transition: var(--transition);
 }
-.sol-link:hover { gap: 10px; color: var(--blue-bright); }
+.sol-link:hover { gap: 10px; color: var(--dark); }
 
 /* ─── BLOG ────────────────────────────────────────── */
 .blog { background: var(--white); }

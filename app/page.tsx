@@ -131,22 +131,22 @@ export default function HomePage() {
 
       // Snap from edge copies back to middle copy (invisible)
       if (snapTimerRef.current) clearTimeout(snapTimerRef.current)
-      snapTimerRef.current = setTimeout(() => {
-        const pad = parseFloat(track.style.paddingLeft || '0')
-        if (closest < T_COUNT) {
-          // In first copy → snap to matching card in middle copy
+      const targetIdx = closest < T_COUNT ? closest + T_COUNT
+        : closest >= T_COUNT * 2 ? closest - T_COUNT : -1
+      if (targetIdx >= 0) {
+        snapTimerRef.current = setTimeout(() => {
+          const pad = parseFloat(track.style.paddingLeft || '0')
           isSnappingRef.current = true
-          viewport.scrollLeft = cards[closest + T_COUNT].offsetLeft - pad
-          setActiveExtIdx(closest + T_COUNT)
-          setTimeout(() => { isSnappingRef.current = false }, 50)
-        } else if (closest >= T_COUNT * 2) {
-          // In third copy → snap to matching card in middle copy
-          isSnappingRef.current = true
-          viewport.scrollLeft = cards[closest - T_COUNT].offsetLeft - pad
-          setActiveExtIdx(closest - T_COUNT)
-          setTimeout(() => { isSnappingRef.current = false }, 50)
-        }
-      }, 150)
+          // Disable snap briefly so the jump is invisible
+          viewport.style.scrollSnapType = 'none'
+          viewport.scrollLeft = cards[targetIdx].offsetLeft - pad
+          setActiveExtIdx(targetIdx)
+          requestAnimationFrame(() => {
+            viewport.style.scrollSnapType = ''
+            requestAnimationFrame(() => { isSnappingRef.current = false })
+          })
+        }, 50)
+      }
     }
 
     viewport.addEventListener('scroll', updateActive, { passive: true })
@@ -380,18 +380,18 @@ export default function HomePage() {
           </div>
           <div className="metrics-grid">
             <div className="metric-card reveal">
-              <div className="metric-multiplier"><span>2</span>x</div>
-              <div className="metric-area">AI Officer Leadership</div>
+              <h3 className="metric-multiplier"><span>2</span>x</h3>
+              <h4 className="metric-area">AI Officer Leadership</h4>
               <p className="metric-desc">Established the leadership needed to effectively run an AI Program within 10+ organizations</p>
             </div>
             <div className="metric-card reveal">
-              <div className="metric-multiplier"><span>5</span>x</div>
-              <div className="metric-area">Global Talent Staffing</div>
+              <h3 className="metric-multiplier"><span>5</span>x</h3>
+              <h4 className="metric-area">Global Talent Staffing</h4>
               <p className="metric-desc">Helping a leading healthcare provider build a tech-forward team, doubling productivity while cutting costs dramatically</p>
             </div>
             <div className="metric-card reveal">
-              <div className="metric-multiplier"><span>8</span>x</div>
-              <div className="metric-area">AI Programs</div>
+              <h3 className="metric-multiplier"><span>8</span>x</h3>
+              <h4 className="metric-area">AI Programs</h4>
               <p className="metric-desc">Eliminated 100% of data entry tasks, enriched entrepreneur submissions, and enhanced deal flow analysis for a Venture Capital firm</p>
             </div>
           </div>
