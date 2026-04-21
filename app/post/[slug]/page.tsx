@@ -63,6 +63,9 @@ export default async function PostPage({ params }: { params: { slug: string } })
                 className="post-body"
                 dangerouslySetInnerHTML={{ __html: post.contentHtml }}
               />
+              <div className="post-all-posts">
+                <Link href="/blog" className="btn btn-secondary">← All Posts</Link>
+              </div>
             </article>
 
             {/* Sidebar */}

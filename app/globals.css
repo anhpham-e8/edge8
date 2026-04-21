@@ -1030,6 +1030,7 @@ nav {
 .sidebar-post-text { flex: 1; }
 .sidebar-post-title { font-size: 13px; font-weight: 500; color: var(--dark); line-height: 1.4; margin-bottom: 4px; transition: color 0.22s; }
 .sidebar-post-date { font-size: 12px; color: var(--grey-mid); }
+.post-all-posts { margin-top: 48px; padding-top: 40px; border-top: 1px solid var(--tint-deep); }
 .sidebar-cta { background: var(--dark); border-radius: var(--radius); padding: 24px; margin-top: 24px; }
 .sidebar-cta-title { font-weight: 500; font-size: 15px; color: var(--tint); margin-bottom: 10px; }
 .sidebar-cta p { font-size: 13px; color: var(--grey-mid); line-height: 1.65; margin-bottom: 16px; }
