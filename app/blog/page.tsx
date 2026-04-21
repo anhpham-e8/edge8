@@ -49,7 +49,7 @@ export default function BlogPage() {
     return () => observer.disconnect()
   }, [activeCategory, hasMore])
 
-  // Scroll reveal for newly added cards
+  // Scroll reveal for newly added cards — re-run on category change and new loads
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -61,7 +61,7 @@ export default function BlogPage() {
     )
     document.querySelectorAll('.reveal:not(.visible)').forEach((el) => observer.observe(el))
     return () => observer.disconnect()
-  }, [visibleCount])
+  }, [visibleCount, activeCategory])
 
   return (
     <main>

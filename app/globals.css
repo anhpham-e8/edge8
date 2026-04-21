@@ -1014,21 +1014,21 @@ nav {
 .blog-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .blog-card {
   text-decoration: none;
-  border: 1px solid var(--card-border);
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--white);
+  box-shadow: 0 1px 4px rgba(16,16,20,0.07);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
 }
-.blog-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(16,16,20,0.1); }
+.blog-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(16,16,20,0.12); }
 .blog-card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
-.blog-card-body { padding: 10px 0 12px; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+.blog-card-body { padding: 12px 0 14px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
 .blog-card-cat { display: inline-block; align-self: flex-start; font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); background: rgba(40,123,232,0.08); padding: 3px 10px; border-radius: 100px; }
-.blog-card-date { font-size: 12px; color: var(--grey-mid); }
-.blog-card-title { font-size: 15px; font-weight: 500; color: var(--dark); line-height: 1.35; flex: 1; }
-.blog-card-more { font-size: 12px; font-weight: 500; color: var(--blue); margin-top: 4px; }
+.blog-card-date { font-size: 12px; color: var(--grey-mid); margin-top: 2px; }
+.blog-card-title { font-size: 15px; font-weight: 500; color: var(--dark); line-height: 1.35; flex: 1; margin-top: 10px; }
+.blog-card-more { font-size: 12px; font-weight: 500; color: var(--blue); margin-top: 8px; }
 .blog-empty { padding: 80px 0; text-align: center; color: var(--grey-mid); font-size: 16px; }
 
 /* Blog post page */
@@ -1654,6 +1654,8 @@ footer {
   .post-layout { grid-template-columns: 1fr; }
   .hero-featured-card { grid-template-columns: 1fr; }
   .cat-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
   .blog-cards-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
@@ -1667,7 +1669,7 @@ footer {
   .case-card { aspect-ratio: 16/9; }
   .blog-layout { grid-template-columns: 1fr; }
   .blog-stack { gap: 12px; }
-  .blog-cards-grid { grid-template-columns: 1fr; }
+  .blog-cards-grid { grid-template-columns: repeat(2, 1fr); }
   .audit-inner { flex-direction: column; align-items: center; text-align: center; }
   .audit-text .section-title, .audit-text p { text-align: center; }
   .audit-cta-btn { align-items: stretch; width: 100%; }
