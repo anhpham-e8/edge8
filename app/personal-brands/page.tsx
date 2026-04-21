@@ -147,15 +147,15 @@ export default function PersonalBrandsPage() {
       </section>
 
       {/* CTA */}
-      <section className="audit-cta section">
+      <section className="contact-blue section">
         <div className="container">
-          <div className="audit-inner">
-            <div className="audit-text reveal">
-              <h2 className="section-title">Ready to Build Your AI-Powered Brand?</h2>
-              <p>The best time to build your personal brand was yesterday. The second best time is today.</p>
+          <div className="contact-blue-inner">
+            <div className="reveal">
+              <h2 className="section-title" style={{ marginBottom: 16 }}>Ready to Build Your AI-Powered Brand?</h2>
+              <p className="section-sub">The best time to build your personal brand was yesterday. The second best time is today.</p>
             </div>
-            <div className="audit-cta-btn reveal">
-              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Schedule A Consultation</a>
+            <div className="contact-blue-cta reveal">
+              <a href="https://ai-officer.typeform.com/letstalk" className="btn btn-contact" target="_blank" rel="noopener noreferrer">Schedule A Consultation →</a>
             </div>
           </div>
         </div>
