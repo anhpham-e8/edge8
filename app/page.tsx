@@ -530,22 +530,22 @@ export default function HomePage() {
             <Link href="/blog" className="text-link">View All Posts →</Link>
           </div>
           <div className="blog-layout">
-            <Link href="/post/your-next-ai-hire-isnt-a-person" className="blog-featured reveal">
+            <Link href="/post/2026-ai-trends-5-game-changing-shifts-that-will-define-business-success" className="blog-featured reveal">
               <div className="blog-featured-visual">
-                <Image src="/homepage/images/blog-posts/Your Next AI Hire Isnt a Person.jpg" alt="Your Next AI Hire Isn't a Person" width={600} height={338} />
+                <Image src="/homepage/images/blog-posts/2026 AI Trends- 5 Game-Changing Shifts That Will Define Business Success.jpg" alt="2026 AI Trends: 5 Game-Changing Shifts That Will Define Business Success" width={600} height={338} />
               </div>
               <div className="blog-featured-body">
-                <h3 className="blog-featured-title">Your Next AI Hire Isn&apos;t a Person</h3>
-                <p className="blog-excerpt">Most companies don&apos;t fail at AI because of the tech. They fail because no one owns it. AI agents need managers, engineers, and real teams, just like people.</p>
+                <h3 className="blog-featured-title">2026 AI Trends: 5 Game-Changing Shifts That Will Define Business Success</h3>
+                <p className="blog-excerpt">The companies that will win in 2026 aren&apos;t the ones with the best AI tools — they&apos;re the ones with the best data. Five trends that will define the next year.</p>
                 <span className="blog-more">Read Article →</span>
               </div>
             </Link>
             <div className="blog-stack">
-              <Link href="/post/2026-ai-trends-5-game-changing-shifts-that-will-define-business-success" className="blog-item reveal">
-                <Image src="/homepage/images/blog-posts/2026 AI Trends- 5 Game-Changing Shifts That Will Define Business Success.jpg" alt="2026 AI Trends" width={80} height={80} className="blog-item-thumb" />
+              <Link href="/post/your-next-ai-hire-isnt-a-person" className="blog-item reveal">
+                <Image src="/homepage/images/blog-posts/Your Next AI Hire Isnt a Person.jpg" alt="Your Next AI Hire Isn't a Person" width={80} height={80} className="blog-item-thumb" />
                 <div className="blog-item-body">
-                  <h4 className="blog-item-title">2026 AI Trends: 5 Game-Changing Shifts</h4>
-                  <p className="blog-item-excerpt">Explore the five 2026 AI trends transforming business—from AI leadership to data discipline.</p>
+                  <h4 className="blog-item-title">Your Next AI Hire Isn&apos;t a Person</h4>
+                  <p className="blog-item-excerpt">Most companies don&apos;t fail at AI because of the tech. They fail because no one owns it.</p>
                 </div>
                 <span className="blog-item-arrow">→</span>
               </Link>
