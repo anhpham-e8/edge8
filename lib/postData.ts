@@ -773,7 +773,7 @@ export const allPosts: PostMeta[] = [
     date: '2025-08-10',
     category: 'Innovation',
     categorySlug: 'innovation',
-    image: '/blog/images/open-weight-ai-models-enterprise-data-security-2025.png',
+    image: '/blog/images/open-weight-ai-models-enterprise-data-security-2025.jpeg',
     readTime: '5 min read',
     tags: ['Open Source AI', 'Enterprise Security', 'Data Privacy'],
     mdFile: 'AI in Business/open-weight-ai-models-enterprise-data-security-2025/index',
