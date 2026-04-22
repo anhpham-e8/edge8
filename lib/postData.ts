@@ -12,8 +12,86 @@ export interface PostMeta {
   excerpt: string
 }
 
-// All 23 blog posts - static data only, no fs imports
+// All 29 blog posts - static data only, no fs imports
 export const allPosts: PostMeta[] = [
+  // Revenue — Founders' Secrets
+  {
+    slug: 'turn-your-story-into-a-personal-brand-with-ai-agents-in-just-one-hour',
+    title: 'Turn Your Story Into a Personal Brand with AI Agents in Just One Hour',
+    date: '2025-08-01',
+    category: 'Revenue',
+    categorySlug: 'revenue',
+    image: '/blog/images/Personal Brand AI Agents One Hour.jpg',
+    readTime: '4 min read',
+    tags: ['Personal Brand', 'AI Agents', 'Content Strategy'],
+    mdFile: "Founders' Secrets/turn-your-story-into-a-personal-brand-with-ai-agents-in-just-one-hour/index",
+    excerpt: "Your personal brand is the bridge that lets people see the person behind the success. With AI agents, founders can turn a single one-hour conversation into 90 authentic pieces of content.",
+  },
+  {
+    slug: 'personal-brand-one-min-ai',
+    title: 'Build a Personal Brand in 1 Minute a Day with AI',
+    date: '2025-08-05',
+    category: 'Revenue',
+    categorySlug: 'revenue',
+    image: '/blog/images/Personal Brand One Min AI.jpg',
+    readTime: '5 min read',
+    tags: ['Personal Brand', 'AI Agents', 'Thought Leadership'],
+    mdFile: "Founders' Secrets/personal-brand-one-min-ai/index",
+    excerpt: "Every founder has a story. With AI agents, building your personal brand can be effortless — authentic content crafted to reflect your vision, shared consistently without taking hours of your time.",
+  },
+
+  // Operations — Founders' Secrets
+  {
+    slug: 'the-ai-implementation-strategy-divide-why-smart-entrepreneurs-are-failing',
+    title: 'The AI Implementation Strategy Divide: Why Smart Entrepreneurs Are Failing',
+    date: '2025-09-15',
+    category: 'Operations',
+    categorySlug: 'operations',
+    image: '/blog/images/AI Implementation Strategy Divide.png',
+    readTime: '5 min read',
+    tags: ['AI Implementation', 'Entrepreneurship', 'Strategy'],
+    mdFile: "Founders' Secrets/the-ai-implementation-strategy-divide-why-smart-entrepreneurs-are-failing/index",
+    excerpt: "The most technically skilled founders aren't the most successful with AI. Dave Hajdu's Hong Kong presentation revealed a fundamental divide that explains why most AI initiatives fail.",
+  },
+
+  // Innovation — Founders' Secrets
+  {
+    slug: 'ai-psychosis-mental-health-risk-ai-powered-future',
+    title: 'AI Psychosis: Mental Health Risks in Our AI-Powered Future',
+    date: '2025-10-01',
+    category: 'Innovation',
+    categorySlug: 'innovation',
+    image: '/blog/images/AI Psychosis Mental Health.png',
+    readTime: '8 min read',
+    tags: ['AI in Business', 'Mental Health', 'Leadership'],
+    mdFile: "Founders' Secrets/ai-psychosis-mental-health-risk-ai-powered-future/index",
+    excerpt: "AI psychosis occurs when individuals develop psychological dependency on AI systems, losing critical thinking abilities — affecting approximately 23% of heavy AI users in business environments.",
+  },
+  {
+    slug: 'understanding-ai-induced-psychosis-business-leaders',
+    title: 'Understanding AI-Induced Psychosis for Business Leaders',
+    date: '2025-10-08',
+    category: 'Innovation',
+    categorySlug: 'innovation',
+    image: '/blog/images/Understanding AI Induced Psychosis.jpg',
+    readTime: '6 min read',
+    tags: ['AI in Business', 'Mental Health', 'Workforce'],
+    mdFile: "Founders' Secrets/understanding-ai-induced-psychosis-business-leaders/index",
+    excerpt: "AI-induced psychosis affects up to 3% of heavy AI users, causing delusions and reality distortion — and it's costing businesses an average of $47,000 per affected employee.",
+  },
+  {
+    slug: 'georgetown-university-mba-students-ai-education-cultural-intelligence-2025',
+    title: 'Georgetown University MBA Students: AI Education & Cultural Intelligence in 2025',
+    date: '2025-11-01',
+    category: 'Innovation',
+    categorySlug: 'innovation',
+    image: '/blog/images/Georgetown MBA AI Education.jpg',
+    readTime: '6 min read',
+    tags: ['AI Education', 'Cultural Intelligence', 'Leadership'],
+    mdFile: "Founders' Secrets/georgetown-university-mba-students-ai-education-cultural-intelligence-2025/index",
+    excerpt: "75% of Georgetown MBA students studying in Vietnam identified cultural intelligence gaps as their biggest challenge — revealing a critical disconnect in how business schools prepare leaders for AI-era global markets.",
+  },
+
   // Revenue
   {
     slug: 'the-hospitality-data-gap-creating-truly-hotel-personalized-experiences',
